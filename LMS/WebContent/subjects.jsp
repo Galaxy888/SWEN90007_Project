@@ -53,7 +53,7 @@ tr:nth-child(even) {
     
     <div align="center">
     
-    <form name="AddSubjectForm" action="/" method="post">
+    <form name="AddSubjectForm" action="subject" method="post">
          Subject Code: <input type = "text" name = "code">
          <br />
          Subject Name: <input type = "text" name = "name">
