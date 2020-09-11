@@ -4,13 +4,14 @@ import java.sql.DriverManager;
 import java.sql.SQLException; 
 
 public class JDBCPostgreSQLConnection {
-	private static final String url = "jdbc:postgresql://localhost:5432/LMS";
+	private static final String url = "jdbc:postgresql://localhost:5433/myDB";
 	private static final String user = "postgres";
-	private static final String password = "asdzxc123";
+	private static final String password = "123456";
 	
 	public Connection connect() { 
 		Connection conn = null;
 		try{ 
+			Class.forName("org.postgresql.Driver");
 			conn = DriverManager.getConnection(url, user, password); 
 			if (conn !=   null) { 
 				System.out.println("Connected to the PostgreSQL server successfully."); 
@@ -19,6 +20,9 @@ public class JDBCPostgreSQLConnection {
 			} 
 		} catch (SQLException e) {
 			System.out.println(e.getMessage()); 
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} 
 		return conn; 
 	}
