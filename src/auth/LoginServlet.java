@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import datasource.JDBCPostgreSQLConnection;
+
 /**
  * Servlet implementation class LoginServlet
  */
@@ -35,6 +37,7 @@ public class LoginServlet extends HttpServlet {
 		String user = request.getParameter("userName");
 		String pass = request.getParameter("passWord");
 		
+		
 		PrintWriter writer = response.getWriter();
 		writer.println("<h3> Hello from Get "+user+  "   " +pass+ "</h3>");
 	}
@@ -47,19 +50,23 @@ public class LoginServlet extends HttpServlet {
 //		doGet(request, response);
 		response.setContentType("text/html");
 		
-		System.out.println("Hello from Post method in LoginServlet");
+		
 		String user = request.getParameter("userName");
 		String pass = request.getParameter("passWord");
 		
-		String correctUser = getServletConfig().getInitParameter("userNameI");
-		String correctPass = getServletConfig().getInitParameter("passWordI");
+		String correctUser = getServletConfig().getInitParameter("haobei");
+		String correctPass = getServletConfig().getInitParameter("ma");
 		PrintWriter writer = response.getWriter();
 		
 //		writer.println("<h3> Hello from Post: Your user name is: "+user+", Your password is: " +pass+ "</h3>");
-
-		if(user.equals(correctUser) && pass.equals(correctPass)) {
+		JDBCPostgreSQLConnection app    = new JDBCPostgreSQLConnection(); 
+		app.connect();
+		if(user.equals("haobei") && pass.equals("ma")) {
+			System.out.println("test");
 			response.sendRedirect("success.jsp");
-		}else {
+		}
+		else {
+			System.out.println("test2");
 			writer.println("<h3> Error </h3>");
 		}
 	}
