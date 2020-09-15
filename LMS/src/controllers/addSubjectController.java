@@ -46,7 +46,7 @@ public class addSubjectController extends HttpServlet {
         String corrdinator = request.getParameter("corrdinator_name");
         
         Subject subject = new Subject(subjectCode,name,corrdinator);
- 
+        
         subject.insert();
 
 
