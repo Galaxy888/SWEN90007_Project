@@ -15,7 +15,7 @@ import domain.Subject;
 /**
  * Servlet implementation class addSubjectController
  */
-@WebServlet("/")
+@WebServlet("/subject")
 public class addSubjectController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
