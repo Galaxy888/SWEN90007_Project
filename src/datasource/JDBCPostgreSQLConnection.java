@@ -7,8 +7,8 @@ import java.sql.SQLException;
 
 public class JDBCPostgreSQLConnection {
 	private static final String url = "jdbc:postgresql://localhost:5432/myDB";
-	private static final String user = "haobei";
-	private static final String password = "12345678";
+	private static final String user = "postgres";
+	private static final String password = "asdzxc123";
 	
 	public static Connection connect() { 
 		Connection conn = null;
@@ -27,15 +27,8 @@ public class JDBCPostgreSQLConnection {
 	
 	public static void main(String[] args) throws SQLException { 
 		JDBCPostgreSQLConnection app = new JDBCPostgreSQLConnection();
-		Connection conn = app.connect(); 
-		String stm = ("Select * FROM users;");
-		PreparedStatement pst = conn.prepareStatement(stm);
-		ResultSet rs = pst.executeQuery();
-
-        while (rs.next()) {
-
-            System.out.println(rs.getString(2));
-        }
+		app.connect(); 
+		
 	}
 	
 	
