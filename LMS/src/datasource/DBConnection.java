@@ -5,8 +5,8 @@ import java.sql.*;
 public class DBConnection {
 
 	private static final String DB_CONNECTION = "jdbc:postgresql://localhost:5432/myDB";
-	private static final String DB_USER = "haobei";
-	private static final String DB_PASSWORD = "12345678";
+	private static final String DB_USER = "postgres";
+	private static final String DB_PASSWORD = "asdzxc123";
 
 
 	public static PreparedStatement prepare(String stm) throws SQLException {
