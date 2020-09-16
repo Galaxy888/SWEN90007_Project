@@ -15,5 +15,6 @@
 
 
 
-INSERT INTO users
-VALUES (001, 'haobei', 'haobei98@gmail.com','12345678');
+--INSERT INTO users
+--VALUES (001, 'haobei', 'haobei98@gmail.com','12345678');
+Select * FROM users WHERE name = 'haobei' AND password = '12345678';

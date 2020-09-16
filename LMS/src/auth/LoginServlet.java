@@ -2,7 +2,9 @@ package auth;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -12,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import datasource.DBConnection;
-import datasource.JDBCPostgreSQLConnection;
 
 /**
  * Servlet implementation class LoginServlet
@@ -57,20 +58,25 @@ public class LoginServlet extends HttpServlet {
 		String user = request.getParameter("userName");
 		String pass = request.getParameter("passWord");
 		
-		String correctUser = getServletConfig().getInitParameter("haobei");
-		String correctPass = getServletConfig().getInitParameter("ma");
+		String correctUser = null;
 		PrintWriter writer = response.getWriter();
-		String stm = ("Select * FROM users WHERE name = " + user + "AND password = " + pass + ";" );
+		String stm = ("Select * FROM users WHERE name = '" + user + "' AND password = '" + pass + "';" );
 //		writer.println("<h3> Hello from Post: Your user name is: "+user+", Your password is: " +pass+ "</h3>");
 		try {
-			PreparedStatement result = DBConnection.prepare(stm);
-			System.out.println(result);
+        	PreparedStatement stmt = DBConnection.prepare(stm);
+
+        	ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				correctUser = rs.getString(2);
+				
+				
+			}
+	
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	
 		}
 		
-		if(user.equals("haobei") && pass.equals("ma")) {
+		if(correctUser != null) {
 			System.out.println("test");
 			response.sendRedirect("success.jsp");
 		}
