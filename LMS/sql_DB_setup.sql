@@ -1,19 +1,42 @@
---CREATE TABLE users(
---  id       INT,
---  name     VARCHAR(50),
---  email    VARCHAR(100),
---  password VARCHAR(20),
---  PRIMARY  KEY(id)
---);
+DROP SCHEMA public CASCADE;
+CREATE SCHEMA public;
 
---CREATE TABLE subjects(
---   code   VARCHAR(20),
---   name  VARCHAR(50),
---   coordinator VARCHAR(50),
---   PRIMARY KEY (code)
---);
+CREATE TABLE users(
+  id       INT,
+  name     VARCHAR(50),
+  email    VARCHAR(100),
+  password VARCHAR(50),
+  user_type INT,
+  PRIMARY  KEY(id)
+);
 
+CREATE TABLE subjects(
+   code  VARCHAR(20),
+   name  VARCHAR(50),
+   coordinator_id INT REFERENCES users(id) ,
+   PRIMARY KEY (code)
+);
 
+CREATE TABLE exams(
+   id INT,
+   title VARCHAR(50),
+   coordinator_id INT REFERENCES users(id),
+   PRIMARY KEY (id)
+);
+
+CREATE TABLE users_subjects (
+  user_id    INT REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE, 
+  subject_code   VARCHAR(20) REFERENCES subjects (code) ON UPDATE CASCADE, 
+  status     INT, 
+  CONSTRAINT user_subject_pkey PRIMARY KEY (user_id, subject_code)  -- explicit pk
+);
+
+CREATE TABLE users_exams (
+  user_id    INT REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE, 
+  exam_id    INT REFERENCES exams (id) ON UPDATE CASCADE, 
+  status     INT, 
+  CONSTRAINT user_exam_pkey PRIMARY KEY (user_id, exam_id)  -- explicit pk
+);
 
 --INSERT INTO users
 --VALUES (001, 'haobei', 'haobei98@gmail.com','12345678');
