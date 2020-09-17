@@ -1,14 +1,16 @@
 package datasource;
 import java.sql.Connection; 
-import java.sql.DriverManager; 
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException; 
 
 public class JDBCPostgreSQLConnection {
-	private static final String url = "jdbc:postgresql://localhost:5433/myDB";
+	private static final String url = "jdbc:postgresql://localhost:5432/myDB";
 	private static final String user = "postgres";
 	private static final String password = "123456";
 	
-	public Connection connect() { 
+	public static Connection connect() { 
 		Connection conn = null;
 		try{ 
 			Class.forName("org.postgresql.Driver");
@@ -27,9 +29,13 @@ public class JDBCPostgreSQLConnection {
 		return conn; 
 	}
 	
-	public static void main(String[] args) { 
+	public static void main(String[] args) throws SQLException { 
 		JDBCPostgreSQLConnection app = new JDBCPostgreSQLConnection();
 		app.connect(); 
-	} 
+		
+	}
+	
+	
+	
 
 }
