@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import datasource.DBConnection;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -45,11 +44,9 @@ public class addSubjectController extends HttpServlet {
         String subjectCode = request.getParameter("code");
         String name = request.getParameter("name");
         String corrdinator = request.getParameter("corrdinator_name");
-        String userName = request.getParameter("user_name");
-        
         
         Subject subject = new Subject(subjectCode,name,corrdinator);
-        
+ 
         subject.insert();
 
 
