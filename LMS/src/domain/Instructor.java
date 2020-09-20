@@ -1,4 +1,4 @@
-package domain;
+package src.domain;
 
 public class Instructor {
 	private String name;

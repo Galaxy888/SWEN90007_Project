@@ -1,9 +1,9 @@
-package domain;
+package src.domain;
 
 import java.sql.*;
 import java.util.*;
 
-import datasource.DBConnection;
+import src.datasource.DBConnection;
 
 public class Subject {
 	
@@ -49,7 +49,7 @@ public class Subject {
 	public static List<Subject> getAllSubjects() {
         List<Subject> subjects = new ArrayList<>();
         try {
-        	PreparedStatement stmt = DBConnection.prepare(findAllSubjectsStatement);
+        	PreparedStatement stmt = src.datasource.DBConnection.prepare(findAllSubjectsStatement);
 
         	ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
@@ -66,7 +66,7 @@ public class Subject {
     }
 	public String insert() {
 		try {
-			PreparedStatement insertStatement = DBConnection.prepare(insertSubjectStatement);
+			PreparedStatement insertStatement = src.datasource.DBConnection.prepare(insertSubjectStatement);
 			insertStatement.setString(1,subjectCode);
 			insertStatement.setString(2, name);
 			insertStatement.setString(3, coordinator.getName());

@@ -1,4 +1,4 @@
-package datasource;
+package src.datasource;
 
 import java.sql.*;
 
