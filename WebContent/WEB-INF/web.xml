@@ -70,5 +70,43 @@
         <url-pattern>/dashboard</url-pattern>
     </servlet-mapping>
     
+    
+      <servlet>
+  <servlet-name>SubjectServlet</servlet-name>
+  <servlet-class>controllers.SubjectServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  <servlet-name>SubjectServlet</servlet-name>
+  <url-pattern>/Subject</url-pattern>
+  </servlet-mapping>
+ 
+  <servlet>
+  <servlet-name>addSubjectController</servlet-name>
+  <servlet-class>controllers.addSubjectController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  <servlet-name>addSubjectController</servlet-name>
+  <url-pattern>/addSubject</url-pattern>
+  </servlet-mapping>
+    
+    <servlet>
+  <servlet-name>ExamController</servlet-name>
+  <servlet-class>controllers.ExamController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  <servlet-name>ExamController</servlet-name>
+  <url-pattern>/exams</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+  <servlet-name>addExamController</servlet-name>
+  <servlet-class>controllers.addExamController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  <servlet-name>addExamController</servlet-name>
+  <url-pattern>/addExam</url-pattern>
+  </servlet-mapping>
+  
+    
 
 </web-app>
