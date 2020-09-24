@@ -41,19 +41,19 @@ public class addSubjectController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String subjectCode = request.getParameter("code");
-        String name = request.getParameter("name");
-        String corrdinator = request.getParameter("corrdinator_name");
-        
-        Subject subject = new Subject(subjectCode,name,corrdinator);
- 
-        subject.insert();
-
-
-        String view = "/subjects.jsp";
-        ServletContext servletContext = getServletContext();
-        RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher(view);
-        requestDispatcher.forward(request, response);
+//        String subjectCode = request.getParameter("code");
+//        String name = request.getParameter("name");
+//        String corrdinator = request.getParameter("corrdinator_name");
+//        
+//        Subject subject = new Subject(subjectCode,name,corrdinator);
+// 
+//        subject.insert();
+//
+//
+//        String view = "/subjects.jsp";
+//        ServletContext servletContext = getServletContext();
+//        RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher(view);
+//        requestDispatcher.forward(request, response);
 	}
 
 }

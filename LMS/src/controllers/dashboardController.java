@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class dashboardController
  */
-//@WebServlet("/dashboardController")
+//@WebServlet("/dashboard")
 public class dashboardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -37,6 +37,11 @@ public class dashboardController extends HttpServlet {
 		      HttpSession session=request.getSession(false);
 			  String userName=(String)session.getAttribute("userName");
 			  String userType=(String)session.getAttribute("userType");
+			  
+			  if(userType.equals("Instructor")) {
+				  request.getRequestDispatcher("dashboardInstructor.jsp").forward(request, response);
+			  }
+			// TODO student and admin
 			  request.getRequestDispatcher("dashboard.jsp").forward(request, response);
 		  }catch(Exception exp){
 		      System.out.println(exp);
