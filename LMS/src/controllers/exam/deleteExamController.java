@@ -1,4 +1,4 @@
-package controllers;
+package controllers.exam;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
@@ -15,19 +15,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import datasource.DBConnection;
 import domain.Exam;
-import domain.Subject;
 
 /**
- * Servlet implementation class ExamController
+ * Servlet implementation class deleteExamController
  */
-//@WebServlet("/ExamController")
-public class ExamController extends HttpServlet {
+@WebServlet("/deleteExam")
+public class deleteExamController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ExamController() {
+    public deleteExamController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,28 +38,19 @@ public class ExamController extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
+		int id = Integer.parseInt(request.getParameter("id"));
+		Exam exam = new Exam();
+		exam.deleteExam(id);
 		String subject_code = request.getParameter("subject_code");
-		String stm = "select * from exams where subject_code='"+subject_code+"'";
-	    System.out.print("test2");
 	    List<Exam> exams = new ArrayList<>();
-	    try {
-	    PreparedStatement stmt = DBConnection.prepare(stm);
-	    ResultSet rs = stmt.executeQuery();
-	    while (rs.next()) { 
-	        		int id = Integer.parseInt(rs.getString(1));
-	        		String title = rs.getString(2);
-	        		int status = Integer.parseInt(rs.getString(3));
-	        		String code = rs.getString(4);
-	        	    Exam exam = new Exam(id,title,status,code);
-	        	    exams.add(exam);
-	     }
-	    }catch (SQLException e) {
-
-			System.out.println(e.getMessage());
-		}
+	    exams = exam.getAllExams(subject_code);
 	    request.setAttribute("exams", exams);
 	    request.getRequestDispatcher("./exams.jsp").forward(request, response);
 		//response.sendRedirect("exams.jsp");
+		
+		
+		
+	
 	}
 
 	/**

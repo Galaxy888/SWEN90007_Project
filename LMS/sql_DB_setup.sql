@@ -51,25 +51,27 @@ CREATE TABLE users_exams (
 );
 
 
+
 INSERT INTO users
 VALUES (000, 'Admin', '','Admin',0);
+--INSERT INTO users
+--VALUES (001, 'Instructor', '','Instructor',1);
 INSERT INTO users
-VALUES (001, 'Instructor', '','Instructor',1);
+VALUES (001, 'test', 'test@gmail.com','test',1);
 INSERT INTO users
 VALUES (002, 'Student', '','Student',2);
-INSERT INTO users
-VALUES (003, 'test', 'test@gmail.com','test',1);
+
 
 INSERT INTO subjects
 VALUES ('SWEN90007','SDA',001);
 
 INSERT INTO subjects
-VALUES ('SWEN90004','MCSS',001);
+VALUES ('SWEN90013','SDA',001);
 
 INSERT INTO exams
-VALUES(001,'exam1','0','SWEN90007');
+VALUES(001,'exam1','0','SWEN90013');
 
---INSERT INTO questions
---VALUES(001,1,'Answer the fllowing questions','Are you ok?',"",0,001);
+INSERT INTO questions
+VALUES(001,1,'Answer the fllowing questions','Are you ok?','',0,001);
 
 --Select * FROM users WHERE name = 'test' AND password = 'test';

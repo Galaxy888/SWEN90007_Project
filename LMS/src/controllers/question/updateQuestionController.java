@@ -1,8 +1,6 @@
-package controllers;
+package controllers.question;
 
 import java.io.IOException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,20 +11,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import datasource.DBConnection;
-import domain.Exam;
+import domain.Question;
 
 /**
- * Servlet implementation class deleteExamController
+ * Servlet implementation class updateQuestionController
  */
-@WebServlet("/deleteExam")
-public class deleteExamController extends HttpServlet {
+@WebServlet("/updateQuestion")
+public class updateQuestionController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public deleteExamController() {
+    public updateQuestionController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,18 +36,25 @@ public class deleteExamController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		int id = Integer.parseInt(request.getParameter("id"));
-		Exam exam = new Exam();
-		exam.deleteExam(id);
-		String subject_code = request.getParameter("subject_code");
-	    List<Exam> exams = new ArrayList<>();
-	    exams = exam.getAllExams(subject_code);
-	    request.setAttribute("exams", exams);
-	    request.getRequestDispatcher("./exams.jsp").forward(request, response);
-		//response.sendRedirect("exams.jsp");
-		
-		
-		
+		int type = Integer.parseInt(request.getParameter("type"));
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		String answer = request.getParameter("answer");
+		int mark = Integer.parseInt(request.getParameter("mark"));
+		int exam_id = Integer.parseInt(request.getParameter("exam_id"));
 	
+		Question question = new Question();
+		try {
+			question.updateQuestion(id, type, title, content, answer, mark, exam_id);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		List<Question> questions = new ArrayList<>();
+		questions = question.getAllQuestions(exam_id);
+		request.setAttribute("questions", questions);
+		request.getRequestDispatcher("./questions.jsp").forward(request, response);
 	}
 
 	/**

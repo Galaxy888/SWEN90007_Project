@@ -1,7 +1,6 @@
-package controllers;
+package controllers.question;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,20 +10,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-import domain.Exam;
+import domain.Question;
 
 /**
- * Servlet implementation class updateExamController
+ * Servlet implementation class deleteQuestionController
  */
-@WebServlet("/updateExam")
-public class updateExamController extends HttpServlet {
+@WebServlet("/deleteQuestion")
+public class deleteQuestionController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public updateExamController() {
+    public deleteQuestionController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,21 +35,14 @@ public class updateExamController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		int id = Integer.parseInt(request.getParameter("id"));
-		String title = request.getParameter("title");
-		int status = Integer.parseInt(request.getParameter("status"));
-		String subject = request.getParameter("subject");
-		Exam exam = new Exam();
-		try {
-			exam.updateExam(id, title, status, subject);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		List<Exam> exams = new ArrayList<>();
-		exams = exam.getAllExams(subject);
-		request.setAttribute("exams", exams);
-		request.getRequestDispatcher("./exams.jsp").forward(request, response);
+		Question question = new Question();
+		question.deleteQuestion(id);
+		int exam_id = Integer.parseInt(request.getParameter("exam_id"));
+	    List<Question> questions = new ArrayList<>();
+	    questions = question.getAllQuestions(exam_id);
+	    request.setAttribute("questions", questions);
+	    request.getRequestDispatcher("./questions.jsp").forward(request, response);
+		//response.sendRedirect("exams.jsp");
 	}
 
 	/**

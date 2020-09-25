@@ -59,7 +59,8 @@
                     <button type="button" class="sel_btn" data-toggle="modal" data-target="#updateModal" id="btn_update" 
                     onclick="showInfo2('<%= exam.getId() %>','<%= exam.getTitle() %>','<%= exam.getStatus() %>','<%= exam.getSubject() %>')">
                     Update</button>
-	                 <a class="sel_btn" href="./updateExam?id=<%=exam.getId()%>&title=<%=exam.getTitle()%>&status=<%=exam.getStatus()%>&subject_code=<%=exam.getSubject()%>">Edit</a>
+	                 <%-- <a class="sel_btn" href="./updateExam?id=<%=exam.getId()%>&title=<%=exam.getTitle()%>&status=<%=exam.getStatus()%>&subject_code=<%=exam.getSubject()%>">Edit</a> --%>
+	                 <a class="sel_btn" href="./questions?exam_id=<%=exam.getId()%>">Edit Questions</a>
 	                 <a class="sel_btn" href="./deleteExam?subject_code=<%=exam.getSubject() %>&id=<%=exam.getId()%>">Delete</a>
 	                 </td>
                 </tr>
