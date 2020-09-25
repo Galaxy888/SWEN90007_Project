@@ -91,7 +91,7 @@
     
     <servlet>
   <servlet-name>ExamController</servlet-name>
-  <servlet-class>controllers.ExamController</servlet-class>
+  <servlet-class>controllers.exam.ExamController</servlet-class>
   </servlet>
   <servlet-mapping>
   <servlet-name>ExamController</servlet-name>
@@ -100,11 +100,22 @@
   
     <servlet>
   <servlet-name>addExamController</servlet-name>
-  <servlet-class>controllers.addExamController</servlet-class>
+  <servlet-class>controllers.exam.addExamController</servlet-class>
   </servlet>
   <servlet-mapping>
   <servlet-name>addExamController</servlet-name>
   <url-pattern>/addExam</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  <servlet>
+  <servlet-name>addQuestionController</servlet-name>
+  <servlet-class>controllers.question.addQuestionController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  <servlet-name>addQuestionController</servlet-name>
+  <url-pattern>/addQuestion</url-pattern>
   </servlet-mapping>
   
     
