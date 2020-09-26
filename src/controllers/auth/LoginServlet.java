@@ -23,19 +23,21 @@ import datasource.DBConnection;
 //@WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public LoginServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public LoginServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
 //        response.setContentType("text/html");
@@ -51,75 +53,70 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		doGet(request, response);
 		response.setContentType("text/html");
-		
-		
+
 		String userName = request.getParameter("userName");
 		String password = request.getParameter("passWord");
 //		LoginUser loginuser = new LoginUser(userName,password);
-		
+
 		String correctUser = null;
 		PrintWriter writer = response.getWriter();
-		
+
 		UserMapper userMapper = new UserMapper();
-		String userValidate = userMapper.authenticateUser(userName,password);
-		
-		if(userValidate.equals("Admin")) {
-            System.out.println("Admin's Dashboard");
-            
-            HttpSession session = request.getSession(); //Creating a session
-            session.setAttribute("userName", userName); //setting session attribute
-            session.setAttribute("userType", "Admin");
+		String userValidate = userMapper.authenticateUser(userName, password);
+
+		if (userValidate.equals("Admin")) {
+			System.out.println("Admin's Dashboard");
+
+			HttpSession session = request.getSession(); // Creating a session
+			session.setAttribute("userName", userName); // setting session attribute
+			session.setAttribute("userType", "Admin");
 //            request.setAttribute("userName", userName);
 //            request.setAttribute("userType", "Admin");
-            
-            response.sendRedirect("/LMS/dashboard");
+
+			response.sendRedirect("/LMS/dashboard");
 //            request.getRequestDispatcher("/dashboard").forward(request, response);
-            
-		}else if(userValidate.equals("Instructor"))
-        {
-            System.out.println("Instructor's Dashboard");
- 
-            HttpSession session = request.getSession();
-            session.setAttribute("userName", userName);
-            session.setAttribute("userType", "Instructor"); 
+
+		} else if (userValidate.equals("Instructor")) {
+			System.out.println("Instructor's Dashboard");
+
+			HttpSession session = request.getSession();
+			session.setAttribute("userName", userName);
+			session.setAttribute("userType", "Instructor");
 //            request.setAttribute("userName", userName);
 //            request.setAttribute("userType", "Instructor");
-            
-            response.sendRedirect("/LMS/dashboard");
+
+			response.sendRedirect("/LMS/dashboard");
 //            request.getRequestDispatcher("/dashboard").forward(request, response);
-        }
-        else if(userValidate.equals("Student"))
-        {
-            System.out.println("Student's Dashboard");
- 
-            HttpSession session = request.getSession();
+		} else if (userValidate.equals("Student")) {
+			System.out.println("Student's Dashboard");
+
+			HttpSession session = request.getSession();
 //            session.setMaxInactiveInterval(10*60);
-            session.setAttribute("userName", userName);
-            session.setAttribute("userType", "Student"); 
+			session.setAttribute("userName", userName);
+			session.setAttribute("userType", "Student");
 //            request.setAttribute("userName", userName);
 //            request.setAttribute("userType", "Student");
-            
-            response.sendRedirect("/LMS/dashboard");
+
+			response.sendRedirect("/LMS/dashboard");
 //            request.getRequestDispatcher("/dashboard").forward(request, response);
-        }
-        else
-        {
-            System.out.println("Error message = "+userValidate);
+		} else {
+			System.out.println("Error message = " + userValidate);
 //            request.setAttribute("errMessage", userValidate);
-            HttpSession session = request.getSession();
-            session.setAttribute("errMessage", userValidate); 
-            response.sendRedirect("/LMS/login.jsp");
- 
+			HttpSession session = request.getSession();
+			session.setAttribute("errMessage", userValidate);
+			response.sendRedirect("/LMS/login.jsp");
+
 //            request.getRequestDispatcher("/login.jsp").forward(request, response);
-        }
-  
-		
+		}
+
 //		String stm = ("Select * FROM users WHERE name = '" + userName + "' AND password = '" + password + "';" );
 ////		writer.println("<h3> Hello from Post: Your user name is: "+user+", Your password is: " +pass+ "</h3>");
 //		try {

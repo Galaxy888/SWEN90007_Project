@@ -16,23 +16,36 @@ import domain.Question;
 /**
  * Servlet implementation class updateQuestionController
  */
-@WebServlet("/updateQuestion")
+//@WebServlet("/updateQuestion")
 public class updateQuestionController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public updateQuestionController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public updateQuestionController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		doPost(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		System.out.println("updateQuestioonController");
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		int id = Integer.parseInt(request.getParameter("id"));
@@ -42,7 +55,7 @@ public class updateQuestionController extends HttpServlet {
 		String answer = request.getParameter("answer");
 		int mark = Integer.parseInt(request.getParameter("mark"));
 		int exam_id = Integer.parseInt(request.getParameter("exam_id"));
-	
+
 		Question question = new Question();
 		try {
 			question.updateQuestion(id, type, title, content, answer, mark, exam_id);
@@ -51,18 +64,11 @@ public class updateQuestionController extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		List<Question> questions = new ArrayList<>();
-		questions = question.getAllQuestions(exam_id);
-		request.setAttribute("questions", questions);
-		request.getRequestDispatcher("./questions.jsp").forward(request, response);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+//		List<Question> questions = new ArrayList<>();
+//		questions = question.getAllQuestions(exam_id);
+//		request.setAttribute("questions", questions);
+//		request.getRequestDispatcher("./questions.jsp").forward(request, response);
+		response.sendRedirect("./questions");
 	}
 
 }

@@ -25,63 +25,77 @@ import domain.Subject;
 @WebServlet("/addExamController")
 public class addExamController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public addExamController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		 String view = "/exams.jsp";
-	     ServletContext servletContext = getServletContext();
-	     RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher(view);
-	     requestDispatcher.forward(request, response);
+	public addExamController() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		  int id = Integer.parseInt(request.getParameter("id"));
-	      String title = request.getParameter("title");
-	      int status = Integer.parseInt(request.getParameter("status"));
-	      String subject_code = request.getParameter("subject_code");
-	        
-	      Exam exam = new Exam( id, title, status, subject_code);
-	      exam.insert();
-	      
-		  String stm = "select * from exams where subject_code='"+subject_code+"'";
-		  System.out.print("test2");
-		  List<Exam> exams = new ArrayList<>();
-		  try {
-		    PreparedStatement stmt = DBConnection.prepare(stm);
-		    ResultSet rs = stmt.executeQuery();
-		    while (rs.next()) { 
-		        		int id2 = Integer.parseInt(rs.getString(1));
-		        		String title2 = rs.getString(2);
-		        		int status2 = Integer.parseInt(rs.getString(3));
-		        		String code = rs.getString(4);
-		        	    Exam exam2 = new Exam(id2,title2,status2,code);
-		        	    exams.add(exam2);
-		     }
-		    }catch (SQLException e) {
+//		 String view = "/exams.jsp";
+//	     ServletContext servletContext = getServletContext();
+//	     RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher(view);
+//	     requestDispatcher.forward(request, response);
+		doPost(request, response);
+	}
 
-				System.out.println(e.getMessage());
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		System.out.println("add exam doPost");
+		int id = Integer.parseInt(request.getParameter("id"));
+		String title = request.getParameter("title");
+		int status = Integer.parseInt(request.getParameter("status"));
+		String subject_code = request.getParameter("subject_code");
+
+		Exam exam = new Exam(id, title, status, subject_code);
+		exam.insert();
+
+		String stm = "select * from exams where subject_code='" + subject_code + "'";
+		System.out.println("title:" + title);
+		List<Exam> exams = new ArrayList<>();
+		try {
+			PreparedStatement stmt = DBConnection.prepare(stm);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				int id2 = Integer.parseInt(rs.getString(1));
+				String title2 = rs.getString(2);
+				int status2 = Integer.parseInt(rs.getString(3));
+				String code = rs.getString(4);
+				Exam exam2 = new Exam(id2, title2, status2, code);
+				exams.add(exam2);
 			}
-	      
-		  request.setAttribute("exams", exams);
-	      request.getRequestDispatcher("./exams.jsp").forward(request, response);
-	     // String view = "./exams.jsp";
-	     // ServletContext servletContext = getServletContext();
-	    //  RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher(view);
-	      //requestDispatcher.forward(request, response);
+		} catch (SQLException e) {
+
+			System.out.println(e.getMessage());
+		}
+
+//		  request.setAttribute("exams", exams);
+//	      request.getRequestDispatcher("./exams").forward(request, response);
+
+//		  request.setAttribute("exams", exams);
+//		  request.getRequestDispatcher("/exams.jsp").forward(request, response);
+		response.sendRedirect("./exams");
+//		  response.sendRedirect(request.getHeader("refer"));
+
+//		  response.sendRedirect("/LMS/dashboard");
+		// String view = "./exams.jsp";
+		// ServletContext servletContext = getServletContext();
+		// RequestDispatcher requestDispatcher =
+		// servletContext.getRequestDispatcher(view);
+		// requestDispatcher.forward(request, response);
 	}
 }
