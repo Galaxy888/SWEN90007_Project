@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Exams</title>
 <style>
  .sel_btn{
             height: 21px;
@@ -35,6 +35,7 @@
     </script>
 </head>
 <body>
+<a class="sel_btn" href="/LMS/login.jsp">Dashboard</a> 
  <div align="center">
         <table  style="width:70%">
             <tr>
@@ -60,8 +61,17 @@
                     onclick="showInfo2('<%= exam.getId() %>','<%= exam.getTitle() %>','<%= exam.getStatus() %>','<%= exam.getSubject() %>')">
                     Update</button>
 	                 <%-- <a class="sel_btn" href="./updateExam?id=<%=exam.getId()%>&title=<%=exam.getTitle()%>&status=<%=exam.getStatus()%>&subject_code=<%=exam.getSubject()%>">Edit</a> --%>
-	                 <a class="sel_btn" href="./questions?exam_id=<%=exam.getId()%>">Edit Questions</a>
-	                 <a class="sel_btn" href="./deleteExam?subject_code=<%=exam.getSubject() %>&id=<%=exam.getId()%>">Delete</a>
+	                 <%-- <a class="sel_btn" href="./questions?exam_id=<%=exam.getId()%>">Edit Questions</a> --%>
+	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/questions">Edit Questions</a>
+	                 <%-- <a class="sel_btn" href="./deleteExam?subject_code=<%=exam.getSubject() %>&id=<%=exam.getId()%>">Delete</a> --%>
+	                 <%-- <a class="sel_btn" href="./deleteExam/<%=exam.getId()%>/<%= exam.getStatus() %>">Delete</a> --%>
+	                <%--  <button type="button" onclick="deleteExam('<%=exam.getId()%>')">Delete</button> --%>
+	                 <form name="delete" method=post action="deleteExam">
+	                 <input name="id" type="hidden" value=<%=exam.getId()%>>
+	                 <input type = "submit" value = "Delete" />
+	                 </form>
+
+	                 
 	                 </td>
                 </tr>
             <%

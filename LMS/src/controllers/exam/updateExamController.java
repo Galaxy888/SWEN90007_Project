@@ -11,29 +11,42 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 import domain.Exam;
 
 /**
  * Servlet implementation class updateExamController
  */
-@WebServlet("/updateExam")
+//@WebServlet("/updateExam")
 public class updateExamController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public updateExamController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public updateExamController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		doPost(request, response);
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		System.out.println("update exam Controller_0: ");
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		int id = Integer.parseInt(request.getParameter("id"));
@@ -48,18 +61,11 @@ public class updateExamController extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		List<Exam> exams = new ArrayList<>();
-		exams = exam.getAllExams(subject);
-		request.setAttribute("exams", exams);
-		request.getRequestDispatcher("./exams.jsp").forward(request, response);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+//		List<Exam> exams = new ArrayList<>();
+//		exams = exam.getAllExams(subject);
+//		request.setAttribute("exams", exams);
+//		request.getRequestDispatcher("./exams.jsp").forward(request, response);
+		response.sendRedirect("./exams");
 	}
 
 }

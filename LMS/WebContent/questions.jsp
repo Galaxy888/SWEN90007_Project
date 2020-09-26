@@ -38,6 +38,7 @@
     </script>
 </head>
 <body>
+<a class="sel_btn" href="/LMS/login.jsp">Dashboard</a> 
  <div align="center">
         <table  style="width:70%">
             <tr>
@@ -63,7 +64,11 @@
                     onclick="showInfo2('<%= question.getId() %>','<%= question.getType() %>','<%= question.getTitle() %>',
                     '<%= question.getContent() %>','<%= question.getMark()%>','<%= question.getAnswer()%>','<%= question.getExam() %>')">
                     Update</button>
-	                 <a class="sel_btn" href="./deleteQuestion?exam_id=<%=question.getExam() %>&id=<%=question.getId()%>">Delete</a>
+	                 <%-- <a class="sel_btn" href="./deleteQuestion?exam_id=<%=question.getExam() %>&id=<%=question.getId()%>">Delete</a> --%>
+	                 <form name="delete" method=post action="deleteQuestion">
+	                 <input name="id" type="hidden" value=<%=question.getId()%>>
+	                 <input type = "submit" value = "Delete" />
+	                 </form>
 	                 </td>
                 </tr>
             <%

@@ -19,46 +19,51 @@ import domain.Exam;
 /**
  * Servlet implementation class deleteExamController
  */
-@WebServlet("/deleteExam")
+//@WebServlet("/deleteExam")
 public class deleteExamController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public deleteExamController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html;charset=UTF-8");
-		int id = Integer.parseInt(request.getParameter("id"));
-		Exam exam = new Exam();
-		exam.deleteExam(id);
-		String subject_code = request.getParameter("subject_code");
-	    List<Exam> exams = new ArrayList<>();
-	    exams = exam.getAllExams(subject_code);
-	    request.setAttribute("exams", exams);
-	    request.getRequestDispatcher("./exams.jsp").forward(request, response);
-		//response.sendRedirect("exams.jsp");
-		
-		
-		
-	
+	public deleteExamController() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		doPost(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		System.out.println("deleteExamController");
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
+//		int id = Integer.parseInt((String) request.getAttribute("exam_id"));
+		int id = Integer.parseInt(request.getParameter("id"));
+		System.out.println("exam_id: " + id);
+		Exam exam = new Exam();
+		exam.deleteExam(id);
+
+//		String subject_code = request.getParameter("subject_code");
+//	    List<Exam> exams = new ArrayList<>();
+//	    exams = exam.getAllExams(subject_code);
+//	    request.setAttribute("exams", exams);
+//	    request.getRequestDispatcher("./exams.jsp").forward(request, response);
+		// response.sendRedirect("exams.jsp");
+		response.sendRedirect("./exams");
 	}
 
 }

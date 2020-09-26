@@ -62,8 +62,9 @@ tr:nth-child(even) {
                 		}
                      %>
 	                 <td>
-	                 	<a href="./exams?subject_code=<%=subject.getSubjectCode()%>">Check</a>
+	                 	<%-- <a href="./exams?subject_code=<%=subject.getSubjectCode()%>">Check</a> --%>
 	                 <%-- <a href="<%=request.getContextPath()%>/exams">Check</a> --%>
+	                 <a href="courses/<%=subject.getSubjectCode()%>/exams">Check</a>
 	                 </td>
                 </tr>
             <%

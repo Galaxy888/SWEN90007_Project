@@ -24,44 +24,49 @@ import domain.Question;
 //@WebServlet("/addQuestion")
 public class addQuestionController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public addQuestionController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		 String view = "/questions.jsp";
-	     ServletContext servletContext = getServletContext();
-	     RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher(view);
-	     requestDispatcher.forward(request, response);
+	public addQuestionController() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 int id = Integer.parseInt(request.getParameter("id"));
-		 int type = Integer.parseInt(request.getParameter("type"));
-	     String title = request.getParameter("title");
-	     String content = request.getParameter("content");
-	     String answer = request.getParameter("answer");
-	     int mark = Integer.parseInt(request.getParameter("mark"));
-	     int exam_id = Integer.parseInt(request.getParameter("exam_id"));
-         Question question = new Question( id, type, title, content, answer, mark, exam_id);
-	     System.out.print(question.insert());
-		 List<Question> questions = new ArrayList<>();
-		 String stm = "select * from questions where exam_id='"+exam_id+"'";
-      	 try {
-      	  PreparedStatement stmt = DBConnection.prepare(stm);
-      	  ResultSet rs = stmt.executeQuery();
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		String view = "/questions.jsp";
+		ServletContext servletContext = getServletContext();
+		RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher(view);
+		requestDispatcher.forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		System.out.println("addQuestioonController");
+		int id = Integer.parseInt(request.getParameter("id"));
+		int type = Integer.parseInt(request.getParameter("type"));
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		String answer = request.getParameter("answer");
+		int mark = Integer.parseInt(request.getParameter("mark"));
+		int exam_id = Integer.parseInt(request.getParameter("exam_id"));
+		Question question = new Question(id, type, title, content, answer, mark, exam_id);
+		System.out.print(question.insert());
+		List<Question> questions = new ArrayList<>();
+		String stm = "select * from questions where exam_id='" + exam_id + "'";
+		try {
+			PreparedStatement stmt = DBConnection.prepare(stm);
+			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				int id2 = Integer.parseInt(rs.getString(1));
 				int type2 = Integer.parseInt(rs.getString(2));
@@ -70,15 +75,16 @@ public class addQuestionController extends HttpServlet {
 				String answer2 = rs.getString(5);
 				int mark2 = Integer.parseInt(rs.getString(6));
 				int examId2 = Integer.parseInt(rs.getString(7));
-				questions.add(new Question(id2,type2,title2,content2,answer2,mark2,examId2));
+				questions.add(new Question(id2, type2, title2, content2, answer2, mark2, examId2));
 			}
-      	  } catch (SQLException e) {
+		} catch (SQLException e) {
 
-      		System.out.println(e.getMessage());
-      	}
-	
-		  request.setAttribute("questions", questions);
-	      request.getRequestDispatcher("./questions.jsp").forward(request, response);
+			System.out.println(e.getMessage());
+		}
+
+//		  request.setAttribute("questions", questions);
+//	      request.getRequestDispatcher("./questions.jsp").forward(request, response);
+		response.sendRedirect("./questions");
 	}
 
 }
