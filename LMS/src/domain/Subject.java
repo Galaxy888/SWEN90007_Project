@@ -9,18 +9,23 @@ public class Subject {
 	
 	private String subjectCode;
     private String name;  
-    private Instructor coordinator;
+    private int coordinator_id;
     
     private static final String findAllSubjectsStatement =
 			"SELECT * from subjects";
     private static final String insertSubjectStatement =
 			"INSERT INTO subjects VALUES (?, ?, ?)";
     
-    public Subject(String subjectCode, String name, String coordinatorName) {
+    public Subject(String subjectCode, String name, int coordinator_id) {
         this.subjectCode = subjectCode;
-        this.coordinator = new Instructor(coordinatorName);
+        this.coordinator_id = coordinator_id;
         this.name = name;
     }
+
+	public Subject() {
+		// TODO Auto-generated constructor stub
+	}
+
 
 	public String getSubjectCode() {
 		return subjectCode;
@@ -38,12 +43,12 @@ public class Subject {
 		this.name = name;
 	}
 
-	public String getCoordinator() {
-		return coordinator.getName();
+	public int getCoordinator() {
+		return coordinator_id;
 	}
 
-	public void setCoordinator(Instructor coordinator) {
-		this.coordinator = coordinator;
+	public void setCoordinator(int coordinator_id) {
+		this.coordinator_id = coordinator_id;
 	}
 	
 	public static List<Subject> getAllSubjects() {
@@ -55,7 +60,7 @@ public class Subject {
 			while (rs.next()) {
 				String code = rs.getString(1);
 				String name = rs.getString(2);
-				String coordinator = rs.getString(3);
+				int coordinator = Integer.parseInt(rs.getString(3));
 				subjects.add(new Subject(code,name,coordinator));
 			}
 	
@@ -64,12 +69,38 @@ public class Subject {
 		}
         return subjects;
     }
+	
+	public static List<Subject> getAllSubjectsById(int id) {
+        List<Subject> subjects = new ArrayList<>();
+        try {
+        	String stm = "Select * from subjects where coordinator_id ='"+id+"'";
+        	PreparedStatement stmt = DBConnection.prepare(stm);
+
+        	ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				String code = rs.getString(1);
+				String name = rs.getString(2);
+				int coordinator = Integer.parseInt(rs.getString(3));
+				subjects.add(new Subject(code,name,coordinator));
+			}
+	
+		} catch (SQLException e) {
+	
+		}
+        return subjects;
+    }
+	
+	
+	
+	
+	
+	
 	public String insert() {
 		try {
 			PreparedStatement insertStatement = DBConnection.prepare(insertSubjectStatement);
 			insertStatement.setString(1,subjectCode);
 			insertStatement.setString(2, name);
-			insertStatement.setString(3, coordinator.getName());
+			insertStatement.setInt(3, coordinator_id);
 			insertStatement.execute();
 		} catch (SQLException e) {
 		}
