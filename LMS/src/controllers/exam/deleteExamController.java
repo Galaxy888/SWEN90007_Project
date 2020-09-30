@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dataMapper.ExamMapper;
 import datasource.DBConnection;
 import domain.Exam;
 
@@ -54,8 +55,11 @@ public class deleteExamController extends HttpServlet {
 //		int id = Integer.parseInt((String) request.getAttribute("exam_id"));
 		int id = Integer.parseInt(request.getParameter("id"));
 		System.out.println("exam_id: " + id);
-		Exam exam = new Exam();
-		exam.deleteExam(id);
+		// TODO need update
+		Exam exam = new Exam(id,"",0,"");
+		ExamMapper examMapper = new ExamMapper();
+		examMapper.delete(exam);
+//		exam.deleteExam(id);
 
 //		String subject_code = request.getParameter("subject_code");
 //	    List<Exam> exams = new ArrayList<>();

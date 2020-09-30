@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dataMapper.ExamMapper;
 import domain.Exam;
 
 /**
@@ -53,13 +54,22 @@ public class updateExamController extends HttpServlet {
 		String title = request.getParameter("title");
 		int status = Integer.parseInt(request.getParameter("status"));
 		String subject = request.getParameter("subject");
-		Exam exam = new Exam();
+		Exam exam = new Exam(id, title, status, subject);
+		
+		ExamMapper examMapper = new ExamMapper();
 		try {
-			exam.updateExam(id, title, status, subject);
+			examMapper.update(exam);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+//		try {
+//			exam.updateExam(id, title, status, subject);
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
 //		List<Exam> exams = new ArrayList<>();
 //		exams = exam.getAllExams(subject);

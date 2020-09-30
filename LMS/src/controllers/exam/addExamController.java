@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dataMapper.ExamMapper;
 import datasource.DBConnection;
 import domain.Exam;
 import domain.Subject;
@@ -62,26 +63,28 @@ public class addExamController extends HttpServlet {
 		String subject_code = request.getParameter("subject_code");
 
 		Exam exam = new Exam(id, title, status, subject_code);
-		exam.insert();
+		ExamMapper examMapper = new ExamMapper();
+		examMapper.insert(exam);
+//		exam.insert();
 
-		String stm = "select * from exams where subject_code='" + subject_code + "'";
-		System.out.println("title:" + title);
-		List<Exam> exams = new ArrayList<>();
-		try {
-			PreparedStatement stmt = DBConnection.prepare(stm);
-			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
-				int id2 = Integer.parseInt(rs.getString(1));
-				String title2 = rs.getString(2);
-				int status2 = Integer.parseInt(rs.getString(3));
-				String code = rs.getString(4);
-				Exam exam2 = new Exam(id2, title2, status2, code);
-				exams.add(exam2);
-			}
-		} catch (SQLException e) {
-
-			System.out.println(e.getMessage());
-		}
+//		String stm = "select * from exams where subject_code='" + subject_code + "'";
+//		System.out.println("title:" + title);
+//		List<Exam> exams = new ArrayList<>();
+//		try {
+//			PreparedStatement stmt = DBConnection.prepare(stm);
+//			ResultSet rs = stmt.executeQuery();
+//			while (rs.next()) {
+//				int id2 = Integer.parseInt(rs.getString(1));
+//				String title2 = rs.getString(2);
+//				int status2 = Integer.parseInt(rs.getString(3));
+//				String code = rs.getString(4);
+//				Exam exam2 = new Exam(id2, title2, status2, code);
+//				exams.add(exam2);
+//			}
+//		} catch (SQLException e) {
+//
+//			System.out.println(e.getMessage());
+//		}
 
 //		  request.setAttribute("exams", exams);
 //	      request.getRequestDispatcher("./exams").forward(request, response);
