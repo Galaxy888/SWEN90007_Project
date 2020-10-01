@@ -54,14 +54,14 @@ CREATE TABLE users_questions (
 
 
 INSERT INTO users
-VALUES (000, 'Admin', '','123',0);
+VALUES (000, 'Admin', '','123',1);
 --INSERT INTO users
---VALUES (001, 'Instructor', '','Instructor',1);
+--VALUES (001, 'Instructor', '','Instructor',2);
 INSERT INTO users
-VALUES (001, 'test', 'test@gmail.com','123',1);
+VALUES (001, 'test', 'test@gmail.com','123',2);
 
 INSERT INTO users
-VALUES (002, 'Student', '','123',2);
+VALUES (002, 'Student', '','123',3);
 
 
 INSERT INTO subjects
