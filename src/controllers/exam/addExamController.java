@@ -22,7 +22,7 @@ import domain.Subject;
 /**
  * Servlet implementation class addExamController
  */
-@WebServlet("/addExamController")
+//@WebServlet("/addExamController")
 public class addExamController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

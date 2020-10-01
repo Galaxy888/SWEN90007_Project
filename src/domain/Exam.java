@@ -118,7 +118,7 @@ public class Exam {
 	//Delete an exam
 	public void deleteExam(int id) {
 		// TODO Auto-generated method stub
-		String sql = "delete from exams where id=? and status = 1";
+		String sql = "delete from exams where id=? and status = 0";
 		try {
 			PreparedStatement stmt = DBConnection.prepare(sql);
 			stmt.setInt(1, id);

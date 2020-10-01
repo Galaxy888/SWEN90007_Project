@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import datasource.DBConnection;
 import domain.Question;
@@ -59,8 +60,10 @@ public class QuestionController extends HttpServlet {
 		int exam_id = Integer.parseInt((String) request.getAttribute("exam_id"));
 		String operation = (String) request.getAttribute("operation");
 		System.out.println("Question Controller_0: " + exam_id + " operation: " + operation);
-
+		HttpSession session = request.getSession(false);
+        String userType = (String) session.getAttribute("userType");
 		if (operation.equals("questions")) {
+			if (userType.equals("Instructor")) {
 			List<Question> questions = new ArrayList<>();
 			String stm = "select * from questions where exam_id='" + exam_id + "'";
 			try {
@@ -80,9 +83,33 @@ public class QuestionController extends HttpServlet {
 
 				System.out.println(e.getMessage());
 			}
-
+			request.setAttribute("exam_id",exam_id );
 			request.setAttribute("questions", questions);
 			request.getRequestDispatcher("./questions.jsp").forward(request, response);
+			} else if (userType.equals("Student")) {
+				List<Question> questions = new ArrayList<>();
+				String stm = "select * from questions where exam_id='" + exam_id + "'";
+				try {
+					PreparedStatement stmt = DBConnection.prepare(stm);
+					ResultSet rs = stmt.executeQuery();
+					while (rs.next()) {
+						int id2 = Integer.parseInt(rs.getString(1));
+						int type2 = Integer.parseInt(rs.getString(2));
+						String title2 = rs.getString(3);
+						String content2 = rs.getString(4);
+						String answer2 = rs.getString(5);
+						int mark2 = Integer.parseInt(rs.getString(6));
+						int examId2 = Integer.parseInt(rs.getString(7));
+						questions.add(new Question(id2, type2, title2, content2, answer2, mark2, examId2));
+					}
+				} catch (SQLException e) {
+
+					System.out.println(e.getMessage());
+				}
+				request.setAttribute("exam_id",exam_id );
+				request.setAttribute("questions", questions);
+				request.getRequestDispatcher("./take_question.jsp").forward(request, response);
+			}
 
 		} else if (operation.equals("addQuestion")) {
 			request.getRequestDispatcher("/addQuestion").forward(request, response);
@@ -92,7 +119,6 @@ public class QuestionController extends HttpServlet {
 		} else if (operation.equals("deleteQuestion")) {
 			request.getRequestDispatcher("/deleteQuestion").forward(request, response);
 		}
-
 		System.out.println();
 	}
 

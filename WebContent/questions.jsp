@@ -176,7 +176,7 @@
          <br />
          mark:<input type = "text" name="mark">
          <br />
-         exam_id: <input type = "text" name = "exam_id" />
+         exam_id: <input type = "text" value="<%= (int)request.getAttribute("exam_id") %>" name = "exam_id" />
          <br />
          <input type = "submit" value = "Add New Question" />
       </form>

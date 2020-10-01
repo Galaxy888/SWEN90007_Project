@@ -56,14 +56,13 @@ public class deleteExamController extends HttpServlet {
 		System.out.println("exam_id: " + id);
 		Exam exam = new Exam();
 		exam.deleteExam(id);
-
-//		String subject_code = request.getParameter("subject_code");
-//	    List<Exam> exams = new ArrayList<>();
-//	    exams = exam.getAllExams(subject_code);
-//	    request.setAttribute("exams", exams);
-//	    request.getRequestDispatcher("./exams.jsp").forward(request, response);
+        //String subject_code = request.getParameter("subject_code");
+       // List<Exam> exams = new ArrayList<>();
+       // exams = exam.getAllExams(subject_code);
+       // request.setAttribute("exams", exams);
+       // request.getRequestDispatcher("./exams.jsp").forward(request, response);
 		// response.sendRedirect("exams.jsp");
-		response.sendRedirect("./exams");
+	    response.sendRedirect("./exams");
 	}
 
 }
