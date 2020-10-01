@@ -11,7 +11,7 @@
 <% //In case, if Instructor session is not set, redirect to Login page
 if((request.getSession(false).getAttribute("userName")== null) )
 {
-	 response.sendRedirect("/LMS/login.jsp");
+	 response.sendRedirect("/login.jsp");
 }
 
 %>

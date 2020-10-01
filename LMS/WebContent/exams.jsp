@@ -35,7 +35,7 @@
     </script>
 </head>
 <body>
-<a class="sel_btn" href="/LMS/login.jsp">DashBoard</a> 
+<a class="sel_btn" href="/dashboard">DashBoard</a> 
  <div align="center">
         <table  style="width:70%">
             <tr>
