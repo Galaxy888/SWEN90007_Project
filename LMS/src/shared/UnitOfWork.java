@@ -3,6 +3,7 @@ package shared;
 import java.util.ArrayList;
 import java.util.List;
 
+import dataMapper.DataMapper;
 import domain.DomainObject;
 
 public class UnitOfWork {
@@ -28,9 +29,59 @@ public class UnitOfWork {
 		return (UnitOfWork) current.get();
 	}
 	
+	/**
+	 * 
+	 * @param obj = obj to be inserted in the new list
+	 */
 	public void registerNew(DomainObject obj) {
 		newObjects.add(obj);
 	}
+	
+	
+	/**
+	 * 
+	 * @param obj = obj to be inserted in the dirty list
+	 */
+	public void registerDiry(DomainObject obj) {
+		dirtyObjects.add(obj);
+	}
+	
+	
+	/**
+	 * 
+	 * @param obj = obj to be inserted in the deleted lists
+	 */
+	public void registerDeleted(DomainObject obj) {
+		deletedObjects.add(obj);
+	}
+	
+	
+	public Boolean commit() {
+		Boolean result = true;
+		
+		//commit new objects
+		for(DomainObject obj: newObjects) {
+			try {
+				DataMapper mapper = (DataMapper) Class.forName("mapper."+obj.getClass().getSimpleName()+"Mapper")
+						.getDeclaredConstructor().newInstance();
+				result = mapper.insert(obj);
+				
+				if(!result) {
+					return false;
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+		
+		return result;
+		
+	}
+	
+	
+	
 	
 	
 	
