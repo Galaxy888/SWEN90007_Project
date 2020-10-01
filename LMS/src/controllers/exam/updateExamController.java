@@ -10,9 +10,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dataMapper.ExamMapper;
 import domain.Exam;
+import service.ExamService;
 
 /**
  * Servlet implementation class updateExamController
@@ -20,6 +22,7 @@ import domain.Exam;
 //@WebServlet("/updateExam")
 public class updateExamController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private ExamService examService;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -27,6 +30,7 @@ public class updateExamController extends HttpServlet {
 	public updateExamController() {
 		super();
 		// TODO Auto-generated constructor stub
+		examService = new ExamService();
 	}
 
 	/**
@@ -56,13 +60,34 @@ public class updateExamController extends HttpServlet {
 		String subject = request.getParameter("subject");
 		Exam exam = new Exam(id, title, status, subject);
 		
-		ExamMapper examMapper = new ExamMapper();
-		try {
-			examMapper.update(exam);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+//		ExamMapper examMapper = new ExamMapper();
+//		try {
+//			examMapper.update(exam);
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+		
+		Boolean success = examService.updateExam(id, title, status, subject);
+		System.out.println("update exam doPost success: "+success);
+		if (success) {
+			response.sendRedirect("./exams");
+		}else {
+			//TODO
+//			request.setAttribute("errMessageExam", "something went wrong. The exam is already exist");
+			HttpSession session = request.getSession(); 
+			session.setAttribute("errMessageExam", "something went wrong. The exam is update error");
+			response.sendRedirect("./exams");
+//			doGet(request,response);
+//			response.sendRedirect("./exams");
 		}
+		
+		
+		
+		
+		
+		
 		
 //		try {
 //			exam.updateExam(id, title, status, subject);
@@ -75,7 +100,10 @@ public class updateExamController extends HttpServlet {
 //		exams = exam.getAllExams(subject);
 //		request.setAttribute("exams", exams);
 //		request.getRequestDispatcher("./exams.jsp").forward(request, response);
-		response.sendRedirect("./exams");
+		
+		
+		
+//		response.sendRedirect("./exams");
 	}
 
 }
