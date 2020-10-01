@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import dataMapper.UserMapper;
 import datasource.DBConnection;
+import domain.User;
 
 /**
  * Servlet implementation class LoginServlet
@@ -70,38 +71,41 @@ public class LoginServlet extends HttpServlet {
 		PrintWriter writer = response.getWriter();
 
 		UserMapper userMapper = new UserMapper();
-		String userValidate = userMapper.authenticateUser(userName, password);
+		User userValidate = userMapper.authenticateUser(userName, password);
 
-		if (userValidate.equals("Admin")) {
+		if (userValidate.getType()==0) {
 			System.out.println("Admin's Dashboard");
 
 			HttpSession session = request.getSession(); // Creating a session
 			session.setAttribute("userName", userName); // setting session attribute
 			session.setAttribute("userType", "Admin");
+			session.setAttribute("user_id",userValidate.getId());
 //            request.setAttribute("userName", userName);
 //            request.setAttribute("userType", "Admin");
 
 			response.sendRedirect("/LMS/dashboard");
 //            request.getRequestDispatcher("/dashboard").forward(request, response);
 
-		} else if (userValidate.equals("Instructor")) {
+		} else if (userValidate.getType()==1) {
 			System.out.println("Instructor's Dashboard");
 
 			HttpSession session = request.getSession();
 			session.setAttribute("userName", userName);
 			session.setAttribute("userType", "Instructor");
+			session.setAttribute("user_id",userValidate.getId());
 //            request.setAttribute("userName", userName);
 //            request.setAttribute("userType", "Instructor");
 
 			response.sendRedirect("/LMS/dashboard");
 //            request.getRequestDispatcher("/dashboard").forward(request, response);
-		} else if (userValidate.equals("Student")) {
+		} else if (userValidate.getType()==2) {
 			System.out.println("Student's Dashboard");
 
 			HttpSession session = request.getSession();
 //            session.setMaxInactiveInterval(10*60);
 			session.setAttribute("userName", userName);
 			session.setAttribute("userType", "Student");
+			session.setAttribute("user_id",userValidate.getId());
 //            request.setAttribute("userName", userName);
 //            request.setAttribute("userType", "Student");
 

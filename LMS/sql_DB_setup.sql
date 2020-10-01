@@ -43,27 +43,32 @@ CREATE TABLE users_subjects (
   CONSTRAINT user_subject_pkey PRIMARY KEY (user_id, subject_code)  -- explicit pk
 );
 
-CREATE TABLE users_exams (
+CREATE TABLE users_questions (
   user_id    INT REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE, 
-  exam_id    INT REFERENCES exams (id) ON UPDATE CASCADE, 
+  question_id    INT REFERENCES questions (id) ON UPDATE CASCADE, 
+  answer VARCHAR(20),
+  mark INT,
   status     INT, 
-  CONSTRAINT user_exam_pkey PRIMARY KEY (user_id, exam_id)  -- explicit pk
+  CONSTRAINT user_question_pkey PRIMARY KEY (user_id, question_id)  -- explicit pk
 );
 
 
-
 INSERT INTO users
-VALUES (000, 'Admin', '','Admin',0);
+VALUES (000, 'Admin', '','123',0);
 --INSERT INTO users
 --VALUES (001, 'Instructor', '','Instructor',1);
 INSERT INTO users
-VALUES (001, 'test', 'test@gmail.com','test',1);
+VALUES (001, 'test', 'test@gmail.com','123',1);
+
 INSERT INTO users
-VALUES (002, 'Student', '','Student',2);
+VALUES (002, 'Student', '','123',2);
 
 
 INSERT INTO subjects
 VALUES ('SWEN90007','SDA',001);
+
+INSERT INTO users_subjects 
+VALUES (002,'SWEN90007',0);
 
 INSERT INTO subjects
 VALUES ('SWEN90013','SDA',001);

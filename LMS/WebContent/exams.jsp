@@ -35,7 +35,7 @@
     </script>
 </head>
 <body>
-<a class="sel_btn" href="/LMS/login.jsp">Dashboard</a> 
+<a class="sel_btn" href="/LMS/login.jsp">DashBoard</a> 
  <div align="center">
         <table  style="width:70%">
             <tr>
@@ -55,7 +55,7 @@
        		        <td><%= exam.getId() %></td>
                     <td><%= exam.getTitle() %></td>
                     <td><%= exam.getStatus() %>
-                    <td><%= exam.getSubject() %></td>
+                    <td><%= exam.getSubject()  %></td>
                     <td>
                     <button type="button" class="sel_btn" data-toggle="modal" data-target="#updateModal" id="btn_update" 
                     onclick="showInfo2('<%= exam.getId() %>','<%= exam.getTitle() %>','<%= exam.getStatus() %>','<%= exam.getSubject() %>')">
@@ -63,7 +63,7 @@
 	                 <%-- <a class="sel_btn" href="./updateExam?id=<%=exam.getId()%>&title=<%=exam.getTitle()%>&status=<%=exam.getStatus()%>&subject_code=<%=exam.getSubject()%>">Edit</a> --%>
 	                 <%-- <a class="sel_btn" href="./questions?exam_id=<%=exam.getId()%>">Edit Questions</a> --%>
 	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/questions">Edit Questions</a>
-	                 <%-- <a class="sel_btn" href="./deleteExam?subject_code=<%=exam.getSubject() %>&id=<%=exam.getId()%>">Delete</a> --%>
+	                 <%--<a class="sel_btn" href="./deleteExam?subject_code=<%=exam.getSubject() %>&id=<%=exam.getId()%>">Delete</a>--%>
 	                 <%-- <a class="sel_btn" href="./deleteExam/<%=exam.getId()%>/<%= exam.getStatus() %>">Delete</a> --%>
 	                <%--  <button type="button" onclick="deleteExam('<%=exam.getId()%>')">Delete</button> --%>
 	                 <form name="delete" method=post action="deleteExam">
@@ -152,7 +152,7 @@
          <br />
          status:<input type = "text" name="status">
          <br />
-         subject_code: <input type = "text" name = "subject_code" />
+         subject_code: <input type = "text" value="<%= (String)request.getAttribute("subject_code")%>" name = "subject_code" />
          <br />
          <input type = "submit" value = "Add New Exam" />
       </form>
