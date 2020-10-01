@@ -22,11 +22,6 @@ public class Subject {
         this.name = name;
     }
 
-	public Subject() {
-		// TODO Auto-generated constructor stub
-	}
-
-
 	public String getSubjectCode() {
 		return subjectCode;
 	}
@@ -69,32 +64,6 @@ public class Subject {
 		}
         return subjects;
     }
-	
-	public static List<Subject> getAllSubjectsById(int id) {
-        List<Subject> subjects = new ArrayList<>();
-        try {
-        	String stm = "Select * from subjects where coordinator_id ='"+id+"'";
-        	PreparedStatement stmt = DBConnection.prepare(stm);
-
-        	ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
-				String code = rs.getString(1);
-				String name = rs.getString(2);
-				int coordinator = Integer.parseInt(rs.getString(3));
-				subjects.add(new Subject(code,name,coordinator));
-			}
-	
-		} catch (SQLException e) {
-	
-		}
-        return subjects;
-    }
-	
-	
-	
-	
-	
-	
 	public String insert() {
 		try {
 			PreparedStatement insertStatement = DBConnection.prepare(insertSubjectStatement);

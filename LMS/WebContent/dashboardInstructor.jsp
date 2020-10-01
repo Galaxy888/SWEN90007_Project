@@ -1,29 +1,17 @@
-<<<<<<< HEAD
 <%@ page import="domain.Subject" 
     import="datasource.DBConnection"
     import="java.sql.*"
-    import="java.util.*"
 %>
-=======
->>>>>>> master
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<<<<<<< HEAD
 <% //In case, if Instructor session is not set, redirect to Login page
-=======
-<meta charset="UTF-8">
-<title>Dashboard Page</title>
-<% //In case, if User session is not set, redirect to Login page
->>>>>>> master
 if((request.getSession(false).getAttribute("userName")== null) )
 {
 	 response.sendRedirect("/LMS/login.jsp");
 }
-<<<<<<< HEAD
-
 %>
 </head>
 <style>
@@ -45,7 +33,7 @@ tr:nth-child(even) {
 </style>
   
 <meta charset="UTF-8">
-<title>DashBoard</title>
+<title>Dashboard Instructor</title>
 </head>
 <body>
     <div align="center">
@@ -59,13 +47,12 @@ tr:nth-child(even) {
             
                 <tr>
  			<%
- 		         List<Subject> subjects = new ArrayList<>(); 
-		         subjects = (List<Subject>)request.getAttribute("subjects");//获取request中名称为student的值
-           		 for (Subject subject : subjects) {
+           		 for (Subject subject : Subject.getAllSubjects()) {
        		 %>
        		        <td><%= subject.getSubjectCode() %></td>
                     <td><%= subject.getName() %></td>
                     <%  
+                    
                     int user_id =subject.getCoordinator();
                     String stm = "select * from users where id='"+user_id+"' limit 1"; 
                     PreparedStatement stmt = DBConnection.prepare(stm);
@@ -77,10 +64,9 @@ tr:nth-child(even) {
 	                 <td>
 	                 	<%-- <a href="./exams?subject_code=<%=subject.getSubjectCode()%>">Check</a> --%>
 	                 <%-- <a href="<%=request.getContextPath()%>/exams">Check</a> --%>
-	                 <a href="courses/<%=subject.getSubjectCode()%>/exams/<%= (String)request.getAttribute("user_type")%>">Check</a>
+	                 <a href="courses/<%=subject.getSubjectCode()%>/exams">Check</a>
 	                 </td>
                 </tr>
-                
             <%
           		  } // for loop
         	%>
@@ -91,20 +77,3 @@ tr:nth-child(even) {
 <a href="<%=request.getContextPath()%>/logout">Logout</a></div>
 </body>
 </html>
-=======
-%>
-</head>
-<body>
-<!-- <h3>Hi Admin, Logging in was successful.</h3>  -->
-<%-- 
-The time is now <%= new java.util.Date()%>
-<a href="logInForm.html">Login Page</a> --%>
-<div>Welcome: <%=request.getAttribute("userName") %></div>
-<div>User Type: <%=request.getAttribute("userType") %></div>
-<div>Seesion username: <%=request.getSession(false).getAttribute("userName") %></div>
-<div>Seesion user type: <%=request.getSession(false).getAttribute("userType") %></div>
-<div style="text-align: mid">
-<a href="<%=request.getContextPath()%>/logout">Logout</a></div>
-</body>
-</html>
->>>>>>> master

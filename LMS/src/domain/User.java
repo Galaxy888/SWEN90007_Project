@@ -17,9 +17,6 @@ public class User {
 		this.password=password;
 		this.type=type;
 	}
-	public User() {
-		// TODO Auto-generated constructor stub
-	}
 	public int getId(){
 		return id;
 	}
