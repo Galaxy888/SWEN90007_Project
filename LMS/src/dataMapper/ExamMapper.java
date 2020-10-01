@@ -55,6 +55,7 @@ public class ExamMapper extends DataMapper {
 		try {
 			PreparedStatement stmt = DBConnection.prepare(deleteExamStatement);
 			stmt.setInt(1, exam.getId());
+			System.out.println("ExamMapper delete ");
 			stmt.executeUpdate();
 			stmt.close();
 		} catch (SQLException e) {

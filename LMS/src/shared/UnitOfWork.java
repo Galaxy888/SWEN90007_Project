@@ -82,6 +82,46 @@ public class UnitOfWork {
 				return false;
 			}
 		}
+		
+		// commit updated objects
+		for (DomainObject obj : dirtyObjects) {
+			try {
+				DataMapper mapper = (DataMapper) Class.forName("dataMapper." + obj.getClass().getSimpleName() + "Mapper")
+						.getDeclaredConstructor().newInstance();
+				
+				System.out.println("UOW: update: "+ "dataMapper." + obj.getClass().getSimpleName() + "Mapper");
+				result = mapper.update(obj);
+
+				if (!result) {
+					return false;
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+
+		
+		// commit deleted objects
+		for (DomainObject obj : deletedObjects) {
+			try {
+				DataMapper mapper = (DataMapper) Class.forName("dataMapper." + obj.getClass().getSimpleName() + "Mapper")
+						.getDeclaredConstructor().newInstance();
+				
+				System.out.println("UOW: delete: "+ "dataMapper." + obj.getClass().getSimpleName() + "Mapper");
+				result = mapper.delete(obj);
+
+				if (!result) {
+					return false;
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+
 
 		return result;
 
