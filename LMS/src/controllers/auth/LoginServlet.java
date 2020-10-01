@@ -16,10 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import dataMapper.UserMapper;
 import datasource.DBConnection;
-<<<<<<< HEAD
 import domain.User;
-=======
->>>>>>> master
 
 /**
  * Servlet implementation class LoginServlet
@@ -74,64 +71,41 @@ public class LoginServlet extends HttpServlet {
 		PrintWriter writer = response.getWriter();
 
 		UserMapper userMapper = new UserMapper();
-<<<<<<< HEAD
 		User userValidate = userMapper.authenticateUser(userName, password);
 
 		if (userValidate.getType()==0) {
-=======
-		String userValidate = userMapper.authenticateUser(userName, password);
-
-		if (userValidate.equals("Admin")) {
->>>>>>> master
 			System.out.println("Admin's Dashboard");
 
 			HttpSession session = request.getSession(); // Creating a session
 			session.setAttribute("userName", userName); // setting session attribute
 			session.setAttribute("userType", "Admin");
-<<<<<<< HEAD
 			session.setAttribute("user_id",userValidate.getId());
-=======
->>>>>>> master
 //            request.setAttribute("userName", userName);
 //            request.setAttribute("userType", "Admin");
 
 			response.sendRedirect("/LMS/dashboard");
 //            request.getRequestDispatcher("/dashboard").forward(request, response);
 
-<<<<<<< HEAD
 		} else if (userValidate.getType()==1) {
-=======
-		} else if (userValidate.equals("Instructor")) {
->>>>>>> master
 			System.out.println("Instructor's Dashboard");
 
 			HttpSession session = request.getSession();
 			session.setAttribute("userName", userName);
 			session.setAttribute("userType", "Instructor");
-<<<<<<< HEAD
 			session.setAttribute("user_id",userValidate.getId());
-=======
->>>>>>> master
 //            request.setAttribute("userName", userName);
 //            request.setAttribute("userType", "Instructor");
 
 			response.sendRedirect("/LMS/dashboard");
 //            request.getRequestDispatcher("/dashboard").forward(request, response);
-<<<<<<< HEAD
 		} else if (userValidate.getType()==2) {
-=======
-		} else if (userValidate.equals("Student")) {
->>>>>>> master
 			System.out.println("Student's Dashboard");
 
 			HttpSession session = request.getSession();
 //            session.setMaxInactiveInterval(10*60);
 			session.setAttribute("userName", userName);
 			session.setAttribute("userType", "Student");
-<<<<<<< HEAD
 			session.setAttribute("user_id",userValidate.getId());
-=======
->>>>>>> master
 //            request.setAttribute("userName", userName);
 //            request.setAttribute("userType", "Student");
 
