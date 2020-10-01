@@ -14,11 +14,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dataMapper.ExamMapper;
 import datasource.DBConnection;
 import domain.Exam;
 import domain.Subject;
+import service.ExamService;
 
 /**
  * Servlet implementation class addExamController
@@ -26,6 +28,7 @@ import domain.Subject;
 @WebServlet("/addExamController")
 public class addExamController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private ExamService examService;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -33,6 +36,7 @@ public class addExamController extends HttpServlet {
 	public addExamController() {
 		super();
 		// TODO Auto-generated constructor stub
+		examService = new ExamService();
 	}
 
 	/**
@@ -46,7 +50,14 @@ public class addExamController extends HttpServlet {
 //	     ServletContext servletContext = getServletContext();
 //	     RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher(view);
 //	     requestDispatcher.forward(request, response);
-		doPost(request, response);
+//		doPost(request, response);
+//		HttpSession session = request.getSession(); 
+//		session.setAttribute("errMessageExam", null);
+		response.sendRedirect("./exams");
+		
+		
+//		System.out.println("add exam error: "+ request.getAttribute("errMessage"));
+//		request.getRequestDispatcher(request.getPathInfo()).forward(request, response);
 	}
 
 	/**
@@ -62,9 +73,25 @@ public class addExamController extends HttpServlet {
 		int status = Integer.parseInt(request.getParameter("status"));
 		String subject_code = request.getParameter("subject_code");
 
-		Exam exam = new Exam(id, title, status, subject_code);
-		ExamMapper examMapper = new ExamMapper();
-		examMapper.insert(exam);
+//		Exam exam = new Exam(id, title, status, subject_code);
+		
+		Boolean success = examService.createNewExam(id, title, status, subject_code);
+		System.out.println("add exam doPost success: "+success);
+		if (success) {
+			response.sendRedirect("./exams");
+		}else {
+			//TODO
+//			request.setAttribute("errMessageExam", "something went wrong. The exam is already exist");
+			HttpSession session = request.getSession(); 
+			session.setAttribute("errMessageExam", "something went wrong. The exam is already exist");
+			response.sendRedirect("./exams");
+//			doGet(request,response);
+//			response.sendRedirect("./exams");
+		}
+		
+		
+//		ExamMapper examMapper = new ExamMapper();
+//		examMapper.insert(exam);
 //		exam.insert();
 
 //		String stm = "select * from exams where subject_code='" + subject_code + "'";
@@ -91,7 +118,21 @@ public class addExamController extends HttpServlet {
 
 //		  request.setAttribute("exams", exams);
 //		  request.getRequestDispatcher("/exams.jsp").forward(request, response);
-		response.sendRedirect("./exams");
+		
+		
+		
+		
+		
+//		response.sendRedirect("./exams");
+		
+		
+		
+		
+		
+		
+		
+		
+		
 //		  response.sendRedirect(request.getHeader("refer"));
 
 //		  response.sendRedirect("/LMS/dashboard");
