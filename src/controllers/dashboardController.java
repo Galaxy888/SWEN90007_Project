@@ -2,10 +2,13 @@ package controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+<<<<<<< HEAD
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+=======
+>>>>>>> master
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,10 +17,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+<<<<<<< HEAD
 import datasource.DBConnection;
 import domain.Exam;
 import domain.Subject;
 
+=======
+>>>>>>> master
 /**
  * Servlet implementation class dashboardController
  */
@@ -49,6 +55,7 @@ public class dashboardController extends HttpServlet {
 			String userType = (String) session.getAttribute("userType");
 
 			if (userType.equals("Instructor")) {
+<<<<<<< HEAD
 				int user_id=(int)session.getAttribute("user_id");
 				Subject subject = new Subject();
 				List<Subject> subjects = new ArrayList<>();
@@ -84,6 +91,15 @@ public class dashboardController extends HttpServlet {
 				} catch (Exception exp) {
 			System.out.println(exp);}
 		
+=======
+				request.getRequestDispatcher("dashboardInstructor.jsp").forward(request, response);
+			}
+			// TODO student and admin
+			request.getRequestDispatcher("dashboard.jsp").forward(request, response);
+		} catch (Exception exp) {
+			System.out.println(exp);
+		}
+>>>>>>> master
 
 	}
 
