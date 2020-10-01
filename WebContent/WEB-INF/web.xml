@@ -119,6 +119,17 @@
 
 	<!--#################### Question #################### -->
 	<servlet>
+		<servlet-name>TakeQuestionController</servlet-name>
+		<servlet-class>controllers.question.TakeQuestionController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TakeQuestionController</servlet-name>
+		<url-pattern>/takeQuestion</url-pattern>
+	</servlet-mapping>
+	
+	
+	
+	<servlet>
 		<servlet-name>QuestionController</servlet-name>
 		<servlet-class>controllers.question.QuestionController</servlet-class>
 	</servlet>

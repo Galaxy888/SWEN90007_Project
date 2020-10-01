@@ -40,17 +40,10 @@
                     Update</button>
 	                 <%-- <a class="sel_btn" href="./updateExam?id=<%=exam.getId()%>&title=<%=exam.getTitle()%>&status=<%=exam.getStatus()%>&subject_code=<%=exam.getSubject()%>">Edit</a> --%>
 	                 <%-- <a class="sel_btn" href="./questions?exam_id=<%=exam.getId()%>">Edit Questions</a> --%>
-	                  <form name="delete" method=post action="deleteExam">
-	                 <input name="id" type="hidden" value=<%=exam.getId()%>>
-	                 <input type = "submit" value = "Delete" />
-	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/questions">Edit Questions</a>
+	              <a class="sel_btn" href="exams/<%=exam.getId()%>/questions">Take Exam</a>
 	                 <%-- <a class="sel_btn" href="./deleteExam?subject_code=<%=exam.getSubject() %>&id=<%=exam.getId()%>">Delete</a> --%>
 	                 <%-- <a class="sel_btn" href="./deleteExam/<%=exam.getId()%>/<%= exam.getStatus() %>">Delete</a> --%>
-	                <%--  <button type="button" onclick="deleteExam('<%=exam.getId()%>')">Delete</button> --%>
-
-	                 </form>
-
-	                 
+	                <%--  <button type="button" onclick="deleteExam('<%=exam.getId()%>')">Delete</button> --%> 
 	                 </td>
                 </tr>
             <%
