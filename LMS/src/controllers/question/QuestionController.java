@@ -16,6 +16,8 @@ import javax.servlet.http.HttpSession;
 
 import datasource.DBConnection;
 import domain.Question;
+import service.ExamService;
+import service.QuestionService;
 
 /**
  * Servlet implementation class QuestionController
@@ -23,13 +25,14 @@ import domain.Question;
 @WebServlet("/questions")
 public class QuestionController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private ExamService examService;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public QuestionController() {
 		super();
-		// TODO Auto-generated constructor stub
+		examService = new ExamService();
 	}
 
 	/**
@@ -52,116 +55,116 @@ public class QuestionController extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
-//		int exam_id = Integer.parseInt(request.getParameter("exam_id"));
-//        String pathInfo = request.getPathInfo(); // /exams/{exam_id}/questions
-//        String[] pathParts = pathInfo.split("/");
-//        String exam_id=pathParts[1]; ; // {subject}
-//        String route = ""; // exams
 		int exam_id = Integer.parseInt((String) request.getAttribute("exam_id"));
 		String operation = (String) request.getAttribute("operation");
 		System.out.println("Question Controller_0: " + exam_id + " operation: " + operation);
 		HttpSession session = request.getSession(false);
-        String userType = (String) session.getAttribute("userType");
+		String userType = (String) session.getAttribute("userType");
 		if (operation.equals("questions")) {
 			if (userType.equals("Instructor")) {
-			List<Question> questions = new ArrayList<>();
-			String stm = "select * from questions where exam_id='" + exam_id + "'";
-			try {
-				PreparedStatement stmt = DBConnection.prepare(stm);
-				ResultSet rs = stmt.executeQuery();
-				while (rs.next()) {
-					int id2 = Integer.parseInt(rs.getString(1));
-					int type2 = Integer.parseInt(rs.getString(2));
-					String title2 = rs.getString(3);
-					String content2 = rs.getString(4);
-					String answer2 = rs.getString(5);
-					int mark2 = Integer.parseInt(rs.getString(6));
-					int examId2 = Integer.parseInt(rs.getString(7));
-					questions.add(new Question(id2, type2, title2, content2, answer2, mark2, examId2));
+
+				List<Question> questions = examService.getAllQuestions(exam_id);
+//			String stm = "select * from questions where exam_id='" + exam_id + "'";
+//			try {
+//				PreparedStatement stmt = DBConnection.prepare(stm);
+//				ResultSet rs = stmt.executeQuery();
+//				while (rs.next()) {
+//					int id2 = Integer.parseInt(rs.getString(1));
+//					int type2 = Integer.parseInt(rs.getString(2));
+//					String title2 = rs.getString(3);
+//					String content2 = rs.getString(4);
+//					String answer2 = rs.getString(5);
+//					int mark2 = Integer.parseInt(rs.getString(6));
+//					int examId2 = Integer.parseInt(rs.getString(7));
+//					questions.add(new Question(id2, type2, title2, content2, answer2, mark2, examId2));
+//				}
+//			} catch (SQLException e) {
+//
+//				System.out.println(e.getMessage());
+//			}
+				if (questions != null) {
+					request.setAttribute("exam_id", exam_id);
+					request.setAttribute("questions", questions);
+					request.getRequestDispatcher("./questions.jsp").forward(request, response);
+
+				}else {
+					//TODO
+					session.setAttribute("errMessageQuestion", "something went wrong.");
+					response.sendRedirect("./questions");
 				}
-			} catch (SQLException e) {
 
-				System.out.println(e.getMessage());
-			}
-			request.setAttribute("exam_id",exam_id );
-			request.setAttribute("questions", questions);
-			request.getRequestDispatcher("./questions.jsp").forward(request, response);
-			} else if (userType.equals("Student")) {  //show all questions
+			} else if (userType.equals("Student")) { // show all questions
 				System.out.print("Student");
-				int flag=0;
-				 int user_id = (int)session.getAttribute("user_id");
-				 String sql1= "select * from users_exams where user_id='"+user_id+"'and exam_id='"+exam_id+"'";
-				 try {
-					    PreparedStatement stmt = DBConnection.prepare(sql1);
-					    ResultSet rs = stmt.executeQuery();
-					    if (!rs.next()) {
-					    	flag=1;
-					    }
-		        }	catch (SQLException e) {
-         
-					System.out.println(e.getMessage());
-				}   
-				 if (flag==1) {
-			        String sql2 = "INSERT INTO users_exams VALUES (?, ?, 0,0)";
-			        try {
-						    PreparedStatement insertStatement = DBConnection.prepare(sql2);
-							insertStatement.setInt(1,user_id);
-							insertStatement.setInt(2, exam_id);
-							insertStatement.execute();	
-			        }	catch (SQLException e) {
-
-						System.out.println(e.getMessage());
-					}
-				
-				
-				
-				List<Question> questions = new ArrayList<>();
-				String stm = "select * from questions where exam_id='" + exam_id + "'";
+				int flag = 0;
+				int user_id = (int) session.getAttribute("user_id");
+				String sql1 = "select * from users_exams where user_id='" + user_id + "'and exam_id='" + exam_id + "'";
 				try {
-					PreparedStatement stmt = DBConnection.prepare(stm);
+					PreparedStatement stmt = DBConnection.prepare(sql1);
 					ResultSet rs = stmt.executeQuery();
-					while (rs.next()) {
-						int id2 = Integer.parseInt(rs.getString(1));
-						int type2 = Integer.parseInt(rs.getString(2));
-						String title2 = rs.getString(3);
-						String content2 = rs.getString(4);
-						String answer2 = rs.getString(5);
-						int mark2 = Integer.parseInt(rs.getString(6));
-						int examId2 = Integer.parseInt(rs.getString(7));
-						questions.add(new Question(id2, type2, title2, content2, answer2, mark2, examId2));
+					if (!rs.next()) {
+						flag = 1;
 					}
 				} catch (SQLException e) {
 
 					System.out.println(e.getMessage());
 				}
-				request.setAttribute("exam_id",exam_id );
-				request.setAttribute("questions", questions);
-				request.getRequestDispatcher("./take_question.jsp").forward(request, response);
-				}else {
+				if (flag == 1) {
+					String sql2 = "INSERT INTO users_exams VALUES (?, ?, 0,0)";
+					try {
+						PreparedStatement insertStatement = DBConnection.prepare(sql2);
+						insertStatement.setInt(1, user_id);
+						insertStatement.setInt(2, exam_id);
+						insertStatement.execute();
+					} catch (SQLException e) {
+
+						System.out.println(e.getMessage());
+					}
+
+					List<Question> questions = new ArrayList<>();
+					String stm = "select * from questions where exam_id='" + exam_id + "'";
+					try {
+						PreparedStatement stmt = DBConnection.prepare(stm);
+						ResultSet rs = stmt.executeQuery();
+						while (rs.next()) {
+							int id2 = Integer.parseInt(rs.getString(1));
+							int type2 = Integer.parseInt(rs.getString(2));
+							String title2 = rs.getString(3);
+							String content2 = rs.getString(4);
+							String answer2 = rs.getString(5);
+							int mark2 = Integer.parseInt(rs.getString(6));
+							int examId2 = Integer.parseInt(rs.getString(7));
+							questions.add(new Question(id2, type2, title2, content2, answer2, mark2, examId2));
+						}
+					} catch (SQLException e) {
+
+						System.out.println(e.getMessage());
+					}
+					request.setAttribute("exam_id", exam_id);
+					request.setAttribute("questions", questions);
+					request.getRequestDispatcher("./take_question.jsp").forward(request, response);
+				} else {
 					response.sendRedirect("/dashboard");
 				}
 			}
 
-		} 
-		else if (operation.equals("addQuestion")) {
+		} else if (operation.equals("addQuestion")) {
 			request.getRequestDispatcher("/addQuestion").forward(request, response);
 
 		} else if (operation.equals("updateQuestion")) {
 			request.getRequestDispatcher("/updateQuestion").forward(request, response);
 		} else if (operation.equals("deleteQuestion")) {
 			request.getRequestDispatcher("/deleteQuestion").forward(request, response);
-		}else if (operation.equals("TakeQuestion")) {
+		} else if (operation.equals("TakeQuestion")) {
 			request.getRequestDispatcher("/TakeQuestion").forward(request, response);
-		}else if (operation.equals("exams")) {
+		} else if (operation.equals("exams")) {
 			request.getRequestDispatcher("/exams").forward(request, response);
-		}else if (operation.equals("ViewAnswer")) {
+		} else if (operation.equals("ViewAnswer")) {
 			request.getRequestDispatcher("/ViewAnswer").forward(request, response);
-		}else if (operation.equals("markAnswer")) {
+		} else if (operation.equals("markAnswer")) {
 			request.getRequestDispatcher("/markAnswer").forward(request, response);
-		}
-		else if (operation.equals("ViewMark")) {
+		} else if (operation.equals("ViewMark")) {
 			request.getRequestDispatcher("/ViewMark").forward(request, response);
-		}else if (operation.equals("updateResult")) {
+		} else if (operation.equals("updateResult")) {
 			request.getRequestDispatcher("/updateResult").forward(request, response);
 		}
 		System.out.println();

@@ -12,7 +12,7 @@ public class Subject extends DomainObject {
 	private String name;
 	private int coordinator_id;
 	
-	private List<Exam> allExams = new ArrayList<>();
+	private List<Exam> allExams;
 
 	private static final String findAllSubjectsStatement = "SELECT * from subjects";
 	private static final String insertSubjectStatement = "INSERT INTO subjects VALUES (?, ?, ?)";
@@ -21,10 +21,11 @@ public class Subject extends DomainObject {
 		this.subjectCode = subjectCode;
 		this.coordinator_id = coordinator_id;
 		this.name = name;
+		this.allExams = null;
 	}
 
 	public Subject() {
-		// TODO Auto-generated constructor stub
+		this.allExams = null;
 	}
 
 	public String getSubjectCode() {

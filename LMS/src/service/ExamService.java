@@ -1,6 +1,14 @@
 package service;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import datasource.DBConnection;
 import domain.Exam;
+import domain.Question;
 import mapper.ExamMapper;
 import shared.UnitOfWork;
 
@@ -56,6 +64,15 @@ public class ExamService {
 		UnitOfWork.getCurrent().registerDeleted(exam);
 		
 		return UnitOfWork.getCurrent().commit();
+	}
+	
+	// Get all questions
+	public List<Question> getAllQuestions(int exam_id) {
+		
+		Exam exam = new Exam();
+		exam.setId(exam_id);
+		System.out.println("SubjectService.java: "+exam.getId());
+		return exam.getAllQuestions();
 	}
 
 }

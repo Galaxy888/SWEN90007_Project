@@ -4,12 +4,15 @@ import java.sql.*;
 import java.util.*;
 
 import datasource.DBConnection;
+import mapper.QuestionMapper;
 
 public class Exam extends DomainObject {
 	private int id;
 	private String title;
 	private int status;
 	private String subject_code;
+	
+	private List<Question> allQuestions;
 
 	private static final String findAllSubjectsStatement = "SELECT * from exams";
 	private static final String insertSubjectStatement = "INSERT INTO exams VALUES (?, ?, ?,?)";
@@ -19,10 +22,12 @@ public class Exam extends DomainObject {
 		this.title = title;
 		this.status = status;
 		this.subject_code = subject_code;
+		this.allQuestions = null;
+		
 	}
 
 	public Exam() {
-		// TODO Auto-generated constructor stub
+		this.allQuestions = null;
 	}
 
 	public int getId() {
@@ -55,6 +60,21 @@ public class Exam extends DomainObject {
 
 	public void setSubject(String subject_code) {
 		this.subject_code = subject_code;
+	}
+	
+	//lazy load
+	public List<Question> getAllQuestions() {
+		if(this.allQuestions==null) {
+			List<Question> allQuestions = new ArrayList<>();
+			QuestionMapper questionMapper = new QuestionMapper();
+			allQuestions = questionMapper.getAllQuestions(this.id);
+			this.allQuestions = allQuestions;
+		}
+		return allQuestions;
+	}
+	
+	public void setAllQuestions( List<Question> allQuestions) {
+		this.allQuestions = allQuestions;
 	}
 
 	// Update an exam info
