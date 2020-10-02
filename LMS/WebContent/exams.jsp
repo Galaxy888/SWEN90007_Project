@@ -9,6 +9,13 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>	
 <title>Exams</title>
 <style>
  .sel_btn{
@@ -24,6 +31,14 @@
             font-size: 12px;
             outline: none;
         }
+.form-popup {
+  display: none;
+ /*  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1; */
+  z-index: 9;
+}
 </style>
  <script type="text/javascript">
     function showInfo2(id,title,status,subject) {
@@ -32,22 +47,25 @@
         document.getElementById("updateStatus").value = status;
         document.getElementById("updateSubject").value = subject;
     }
+    
+    function openForm() {
+    	  document.getElementById("myForm").style.display = "block";
+    	}
     </script>
 </head>
 <body>
 <a class="sel_btn" href="/dashboard">DashBoard</a> 
-<span style="color:red"><%=(request.getSession(false).getAttribute("errMessageExam") == null) ? "" : request.getSession(false).getAttribute("errMessageExam")%></span>
- <%
-session.removeAttribute("errMessageExam");
 
-%>
+<div>
+<h1 style="text-align:center"><%=request.getAttribute("subject_code") %></h1> 
+</div>
+
  <div align="center">
         <table  style="width:70%">
             <tr>
                 <th>exam Id</th>
                 <th>exam Title</th>
                 <th>exam Status</th>
-                <th>Subject</th>
                 <th>Operation</th>
             </tr>
             
@@ -60,10 +78,9 @@ session.removeAttribute("errMessageExam");
        		        <td><%= exam.getId() %></td>
                     <td><%= exam.getTitle() %></td>
                     <td><%= exam.getStatus() %>
-                    <td><%= exam.getSubject()  %></td>
                     <td>
                     <button type="button" class="sel_btn" data-toggle="modal" data-target="#updateModal" id="btn_update" 
-                    onclick="showInfo2('<%= exam.getId() %>','<%= exam.getTitle() %>','<%= exam.getStatus() %>','<%= exam.getSubject() %>')">
+                    onclick="showInfo2('<%= exam.getId() %>','<%= exam.getTitle() %>','<%= exam.getStatus() %>')">
                     Update</button>
 	                 <%-- <a class="sel_btn" href="./updateExam?id=<%=exam.getId()%>&title=<%=exam.getTitle()%>&status=<%=exam.getStatus()%>&subject_code=<%=exam.getSubject()%>">Edit</a> --%>
 	                 <%-- <a class="sel_btn" href="./questions?exam_id=<%=exam.getId()%>">Edit Questions</a> --%>
@@ -87,6 +104,8 @@ session.removeAttribute("errMessageExam");
         </table>
          
     </div>
+    
+    <div>
                  <form class="form-horizontal" method="post" action="updateExam">     
 									<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
 										<div class="modal-dialog">
@@ -119,25 +138,23 @@ session.removeAttribute("errMessageExam");
 										<div class="form-group">
 											<label for="firstname" class="col-sm-3 control-label">Status</label>
 												<div class="col-sm-7">
-													<input type="text" class="form-control" id="updateStatus" name="status"  placeholder="input new status">
+														<select name="status" id="status">
+														<option value="0">0</option>
+														<option value="1">1</option>
+														</select>
+													<!-- <input type="text" class="form-control" id="updateStatus" name="status"  placeholder="input new status"> -->
 												<label class="control-label" for="updateStatus" style="display: none;"></label>
 												</div>
 										</div>
 										
-										<div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">Subject</label>
-												<div class="col-sm-7">
-													<input type="text" class="form-control" id="updateSubject" name="subject"  placeholder="subject">
-												<label class="control-label" for="updateSubject" style="display: none;"></label>
-												</div>
-										</div>
-											
+										<input type = "hidden" value="<%= (String)request.getAttribute("subject_code")%>" name = "subject" />				
 										</div>
 												<div class="modal-footer">
 				
 													<button type="submit" class="btn btn-primary" >
 														modify
 													</button>
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 												</div>
 											</div><!-- /.modal-content -->
 										</div><!-- /.modal -->
@@ -145,25 +162,71 @@ session.removeAttribute("errMessageExam");
 	
                                  </form>
                                  
-                                 
+ </div>                                
                                  
       <hr class="rounded">
   <hr class="rounded">
-    
-    <div align="center">
-    
-    <form name="AddExamController" action="addExam" method="post">
-         id : <input type = "text" name = "id">
-         <br />
-         title: <input type = "text" name = "title">
-         <br />
-         status:<input type = "text" name="status">
-         <br />
-         subject_code: <input type = "text" value="<%= (String)request.getAttribute("subject_code")%>" name = "subject_code" />
-         <br />
-         <input type = "submit" value = "Add New Exam" />
-      </form>
-    
-    </div>
+  
+
+ <!--    <div align="center"> -->
+<div class="text-center">
+ <span style="color:red"><%=(request.getSession(false).getAttribute("errMessageExam") == null) ? "" : request.getSession(false).getAttribute("errMessageExam")%></span>
+ <%
+session.removeAttribute("errMessageExam");
+
+%>
+</div>
+
+		<form class="border border-light p-5 col-md-4 offset-md-4" name="AddExamController" action="addExam" method="post">
+		
+			<div class="form-group row">
+				<label class="col-md-4">Exam Id :</label> 
+				<div >
+				<input type="number" name="id" class="form-control" required>
+				</div>
+			</div>
+			
+			
+			<div class="form-group row">
+				<label class="col-md-4">Title:</label> 
+				<div >
+				<input type="text" name="title" class="form-control" required>
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label class="col-md-4">Status:</label> 
+				<div >
+						<select name="status" id="status">
+				<option value="0">0</option>
+				<option value="1">1</option>
+			</select> 
+				</div>
+			</div>
+			
+<!-- 			<div class="form-group">
+				<label>Title:</label> <input type="text" name="id" class="form-control">
+			</div> -->
+			
+<!-- 			Exam Id : <input type="text" name="id"> <br /> 
+			Title: <input type="text" name="title"> <br /> 
+			<label for="status">Status:</label>
+			<input type = "text" name="status">
+			<select name="status" id="status">
+				<option value="0">0</option>
+				<option value="1">1</option>
+			</select> <br /> -->
+
+
+			<!--  subject_code:  -->
+			<input type="hidden"
+				value="<%=(String) request.getAttribute("subject_code")%>"
+				name="subject_code" /> <br /> 
+				
+			<input class="btn btn-primary col-md-6  offset-md-2" type="submit"
+				value="Add New Exam" />
+		</form>
+
+<!-- 	</div> -->
 </body>
 </html>
