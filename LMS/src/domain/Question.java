@@ -6,7 +6,7 @@ import java.util.*;
 
 import datasource.DBConnection;
 
-public class Question {
+public class Question extends DomainObject{
 	private int id;
 	private int question_type;
 	private String title;

@@ -39,6 +39,11 @@
 </head>
 <body>
 <a class="sel_btn" href="/LMS/login.jsp">Dashboard</a> 
+<span style="color:red"><%=(request.getSession(false).getAttribute("errMessageQuestion") == null) ? "" : request.getSession(false).getAttribute("errMessageQuestion")%></span>
+ <%
+session.removeAttribute("errMessageQuestion");
+
+%>
  <div align="center">
         <table  style="width:70%">
             <tr>
