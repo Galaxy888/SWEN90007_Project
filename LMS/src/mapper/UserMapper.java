@@ -1,4 +1,4 @@
-package dataMapper;
+package mapper;
 
 import datasource.DBConnection;
 import domain.User;
