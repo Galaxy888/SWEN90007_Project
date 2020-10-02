@@ -3,13 +3,17 @@ package domain;
 import java.sql.*;
 import java.util.*;
 
+import dataMapper.ExamMapper;
+import dataMapper.QuestionMapper;
 import datasource.DBConnection;
 
-public class Subject {
+public class Subject extends DomainObject {
 	
 	private String subjectCode;
     private String name;  
     private int coordinator_id;
+    
+    private List<Exam> allExams = new ArrayList<>();
     
     private static final String findAllSubjectsStatement =
 			"SELECT * from subjects";
@@ -20,7 +24,13 @@ public class Subject {
         this.subjectCode = subjectCode;
         this.coordinator_id = coordinator_id;
         this.name = name;
+        this.allExams = null;
     }
+
+	public Subject() {
+		// TODO Auto-generated constructor stub
+		this.allExams = null;
+	}
 
 	public String getSubjectCode() {
 		return subjectCode;
@@ -45,6 +55,24 @@ public class Subject {
 	public void setCoordinator(int coordinator_id) {
 		this.coordinator_id = coordinator_id;
 	}
+	
+	
+	//lazy load
+	public List<Exam> getAllExams() {
+		if(this.allExams==null) {
+			List<Exam> allExams = new ArrayList<>();
+			ExamMapper examMapper = new ExamMapper();
+			allExams = examMapper.getAllExams(this.subjectCode);
+			this.allExams = allExams;
+		}
+		return allExams;
+	}
+	
+	public void setAllExams( List<Exam> allQuestions) {
+		this.allExams = allQuestions;
+	}
+	
+	
 	
 	public static List<Subject> getAllSubjects() {
         List<Subject> subjects = new ArrayList<>();

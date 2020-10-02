@@ -1,7 +1,10 @@
 package dataMapper;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import datasource.DBConnection;
 import domain.DomainObject;
@@ -108,6 +111,31 @@ public class QuestionMapper extends DataMapper{
 		return true;
 		
 	}
+	
+	
+	//Get all questions
+	public List<Question> getAllQuestions(int exam_id) {
+        List<Question> questions = new ArrayList<>();
+        try {
+        	String stm = "select * from questions where exam_id='"+exam_id+"'";
+        	PreparedStatement stmt = DBConnection.prepare(stm);
+        	ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				int id = Integer.parseInt(rs.getString(1));
+				int type = Integer.parseInt(rs.getString(2));
+				String title = rs.getString(3);
+				String content = rs.getString(4);
+				String answer = rs.getString(5);
+				int mark = Integer.parseInt(rs.getString(6));
+				int examId = Integer.parseInt(rs.getString(7));
+				questions.add(new Question(id,type,title,content,answer,mark,examId));
+			}
+	
+		} catch (SQLException e) {
+	
+		}
+        return questions;
+    }
 	
 
 }

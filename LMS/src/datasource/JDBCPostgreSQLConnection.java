@@ -3,7 +3,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException; 
+import java.sql.SQLException;
+import java.util.List;
+
+import domain.Question; 
 
 public class JDBCPostgreSQLConnection {
 	private static final String url = "jdbc:postgresql://localhost:5432/myDB";
@@ -28,6 +31,8 @@ public class JDBCPostgreSQLConnection {
 	public static void main(String[] args) throws SQLException { 
 		JDBCPostgreSQLConnection app = new JDBCPostgreSQLConnection();
 		app.connect(); 
+		List<String> allQuestions = null;
+		System.out.println(allQuestions);
 		
 	}
 	

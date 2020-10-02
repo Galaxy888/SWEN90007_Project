@@ -3,7 +3,7 @@ package domain;
 import java.sql.*;
 import java.util.*;
 
-
+import dataMapper.QuestionMapper;
 import datasource.DBConnection;
 
 public class Exam extends DomainObject{
@@ -11,6 +11,9 @@ public class Exam extends DomainObject{
 	private String title;
 	private int status;
     private String subject_code;
+    
+//    private List<Exam> allExams = new ArrayList<>();
+    private List<Question> allQuestions;
     
     private static final String findAllSubjectsStatement =
 			"SELECT * from exams";
@@ -22,6 +25,7 @@ public class Exam extends DomainObject{
         this.title = title;
         this.status = status;
         this.subject_code = subject_code;
+        this.allQuestions = null;
     }
 
 	public Exam() {
@@ -62,6 +66,32 @@ public class Exam extends DomainObject{
 		this.subject_code = subject_code;
 	}
 	
+//	public List<Exam> getAllExams() {
+//		return allExams;
+//	}
+//	
+//	public void setAllExams( List<Exam> allExams) {
+//		this.allExams = allExams;
+//	}
+	
+	//lazy load
+	public List<Question> getAllQuestions() {
+		if(this.allQuestions==null) {
+			List<Question> allQuestions = new ArrayList<>();
+			QuestionMapper questionMapper = new QuestionMapper();
+			allQuestions = questionMapper.getAllQuestions(this.id);
+			this.allQuestions = allQuestions;
+		}
+		return allQuestions;
+	}
+	
+	public void setAllQuestions( List<Question> allQuestions) {
+		this.allQuestions = allQuestions;
+	}
+	
+	
+	
+	
 	//Update an exam info
 	public void updateExam(int id, String title, int status,String subject_code) throws SQLException {
 		// TODO Auto-generated method stub
@@ -80,25 +110,28 @@ public class Exam extends DomainObject{
 	}
 	
 	//Get all exams
-	public static List<Exam> getAllExams(String subject_code) {
-        List<Exam> exams = new ArrayList<>();
-        try {
-        	String stm = "select * from exams where subject_code='"+subject_code+"'";
-        	PreparedStatement stmt = DBConnection.prepare(stm);
-        	ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
-				int id = Integer.parseInt(rs.getString(1));
-				String title = rs.getString(2);
-				int status = Integer.parseInt(rs.getString(3));
-				String subject = rs.getString(4);
-				exams.add(new Exam(id,title,status,subject));
-			}
+//	public static List<Exam> getAllExams(String subject_code) {
+//        List<Exam> exams = new ArrayList<>();
+//        try {
+//        	String stm = "select * from exams where subject_code='"+subject_code+"'";
+//        	PreparedStatement stmt = DBConnection.prepare(stm);
+//        	ResultSet rs = stmt.executeQuery();
+//			while (rs.next()) {
+//				int id = Integer.parseInt(rs.getString(1));
+//				String title = rs.getString(2);
+//				int status = Integer.parseInt(rs.getString(3));
+//				String subject = rs.getString(4);
+//				exams.add(new Exam(id,title,status,subject));
+//			}
+//	
+//		} catch (SQLException e) {
+//	
+//		}
+//        return exams;
+//    }
 	
-		} catch (SQLException e) {
 	
-		}
-        return exams;
-    }
+
 	
 	//Insert an new exam
 	public int insert() {

@@ -1,7 +1,10 @@
 package dataMapper;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import datasource.DBConnection;
 import domain.DomainObject;
@@ -100,6 +103,29 @@ public class ExamMapper extends DataMapper {
 //		DBConnection.closeConnection()
 //	}
 	}
+	
+	
+	
+	public List<Exam> getAllExams(String subject_code) {
+	
+        List<Exam> exams = new ArrayList<>();
+        try {
+        	String stm = "select * from exams where subject_code='"+subject_code+"'";
+        	PreparedStatement stmt = DBConnection.prepare(stm);
+        	ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				int id = Integer.parseInt(rs.getString(1));
+				String title = rs.getString(2);
+				int status = Integer.parseInt(rs.getString(3));
+				String subject = rs.getString(4);
+				exams.add(new Exam(id,title,status,subject));
+			}
+	
+		} catch (SQLException e) {
+	
+		}
+        return exams;
+    }
 	
 
 }
