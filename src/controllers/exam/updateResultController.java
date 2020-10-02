@@ -8,8 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import domain.Mark;
+import service.MarkService;
 
 /**
  * Servlet implementation class updateResultController
@@ -17,13 +19,14 @@ import domain.Mark;
 //@WebServlet("/updateResultController")
 public class updateResultController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private MarkService markService;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
     public updateResultController() {
         super();
-        // TODO Auto-generated constructor stub
+        markService = new MarkService();
     }
 
 	/**
@@ -44,14 +47,24 @@ public class updateResultController extends HttpServlet {
 		int mark = Integer.parseInt(request.getParameter("mark"));
 		int status = Integer.parseInt(request.getParameter("status"));
 		
-		Mark result = new Mark();
-		try {
-			result.updateResult(id, exam_id, mark, status);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		Boolean success = markService.updateResult(id, exam_id, mark, status);
+		System.out.println("update Result doPost success: "+success);
+		if (success) {
+			response.sendRedirect("./ViewMark");
+		}else {
+			HttpSession session = request.getSession(); 
+			session.setAttribute("errMessageQuestion", "something went wrong. update result error");
+			response.sendRedirect("./ViewMark");
 		}
-		response.sendRedirect("./questions");
+		
+//		Mark result = new Mark();
+//		try {
+//			result.updateResult(id, exam_id, mark, status);
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		response.sendRedirect("./questions");
 	}
 	
 
