@@ -32,6 +32,27 @@ public class QuestionService {
 		
 		return UnitOfWork.getCurrent().commit();
 	}
+	
+
+	public Boolean updateQuestion(int id, int type, String title, String content, String answer, int mark,
+			int exam_id) {
+		
+		UnitOfWork.newCurrent();
+		
+		Question question = new Question();
+		question.setId(id);
+		question.setType(type);
+		question.setTitle(title);
+		question.setContent(content);
+		question.setContent(content);
+		question.setMark(mark);
+		question.setExam(exam_id);
+		UnitOfWork.getCurrent().registerDiry(question);
+		
+		
+		return UnitOfWork.getCurrent().commit();
+
+	}
 
 
 	

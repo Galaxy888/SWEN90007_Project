@@ -10,8 +10,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import domain.Question;
+import service.QuestionService;
 
 /**
  * Servlet implementation class updateQuestionController
@@ -19,6 +21,7 @@ import domain.Question;
 //@WebServlet("/updateQuestion")
 public class updateQuestionController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private QuestionService questionService;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -26,6 +29,7 @@ public class updateQuestionController extends HttpServlet {
 	public updateQuestionController() {
 		super();
 		// TODO Auto-generated constructor stub
+		questionService = new QuestionService();
 	}
 
 	/**
@@ -55,20 +59,40 @@ public class updateQuestionController extends HttpServlet {
 		String answer = request.getParameter("answer");
 		int mark = Integer.parseInt(request.getParameter("mark"));
 		int exam_id = Integer.parseInt(request.getParameter("exam_id"));
-
-		Question question = new Question();
-		try {
-			question.updateQuestion(id, type, title, content, answer, mark, exam_id);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
+		
+		Boolean success = questionService.updateQuestion(id, type, title, content,  answer,  mark,  exam_id);
+		System.out.println("update question doPost success: "+success);
+		if (success) {
+			response.sendRedirect("./questions");
+		}else {
+			//TODO
+//			request.setAttribute("errMessageExam", "something went wrong. The exam is already exist");
+			HttpSession session = request.getSession(); 
+			session.setAttribute("errMessageQuestion", "something went wrong. The question is update error");
+			response.sendRedirect("./questions");
+//			doGet(request,response);
+//			response.sendRedirect("./exams");
 		}
+		
+		
 
-//		List<Question> questions = new ArrayList<>();
-//		questions = question.getAllQuestions(exam_id);
-//		request.setAttribute("questions", questions);
-//		request.getRequestDispatcher("./questions.jsp").forward(request, response);
-		response.sendRedirect("./questions");
+//		Question question = new Question();
+//		try {
+//			question.updateQuestion(id, type, title, content, answer, mark, exam_id);
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//
+////		List<Question> questions = new ArrayList<>();
+////		questions = question.getAllQuestions(exam_id);
+////		request.setAttribute("questions", questions);
+////		request.getRequestDispatcher("./questions.jsp").forward(request, response);
+//		response.sendRedirect("./questions");
+		
+		
+		
 	}
 
 }
