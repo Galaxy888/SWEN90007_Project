@@ -1,4 +1,4 @@
-<%@ page import="domain.Exam" 
+<%@ page import="domain.User" 
     import="datasource.DBConnection"
     import="java.sql.*"
     import="java.util.*"
@@ -35,41 +35,41 @@
     </script>
 </head>
 <body>
-<a class="sel_btn" href="/dashboard">DashBoard</a> 
+<a class="sel_btn" href="/LMS/login.jsp">DashBoard</a> 
  <div align="center">
         <table  style="width:70%">
             <tr>
-                <th>exam Id</th>
-                <th>exam Title</th>
-                <th>exam Status</th>
-                <th>Subject</th>
+                <th>Student Id</th>
+                <th>Student Name</th>
+                <th>Student Password</th>
+                <th>Student Email</th>
                 <th>Operation</th>
             </tr>
             
                 <tr>
  			<%
- 			     List<Exam> exams = new ArrayList<>(); 
- 			     exams = (List<Exam>)request.getAttribute("exams");//获取request中名称为student的值
-           		 for (Exam exam : exams) {
+ 			     List<User> users = new ArrayList<>(); 
+ 			     users = (List<User>)request.getAttribute("users");//获取request中名称为student的值
+           		 for (User user: users) {
        		 %>
-       		        <td><%= exam.getId() %></td>
-                    <td><%= exam.getTitle() %></td>
-                    <td><%= exam.getStatus() %>
-                    <td><%= exam.getSubject()  %></td>
+       		        <td><%= user.getId() %></td>
+                    <td><%= user.getName() %></td>
+                    <td><%= user.getEmail() %>
+                    <td><%= user.getPassword()  %></td>
                     <td>
                     <button type="button" class="sel_btn" data-toggle="modal" data-target="#updateModal" id="btn_update" 
-                    onclick="showInfo2('<%= exam.getId() %>','<%= exam.getTitle() %>','<%= exam.getStatus() %>','<%= exam.getSubject() %>')">
+                    onclick="showInfo2('<%= user.getId() %>','<%= user.getName() %>','<%= user.getEmail() %>','<%= user.getPassword() %>','<%= user.getType() %>')">
                     Update</button>
 	                 <%-- <a class="sel_btn" href="./updateExam?id=<%=exam.getId()%>&title=<%=exam.getTitle()%>&status=<%=exam.getStatus()%>&subject_code=<%=exam.getSubject()%>">Edit</a> --%>
 	                 <%-- <a class="sel_btn" href="./questions?exam_id=<%=exam.getId()%>">Edit Questions</a> --%>
-	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/questions">Edit Questions</a>
-	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/ViewAnswer">View answers</a>
-	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/ViewMark">View exam results</a>
+	                 <a class="sel_btn" href="exams/<%=user.getId()%>/questions">Edit Questions</a>
+	                 <a class="sel_btn" href="exams/<%=user.getId()%>/ViewAnswer">View answers</a>
+	                 <a class="sel_btn" href="exams/<%=user.getId()%>/ViewMark">View exam results</a>
 	                 <%--<a class="sel_btn" href="./deleteExam?subject_code=<%=exam.getSubject() %>&id=<%=exam.getId()%>">Delete</a>--%>
 	                 <%-- <a class="sel_btn" href="./deleteExam/<%=exam.getId()%>/<%= exam.getStatus() %>">Delete</a> --%>
 	                <%--  <button type="button" onclick="deleteExam('<%=exam.getId()%>')">Delete</button> --%>
 	                 <form class = "sel_btn" name="delete" method="post" action="deleteExam">
-	                 <input class = "sel_btn"  name="id" type="hidden" value=<%=exam.getId()%>>
+	                 <input class = "sel_btn"  name="id" type="hidden" value=<%=user.getId()%>>
 	                 <input class = "sel_btn"  type = "submit" value = "Delete" />
 	                 </form>
 

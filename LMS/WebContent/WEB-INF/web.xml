@@ -78,6 +78,32 @@
 		<url-pattern>/addSubject</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>addInstructorController</servlet-name>
+		<servlet-class>controllers.addInstructorController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>addInstructorController</servlet-name>
+		<url-pattern>/addInstructor</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>StudentController</servlet-name>
+		<servlet-class>controllers.StudentController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>StudentController</servlet-name>
+		<url-pattern>/Student</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>addStudentController</servlet-name>
+		<servlet-class>controllers.addStudentController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>addStudentController</servlet-name>
+		<url-pattern>/addStudent</url-pattern>
+	</servlet-mapping>
 
 	<!--#################### Exam #################### -->
 	<servlet>
@@ -115,7 +141,24 @@
 		<servlet-name>deleteExamController</servlet-name>
 		<url-pattern>/deleteExam</url-pattern>
 	</servlet-mapping>
-
+    
+    <servlet>
+		<servlet-name>ViewExamResultController</servlet-name>
+		<servlet-class>controllers.exam.ViewExamResultController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ViewExamResultController</servlet-name>
+		<url-pattern>/ViewMark</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>updateResultController</servlet-name>
+		<servlet-class>controllers.exam.updateResultController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>updateResultController</servlet-name>
+		<url-pattern>/updateResult</url-pattern>
+	</servlet-mapping>
 
 	<!--#################### Question #################### -->
 	<servlet>
@@ -124,10 +167,26 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>TakeQuestionController</servlet-name>
-		<url-pattern>/takeQuestion</url-pattern>
+		<url-pattern>/TakeQuestion</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>MarkAnswerController</servlet-name>
+		<servlet-class>controllers.question.MarkAnswerController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MarkAnswerController</servlet-name>
+		<url-pattern>/markAnswer</url-pattern>
+	</servlet-mapping>
 	
+		<servlet>
+		<servlet-name>AnswerListController</servlet-name>
+		<servlet-class>controllers.question.AnswerListController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AnswerListController</servlet-name>
+		<url-pattern>/ViewAnswer</url-pattern>
+	</servlet-mapping>
 	
 	<servlet>
 		<servlet-name>QuestionController</servlet-name>

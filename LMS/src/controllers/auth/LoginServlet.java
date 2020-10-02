@@ -50,18 +50,7 @@ public class LoginServlet extends HttpServlet {
 //		PrintWriter writer = response.getWriter();
 //		writer.println("<h3> Hello from Get "+user+  "   " +pass+ "</h3>");
 //		doPost(request, response);
-		
-//		HttpSession session = request.getSession();
-//		System.out.println(request.getSession(false).getAttribute("errMessage"));
-//		if(request.getSession(false).getAttribute("errMessage")==null) {
-//			response.sendRedirect("/login.jsp");
-//		}else {
-//			session.setAttribute("errMessage", null);
-//			response.sendRedirect("/login.jsp");
-//		}
-		response.sendRedirect("/login.jsp");
-		
-		
+		response.sendRedirect("/LMS/login.jsp");
 	}
 
 	/**
@@ -83,8 +72,7 @@ public class LoginServlet extends HttpServlet {
 
 		UserMapper userMapper = new UserMapper();
 		User userValidate = userMapper.authenticateUser(userName, password);
-		System.out.println("User type: "+userValidate.getType());
-
+        System.out.print(userValidate);
 		if (userValidate.getType()==1) {
 			System.out.println("Admin's Dashboard");
 
@@ -95,7 +83,7 @@ public class LoginServlet extends HttpServlet {
 //            request.setAttribute("userName", userName);
 //            request.setAttribute("userType", "Admin");
 
-			response.sendRedirect("/dashboard");
+			response.sendRedirect("/LMS/dashboard");
 //            request.getRequestDispatcher("/dashboard").forward(request, response);
 
 		} else if (userValidate.getType()==2) {
@@ -108,7 +96,7 @@ public class LoginServlet extends HttpServlet {
 //            request.setAttribute("userName", userName);
 //            request.setAttribute("userType", "Instructor");
 
-			response.sendRedirect("/dashboard");
+			response.sendRedirect("/LMS/dashboard");
 //            request.getRequestDispatcher("/dashboard").forward(request, response);
 		} else if (userValidate.getType()==3) {
 			System.out.println("Student's Dashboard");
@@ -121,18 +109,18 @@ public class LoginServlet extends HttpServlet {
 //            request.setAttribute("userName", userName);
 //            request.setAttribute("userType", "Student");
 
-			response.sendRedirect("/dashboard");
+			response.sendRedirect("/LMS/dashboard");
 //            request.getRequestDispatcher("/dashboard").forward(request, response);
 		} else {
-			System.out.println("Error message = " + "Invalid username or password");
+			System.out.println("Error message = " + userValidate);
 //            request.setAttribute("errMessage", userValidate);
 			HttpSession session = request.getSession();
-			session.setAttribute("errMessage", "Invalid username or password");
-			response.sendRedirect("/login.jsp");
+			session.setAttribute("errMessage", userValidate);
+			response.sendRedirect("/LMS/login.jsp");
 
 //            request.getRequestDispatcher("/login.jsp").forward(request, response);
 		}
-
+       }
 //		String stm = ("Select * FROM users WHERE name = '" + userName + "' AND password = '" + password + "';" );
 ////		writer.println("<h3> Hello from Post: Your user name is: "+user+", Your password is: " +pass+ "</h3>");
 //		try {
@@ -172,4 +160,4 @@ public class LoginServlet extends HttpServlet {
 //		}
 	}
 
-}
+

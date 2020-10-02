@@ -79,8 +79,23 @@ public class dashboardController extends HttpServlet {
 			// TODO student and admin
 			        request.getRequestDispatcher("dashboard.jsp").forward(request, response);
 		
+				} else if (userType.equals("Admin")) {
+					Subject subject = new Subject();
+					List<Subject> subjects = new ArrayList<>();
+					subjects = subject.getAllSubjects();
+					request.setAttribute("subjects", subjects);
+					request.setAttribute("user_type", userType);
+					request.getRequestDispatcher("dashboard.jsp").forward(request, response);
+					
 				}
 				
+			
+			
+			
+			
+			
+			
+			
 				} catch (Exception exp) {
 			System.out.println(exp);}
 		

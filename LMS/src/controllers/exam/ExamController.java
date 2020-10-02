@@ -56,7 +56,7 @@ public class ExamController extends HttpServlet {
 		
 		
 		String userType = (String) request.getSession(false).getAttribute("userType");
-		
+		int user_id = (int)request.getSession(false).getAttribute("user_id");
 		if(userType.equals("Instructor")) {
 			if(pathParts.length == 3) {
 				subjectCode = pathParts[1];
@@ -114,7 +114,7 @@ public class ExamController extends HttpServlet {
 					request.getRequestDispatcher("/updateExam").forward(request, response);
 				} else if (operation.equals("deleteExam")) {
 					request.getRequestDispatcher("/deleteExam").forward(request, response);
-				}
+				} 
 			}
 			else if (pathParts.length == 5) {
 				subjectCode = pathParts[1];
@@ -124,17 +124,17 @@ public class ExamController extends HttpServlet {
 					request.setAttribute("exam_id", exam_id);
 					request.setAttribute("operation", operation);
 					request.getRequestDispatcher("/question").forward(request, response);
-				} else {
+				} else if(pathParts[4].equals("ViewAnswer")) {
+					String exam_id = pathParts[3];
+					String operation = pathParts[4];
+					request.setAttribute("exam_id", exam_id);
+					request.setAttribute("operation", operation);
+					request.getRequestDispatcher("/ViewAnswer").forward(request, response);
+				}
+				else {
 					response.sendRedirect("/LMS/dashboard");
 				}
 			}
-			
-			
-			
-			
-			
-			
-			
 		}
 		else if (userType.equals("Student")) {
 			if(pathParts.length == 3) {
@@ -150,6 +150,16 @@ public class ExamController extends HttpServlet {
 						ResultSet rs = stmt.executeQuery();
 						while (rs.next()) {
 							int id = Integer.parseInt(rs.getString(1));
+							int mark = 0;
+							String sql = "select * from users_exams where user_id ='"+user_id+"' and exam_id='"+id+"' limit 1";
+							PreparedStatement search = DBConnection.prepare(sql);
+							ResultSet rs1 = search.executeQuery();
+							while(rs1.next()) {
+								mark = Integer.parseInt(rs1.getString(3));
+							}
+							System.out.print(mark);
+							request.setAttribute("mark"+id, mark);
+							
 							String title = rs.getString(2);
 							int status = Integer.parseInt(rs.getString(3));
 							String code = rs.getString(4);
@@ -200,7 +210,8 @@ public class ExamController extends HttpServlet {
 					request.setAttribute("exam_id", exam_id);
 					request.setAttribute("operation", operation);
 					request.getRequestDispatcher("/question").forward(request, response);
-				} else {
+				} 
+				else {
 					response.sendRedirect("/LMS/dashboard");
 				}
 			}
@@ -220,7 +231,32 @@ public class ExamController extends HttpServlet {
 			
 			
 			
-		}else {
+		}else if (userType.equals("Admin")) {
+			if(pathParts.length == 3) {
+				subjectCode = pathParts[1];
+				String operation = pathParts[2]; // add/update/delete
+				System.out.print(operation);
+				request.setAttribute("subject_code",subjectCode );
+				if (operation.equals("instructor")) {
+					request.getRequestDispatcher("/addInstructor").forward(request, response);
+				}else if (operation.equals("student")) {
+					request.setAttribute("subject_code",subjectCode );
+					request.getRequestDispatcher("/Student").forward(request, response);
+				}else if (operation.equals("addSubject")) {
+					request.getRequestDispatcher("/addSubject").forward(request, response);
+				}
+				
+			}
+			
+			
+			
+			
+			
+		}
+		
+		
+		
+		else {
 			response.sendRedirect("/LMS/login.jsp");
 //		}
 
