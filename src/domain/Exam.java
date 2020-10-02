@@ -78,21 +78,21 @@ public class Exam extends DomainObject {
 	}
 
 	// Update an exam info
-	public void updateExam(int id, String title, int status, String subject_code) throws SQLException {
-		// TODO Auto-generated method stub
-		String sql = "update exams set title=?,status=?,subject_code=? where id=?";
-		PreparedStatement stmt = DBConnection.prepare(sql);
-		try {
-			stmt.setString(1, title);
-			stmt.setInt(2, status);
-			stmt.setString(3, subject_code);
-			stmt.setInt(4, id);
-			stmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	public void updateExam(int id, String title, int status, String subject_code) throws SQLException {
+//		// TODO Auto-generated method stub
+//		String sql = "update exams set title=?,status=?,subject_code=? where id=?";
+//		PreparedStatement stmt = DBConnection.prepare(sql);
+//		try {
+//			stmt.setString(1, title);
+//			stmt.setInt(2, status);
+//			stmt.setString(3, subject_code);
+//			stmt.setInt(4, id);
+//			stmt.executeUpdate();
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 
 	// Get all exams
 	public static List<Exam> getAllExams(String subject_code) {
@@ -116,33 +116,33 @@ public class Exam extends DomainObject {
 	}
 
 	// Insert an new exam
-	public int insert() {
-		try {
-			PreparedStatement insertStatement = DBConnection.prepare(insertSubjectStatement);
-			insertStatement.setInt(1, id);
-			insertStatement.setString(2, title);
-			insertStatement.setInt(3, status);
-			insertStatement.setString(4, subject_code);
-			insertStatement.execute();
-		} catch (SQLException e) {
-		}
-		return getId();
-
-	}
+//	public int insert() {
+//		try {
+//			PreparedStatement insertStatement = DBConnection.prepare(insertSubjectStatement);
+//			insertStatement.setInt(1, id);
+//			insertStatement.setString(2, title);
+//			insertStatement.setInt(3, status);
+//			insertStatement.setString(4, subject_code);
+//			insertStatement.execute();
+//		} catch (SQLException e) {
+//		}
+//		return getId();
+//
+//	}
 
 	// Delete an exam
-	public void deleteExam(int id) {
-		// TODO Auto-generated method stub
-		String sql = "delete from exams where id=? and status = 0";
-		try {
-			PreparedStatement stmt = DBConnection.prepare(sql);
-			stmt.setInt(1, id);
-			stmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
+//	public void deleteExam(int id) {
+//		// TODO Auto-generated method stub
+//		String sql = "delete from exams where id=? and status = 0";
+//		try {
+//			PreparedStatement stmt = DBConnection.prepare(sql);
+//			stmt.setInt(1, id);
+//			stmt.executeUpdate();
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//
+//	}
 
 }

@@ -85,25 +85,25 @@ public class Question extends DomainObject {
 	}
 
 	// Update a question info
-	public void updateQuestion(int id, int type, String title, String content, String answer, int mark, int exam_id)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		String sql = "update questions set question_type=?,title=?,content=?,answer=?,mark=?,exam_id=? where id=?";
-		PreparedStatement stmt = DBConnection.prepare(sql);
-		try {
-			stmt.setInt(1, type);
-			stmt.setString(2, title);
-			stmt.setString(3, content);
-			stmt.setString(4, answer);
-			stmt.setInt(5, mark);
-			stmt.setInt(6, exam_id);
-			stmt.setInt(7, id);
-			stmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	public void updateQuestion(int id, int type, String title, String content, String answer, int mark, int exam_id)
+//			throws SQLException {
+//		// TODO Auto-generated method stub
+//		String sql = "update questions set question_type=?,title=?,content=?,answer=?,mark=?,exam_id=? where id=?";
+//		PreparedStatement stmt = DBConnection.prepare(sql);
+//		try {
+//			stmt.setInt(1, type);
+//			stmt.setString(2, title);
+//			stmt.setString(3, content);
+//			stmt.setString(4, answer);
+//			stmt.setInt(5, mark);
+//			stmt.setInt(6, exam_id);
+//			stmt.setInt(7, id);
+//			stmt.executeUpdate();
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 
 	// Get all questions
 	public List<Question> getAllQuestions(int exam_id) {
@@ -130,38 +130,38 @@ public class Question extends DomainObject {
 	}
 
 	// Insert an new question
-	public int insert() {
-		try {
-			String stm = "INSERT INTO questions VALUES (?, ?, ?,?,?,?,?)";
-			;
-			PreparedStatement insertStatement = DBConnection.prepare(stm);
-			insertStatement.setInt(1, id);
-			insertStatement.setInt(2, question_type);
-			insertStatement.setString(3, title);
-			insertStatement.setString(4, content);
-			insertStatement.setString(5, answer);
-			insertStatement.setInt(6, mark);
-			insertStatement.setInt(7, exam_id);
-			insertStatement.execute();
-		} catch (SQLException e) {
-		}
-		return getId();
-
-	}
+//	public int insert() {
+//		try {
+//			String stm = "INSERT INTO questions VALUES (?, ?, ?,?,?,?,?)";
+//			;
+//			PreparedStatement insertStatement = DBConnection.prepare(stm);
+//			insertStatement.setInt(1, id);
+//			insertStatement.setInt(2, question_type);
+//			insertStatement.setString(3, title);
+//			insertStatement.setString(4, content);
+//			insertStatement.setString(5, answer);
+//			insertStatement.setInt(6, mark);
+//			insertStatement.setInt(7, exam_id);
+//			insertStatement.execute();
+//		} catch (SQLException e) {
+//		}
+//		return getId();
+//
+//	}
 
 	// Delete a question
-	public void deleteQuestion(int id) {
-		// TODO Auto-generated method stub
-		String sql = "delete from questions where id=?";
-		try {
-			PreparedStatement stmt = DBConnection.prepare(sql);
-			stmt.setInt(1, id);
-			stmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
+//	public void deleteQuestion(int id) {
+//		// TODO Auto-generated method stub
+//		String sql = "delete from questions where id=?";
+//		try {
+//			PreparedStatement stmt = DBConnection.prepare(sql);
+//			stmt.setInt(1, id);
+//			stmt.executeUpdate();
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//
+//	}
 
 }
