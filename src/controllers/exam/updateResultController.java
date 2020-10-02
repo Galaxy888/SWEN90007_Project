@@ -1,42 +1,36 @@
-package controllers;
+package controllers.exam;
 
 import java.io.IOException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import datasource.DBConnection;
-import domain.Exam;
-import domain.Subject;
+import domain.Mark;
 
 /**
- * Servlet implementation class addSubjectController
+ * Servlet implementation class updateResultController
  */
-@WebServlet("/subject")
-public class addSubjectController extends HttpServlet {
+//@WebServlet("/updateResultController")
+public class updateResultController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public addSubjectController() {
+    public updateResultController() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doPost(request, response);
 	}
 
@@ -44,17 +38,21 @@ public class addSubjectController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		int id = Integer.parseInt(request.getParameter("user_id"));
+		int exam_id = Integer.parseInt(request.getParameter("exam_id"));
+		int mark = Integer.parseInt(request.getParameter("mark"));
+		int status = Integer.parseInt(request.getParameter("status"));
 		
-		String code = request.getParameter("code");
-		String name = request.getParameter("name");
-		int id = Integer.parseInt(request.getParameter("id"));
-	
-		Subject subject = new Subject(code, name, id);
-		subject.insert();
-		
-		response.sendRedirect("/LMS/dashboard");
-		
-
+		Mark result = new Mark();
+		try {
+			result.updateResult(id, exam_id, mark, status);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		response.sendRedirect("./questions");
 	}
+	
 
 }

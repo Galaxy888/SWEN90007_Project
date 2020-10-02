@@ -86,7 +86,35 @@ public class QuestionController extends HttpServlet {
 			request.setAttribute("exam_id",exam_id );
 			request.setAttribute("questions", questions);
 			request.getRequestDispatcher("./questions.jsp").forward(request, response);
-			} else if (userType.equals("Student")) {
+			} else if (userType.equals("Student")) {  //show all questions
+				System.out.print("Student");
+				int flag=0;
+				 int user_id = (int)session.getAttribute("user_id");
+				 String sql1= "select * from users_exams where user_id='"+user_id+"'and exam_id='"+exam_id+"'";
+				 try {
+					    PreparedStatement stmt = DBConnection.prepare(sql1);
+					    ResultSet rs = stmt.executeQuery();
+					    if (!rs.next()) {
+					    	flag=1;
+					    }
+		        }	catch (SQLException e) {
+         
+					System.out.println(e.getMessage());
+				}   
+				 if (flag==1) {
+			        String sql2 = "INSERT INTO users_exams VALUES (?, ?, 0,0)";
+			        try {
+						    PreparedStatement insertStatement = DBConnection.prepare(sql2);
+							insertStatement.setInt(1,user_id);
+							insertStatement.setInt(2, exam_id);
+							insertStatement.execute();	
+			        }	catch (SQLException e) {
+
+						System.out.println(e.getMessage());
+					}
+				
+				
+				
 				List<Question> questions = new ArrayList<>();
 				String stm = "select * from questions where exam_id='" + exam_id + "'";
 				try {
@@ -109,15 +137,32 @@ public class QuestionController extends HttpServlet {
 				request.setAttribute("exam_id",exam_id );
 				request.setAttribute("questions", questions);
 				request.getRequestDispatcher("./take_question.jsp").forward(request, response);
+				}else {
+					response.sendRedirect("/LMS/dashboard");
+				}
 			}
 
-		} else if (operation.equals("addQuestion")) {
+		} 
+		else if (operation.equals("addQuestion")) {
 			request.getRequestDispatcher("/addQuestion").forward(request, response);
 
 		} else if (operation.equals("updateQuestion")) {
 			request.getRequestDispatcher("/updateQuestion").forward(request, response);
 		} else if (operation.equals("deleteQuestion")) {
 			request.getRequestDispatcher("/deleteQuestion").forward(request, response);
+		}else if (operation.equals("TakeQuestion")) {
+			request.getRequestDispatcher("/TakeQuestion").forward(request, response);
+		}else if (operation.equals("exams")) {
+			request.getRequestDispatcher("/exams").forward(request, response);
+		}else if (operation.equals("ViewAnswer")) {
+			request.getRequestDispatcher("/ViewAnswer").forward(request, response);
+		}else if (operation.equals("markAnswer")) {
+			request.getRequestDispatcher("/markAnswer").forward(request, response);
+		}
+		else if (operation.equals("ViewMark")) {
+			request.getRequestDispatcher("/ViewMark").forward(request, response);
+		}else if (operation.equals("updateResult")) {
+			request.getRequestDispatcher("/updateResult").forward(request, response);
 		}
 		System.out.println();
 	}
