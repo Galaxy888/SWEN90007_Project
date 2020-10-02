@@ -1,6 +1,5 @@
 package service;
 
-import domain.Exam;
 import domain.Question;
 import shared.UnitOfWork;
 
@@ -52,6 +51,20 @@ public class QuestionService {
 		
 		return UnitOfWork.getCurrent().commit();
 
+	}
+
+	public Boolean deleteQuestion(int id) {
+		
+		UnitOfWork.newCurrent();
+		Question question = new Question();
+		question.setId(id);
+//		exam.setTitle(title);
+//		exam.setStatus(status);
+//		exam.setSubject(subject_code);
+		
+		UnitOfWork.getCurrent().registerDeleted(question);
+		
+		return UnitOfWork.getCurrent().commit();
 	}
 
 

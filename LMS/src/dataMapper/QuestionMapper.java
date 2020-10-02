@@ -54,7 +54,6 @@ public class QuestionMapper extends DataMapper{
 	@Override
 	public Boolean update(DomainObject obj) throws SQLException {
 		
-		System.out.println("QuestionMapper update");
 		Question question = (Question) obj;
 		
 		String updateQuestionStatement = "update questions set question_type=?,title=?,content=?,answer=?,mark=?,exam_id=? where id=?";
@@ -78,6 +77,36 @@ public class QuestionMapper extends DataMapper{
 //		finally {
 //		DBConnection.closeConnection()
 //	}
+	}
+	
+	
+	
+	/**
+	 * 
+	 * @param obj= question to be deleted
+	 * @return indication whether the delete is successful or not
+	 */
+	@Override
+	public Boolean delete(DomainObject obj) {
+		Question question = (Question) obj;
+
+		String deleteQuestionStatement =  "delete from questions where id=?";
+		
+		try {
+			PreparedStatement stmt = DBConnection.prepare(deleteQuestionStatement);
+			stmt.setInt(1, question.getId());
+			System.out.println("QuestionMapper delete ");
+			stmt.executeUpdate();
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+//		finally {
+//		DBConnection.closeConnection()
+//	}
+		return true;
+		
 	}
 	
 
