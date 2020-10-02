@@ -11,26 +11,25 @@ import domain.Subject;
 
 public class SubjectMapper extends DataMapper {
 	
-    private static final String findAllSubjectsStatement =
-			"SELECT * from subjects";
 	
-	public static List<Subject> getAllSubjects() {
-        List<Subject> subjects = new ArrayList<>();
-        try {
-        	PreparedStatement stmt = DBConnection.prepare(findAllSubjectsStatement);
+	public static List<Subject> getAllSubjects(int id) {
+		List<Subject> subjects = new ArrayList<>();
+		try {
+			String stm = "Select * from subjects where coordinator_id ='" + id + "'";
+			PreparedStatement stmt = DBConnection.prepare(stm);
 
-        	ResultSet rs = stmt.executeQuery();
+			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				String code = rs.getString(1);
 				String name = rs.getString(2);
 				int coordinator = Integer.parseInt(rs.getString(3));
-				subjects.add(new Subject(code,name,coordinator));
+				subjects.add(new Subject(code, name, coordinator));
 			}
-	
+
 		} catch (SQLException e) {
-	
+
 		}
-        return subjects;
-    }
+		return subjects;
+	}
 
 }

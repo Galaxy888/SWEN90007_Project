@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import datasource.DBConnection;
+import mapper.SubjectMapper;
 
 public class User extends DomainObject {
 	private int id;
@@ -14,6 +15,8 @@ public class User extends DomainObject {
 	private String email;
 	private String password;
 	private int type;
+
+	private List<Subject> allSubjects;
 	private static final String findAllUsersStatement = "SELECT * from users";
 	private static final String insertUsersStatement = "INSERT INTO users VALUES (?, ?, ?, ?, ?)";
 
@@ -23,10 +26,11 @@ public class User extends DomainObject {
 		this.email = email;
 		this.password = password;
 		this.type = type;
+		this.allSubjects = null;
 	}
 
 	public User() {
-		// TODO Auto-generated constructor stub
+		this.allSubjects = null;
 	}
 
 	public int getId() {
@@ -68,6 +72,23 @@ public class User extends DomainObject {
 	public void setType(int type) {
 		this.type = type;
 	}
+	
+	//lazy load
+	public List<Subject> getAllSubjects() {
+		if(this.allSubjects==null) {
+			List<Subject> allSubjects = new ArrayList<>();
+			SubjectMapper subjectMapper = new SubjectMapper();
+			allSubjects = subjectMapper.getAllSubjects(this.id);
+			this.allSubjects = allSubjects;
+		}
+		return allSubjects;
+	}
+	
+	public void setAllSubjects( List<Subject> allSubjects) {
+		this.allSubjects = allSubjects;
+	}
+	
+	
 
 	// Get all users by id
 	public static User getUser(int id) {

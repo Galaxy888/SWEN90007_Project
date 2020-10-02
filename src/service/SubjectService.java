@@ -6,6 +6,10 @@ import domain.Exam;
 import domain.Subject;
 
 public class SubjectService {
+	
+	public SubjectService() {
+
+	}
 
 	public List<Exam> getAllExams(String subjectCode) {
 		Subject subject = new Subject();

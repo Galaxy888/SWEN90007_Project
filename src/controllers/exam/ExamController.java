@@ -12,10 +12,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import datasource.DBConnection;
 import domain.Exam;
 import domain.Subject;
+import service.SubjectService;
 
 /**
  * Servlet implementation class ExamController
@@ -23,13 +25,14 @@ import domain.Subject;
 //@WebServlet("/ExamController")
 public class ExamController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private SubjectService subjectService;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public ExamController() {
 		super();
-		// TODO Auto-generated constructor stub
+		subjectService = new SubjectService();
 	}
 
 	/**
@@ -63,49 +66,40 @@ public class ExamController extends HttpServlet {
 				String operation = pathParts[2]; // add/update/delete
 				System.out.print(operation);
 				request.setAttribute("subject_code",subjectCode );
-				if (operation.equals("exams")) {	
-					String stm = "select * from exams where subject_code='" + subjectCode + "'";
-					List<Exam> exams = new ArrayList<>();
-					try {
-						PreparedStatement stmt = DBConnection.prepare(stm);
-						ResultSet rs = stmt.executeQuery();
-						while (rs.next()) {
-							int id = Integer.parseInt(rs.getString(1));
-							String title = rs.getString(2);
-							int status = Integer.parseInt(rs.getString(3));
-							String code = rs.getString(4);
-							Exam exam = new Exam(id, title, status, code);
-							exams.add(exam);
-						}
-					} catch (SQLException e) {
-
-						System.out.println(e.getMessage());
-					}
-					request.setAttribute("exams", exams);
-					request.getRequestDispatcher("/exams.jsp").forward(request, response);
+				if (operation.equals("exams")) {
 					
-//					else if (user_type.equals("Student")) {
-//						String stm = "select * from exams where subject_code='" + subjectCode + "'";
-//						List<Exam> exams = new ArrayList<>();
-//						try {
-//							PreparedStatement stmt = DBConnection.prepare(stm);
-//							ResultSet rs = stmt.executeQuery();
-//							while (rs.next()) {
-//								int id = Integer.parseInt(rs.getString(1));
-//								String title = rs.getString(2);
-//								int status = Integer.parseInt(rs.getString(3));
-//								String code = rs.getString(4);
-//								Exam exam = new Exam(id, title, status, code);
-//								exams.add(exam);
-//							}
-//						} catch (SQLException e) {
-//
-//							System.out.println(e.getMessage());
+					List<Exam> exams = subjectService.getAllExams(subjectCode);
+					System.out.println("ExamController : getAllExams"+ exams);
+					if (exams!=null) {
+						request.setAttribute("exams", exams);
+						request.getRequestDispatcher("/exams.jsp").forward(request, response);
+//						response.sendRedirect("./exams");
+					}else {
+						HttpSession session = request.getSession(); 
+						session.setAttribute("errMessageExam", "something went wrong. The exam is already exist");
+						response.sendRedirect("./exams");
+					}
+					
+//					String stm = "select * from exams where subject_code='" + subjectCode + "'";
+//					List<Exam> exams = new ArrayList<>();
+//					try {
+//						PreparedStatement stmt = DBConnection.prepare(stm);
+//						ResultSet rs = stmt.executeQuery();
+//						while (rs.next()) {
+//							int id = Integer.parseInt(rs.getString(1));
+//							String title = rs.getString(2);
+//							int status = Integer.parseInt(rs.getString(3));
+//							String code = rs.getString(4);
+//							Exam exam = new Exam(id, title, status, code);
+//							exams.add(exam);
 //						}
-//						request.setAttribute("exams", exams);
-//						request.getRequestDispatcher("/exams_student.jsp").forward(request, response);
+//					} catch (SQLException e) {
+//
+//						System.out.println(e.getMessage());
 //					}
-
+//					request.setAttribute("exams", exams);
+//					request.getRequestDispatcher("/exams.jsp").forward(request, response);
+					
 				}
 
 				else if (operation.equals("addExam")) {
