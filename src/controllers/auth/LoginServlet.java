@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dataMapper.UserMapper;
 import datasource.DBConnection;
 import domain.User;
+import mapper.UserMapper;
 
 /**
  * Servlet implementation class LoginServlet
@@ -115,7 +115,7 @@ public class LoginServlet extends HttpServlet {
 			System.out.println("Error message = " + userValidate);
 //            request.setAttribute("errMessage", userValidate);
 			HttpSession session = request.getSession();
-			session.setAttribute("errMessage", userValidate);
+			session.setAttribute("errMessage", "Invalid username or password");
 			response.sendRedirect("/login.jsp");
 
 //            request.getRequestDispatcher("/login.jsp").forward(request, response);

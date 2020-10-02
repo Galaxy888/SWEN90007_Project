@@ -36,6 +36,11 @@
 </head>
 <body>
 <a class="sel_btn" href="/dashboard">DashBoard</a> 
+<span style="color:red"><%=(request.getSession(false).getAttribute("errMessageExam") == null) ? "" : request.getSession(false).getAttribute("errMessageExam")%></span>
+ <%
+session.removeAttribute("errMessageExam");
+
+%>
  <div align="center">
         <table  style="width:70%">
             <tr>

@@ -1,10 +1,10 @@
 package domain;
 
-public class Instructor {
+public class Instructor extends DomainObject {
 	private String name;
 
 	public Instructor(String coordinatorName) {
-		
+
 		this.setName(coordinatorName);
 	}
 

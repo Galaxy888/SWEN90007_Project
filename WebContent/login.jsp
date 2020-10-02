@@ -22,6 +22,10 @@ if ((request.getSession(false).getAttribute("userName") != null)) {
 			<p class="text-center h1 mb-4">Log in</p>
 			<span class="center-block" style="color: red"><%=(request.getSession(false).getAttribute("errMessage") == null) ? ""
 		: request.getSession(false).getAttribute("errMessage")%></span>
+			<%
+session.removeAttribute("errMessage");
+
+%>
 		</div>
 
 		<div class="form-group">
