@@ -72,8 +72,8 @@ public class LoginServlet extends HttpServlet {
 
 		UserMapper userMapper = new UserMapper();
 		User userValidate = userMapper.authenticateUser(userName, password);
-
-		if (userValidate.getType()==0) {
+        System.out.print(userValidate);
+		if (userValidate.getType()==1) {
 			System.out.println("Admin's Dashboard");
 
 			HttpSession session = request.getSession(); // Creating a session
@@ -86,7 +86,7 @@ public class LoginServlet extends HttpServlet {
 			response.sendRedirect("/LMS/dashboard");
 //            request.getRequestDispatcher("/dashboard").forward(request, response);
 
-		} else if (userValidate.getType()==1) {
+		} else if (userValidate.getType()==2) {
 			System.out.println("Instructor's Dashboard");
 
 			HttpSession session = request.getSession();
@@ -98,7 +98,7 @@ public class LoginServlet extends HttpServlet {
 
 			response.sendRedirect("/LMS/dashboard");
 //            request.getRequestDispatcher("/dashboard").forward(request, response);
-		} else if (userValidate.getType()==2) {
+		} else if (userValidate.getType()==3) {
 			System.out.println("Student's Dashboard");
 
 			HttpSession session = request.getSession();
@@ -120,7 +120,7 @@ public class LoginServlet extends HttpServlet {
 
 //            request.getRequestDispatcher("/login.jsp").forward(request, response);
 		}
-
+       }
 //		String stm = ("Select * FROM users WHERE name = '" + userName + "' AND password = '" + password + "';" );
 ////		writer.println("<h3> Hello from Post: Your user name is: "+user+", Your password is: " +pass+ "</h3>");
 //		try {
@@ -160,4 +160,4 @@ public class LoginServlet extends HttpServlet {
 //		}
 	}
 
-}
+

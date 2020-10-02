@@ -16,38 +16,56 @@
 <div align="center">
         <table  style="width:70%">
             <tr>
-                <th>Question Id</th>
+                <th>Question id</th>
                 <th>Question Title</th>
                 <th>Question content</th>
-                <th>Question mark</th>
-                <th>Operation</th>
+                <th>Answer</th>
             </tr>
-            
-                <tr>
+            <form name="Answer" method="post" action="TakeQuestion">
+                <input name="exam_id" type="hidden" value=<%=(int)request.getAttribute("exam_id") %>>
+                
  			<%
  			     List<Question> questions = new ArrayList<>(); 
- 			     questions = (List<Question>)request.getAttribute("questions");//获取request中名称为student的值
+ 			     questions = (List<Question>)request.getAttribute("questions");//获取request中名称为student的值 
            		 for (Question question : questions) {
-       		 %>
+       		 %> 
+       		        <tr>
        		        <td><%= question.getId() %></td>
                     <td><%= question.getTitle() %></td>
-                    <td><%= question.getContent() %>
-                    <td><%= question.getMark() %></td>
+                     
+                   <%if(question.getType()==1){ %>
+                     
+                    <td><%= question.getContent() %></td>
                     <td>
-                    <button type="button" class="sel_btn" data-toggle="modal" data-target="#updateModal" id="btn_update" 
-                    onclick="showInfo2('<%= question.getId() %>','<%= question.getType() %>','<%= question.getTitle() %>',
-                    '<%= question.getContent() %>','<%= question.getMark()%>','<%= question.getAnswer()%>','<%= question.getExam() %>')">
-                    Update</button>
-	                 <%-- <a class="sel_btn" href="./deleteQuestion?exam_id=<%=question.getExam() %>&id=<%=question.getId()%>">Delete</a> --%>
-	                 <form name="answer" method=post action="TakeQuestionController">
-	                 <input name="id" type="hidden" value=<%=question.getId()%>>
-	                 <input type = "submit" value = "Delete" />
-	                 </form>
-	                 </td>
-                </tr>
+                     <input name="id<%=question.getId() %>" type="hidden" value=<%=question.getId()%>>
+	                 <input type="text" name="answer<%=question.getId() %>">
+	                </td>
+                   
+                   <%}else{ %>
+                     <td>
+                 
+                    <%
+                    String [] arr = question.getContent().split("#");
+                    for(String ss : arr){
+                     %>
+                    <input type="radio" name="answer<%=question.getId() %>" value=<%=ss %>><%=ss %>
+                    <%
+                    }
+                    %>
+                    <input name="id<%=question.getId() %>" type="hidden" value=<%=question.getId()%>>
+                 
+                    </td>
+                    <%} %>
+                    
+                   </tr>
             <%
           		  } // for loop
         	%>
+        	
+        	     <tr>
+        	     <input type = "submit" value = "Answer" />
+        	   </form>
+        	    </tr>
         </table>
          
     </div>
