@@ -63,9 +63,9 @@
  <div align="center">
         <table  style="width:70%">
             <tr>
-                <th>exam Id</th>
-                <th>exam Title</th>
-                <th>exam Status</th>
+                <th>Exam Id</th>
+                <th>Exam Title</th>
+                <th>Exam Status</th>
                 <th>Operation</th>
             </tr>
             
@@ -120,23 +120,23 @@
 										<!---------------------form-------------------->
 										
 									<div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">id</label>
+											<label for="firstname" class="col-sm-3 control-label">Exam Id:</label>
 												<div class="col-sm-7">
-													<input type="text" class="form-control" id="updateId" name="id"  placeholder="exam id">
+													<input type="number" class="form-control" id="updateId" name="id"  placeholder="exam id" required>
 												<label class="control-label" for="updateId" style="display: none;"></label>
 												</div>
 										</div>
 										
 										 <div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">title</label>
+											<label for="firstname" class="col-sm-3 control-label">Exam Title:</label>
 												<div class="col-sm-7">
-													<input type="text" class="form-control" id="updateTitle" name="title"  placeholder="input new title">
+													<input type="text" class="form-control" id="updateTitle" name="title"  placeholder="input new title" required>
 												<label class="control-label" for="updateTitle" style="display: none;"></label>
 												</div>
 										</div>
 										
 										<div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">Status</label>
+											<label for="firstname" class="col-sm-3 control-label">Exam Status:</label>
 												<div class="col-sm-7">
 														<select name="status" id="status">
 														<option value="0">0</option>
@@ -180,7 +180,7 @@ session.removeAttribute("errMessageExam");
 		<form class="border border-light p-5 col-md-4 offset-md-4" name="AddExamController" action="addExam" method="post">
 		
 			<div class="form-group row">
-				<label class="col-md-4">Exam Id :</label> 
+				<label class="col-md-4">Exam Id:</label> 
 				<div >
 				<input type="number" name="id" class="form-control" required>
 				</div>
@@ -188,14 +188,14 @@ session.removeAttribute("errMessageExam");
 			
 			
 			<div class="form-group row">
-				<label class="col-md-4">Title:</label> 
+				<label class="col-md-4">Exam Title:</label> 
 				<div >
 				<input type="text" name="title" class="form-control" required>
 				</div>
 			</div>
 			
 			<div class="form-group row">
-				<label class="col-md-4">Status:</label> 
+				<label class="col-md-4">Exam Status:</label> 
 				<div >
 						<select name="status" id="status">
 				<option value="0">0</option>
