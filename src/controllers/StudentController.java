@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,27 +14,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import datasource.DBConnection;
-import domain.Exam;
-import domain.Subject;
+import domain.User;
 
 /**
- * Servlet implementation class addSubjectController
+ * Servlet implementation class addStudentController
  */
-@WebServlet("/subject")
-public class addSubjectController extends HttpServlet {
+//@WebServlet("/addStudentController")
+public class StudentController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public addSubjectController() {
+    public StudentController() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doPost(request, response);
 	}
 
@@ -44,17 +43,31 @@ public class addSubjectController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String code =(String)request.getAttribute("subject_code");
+		System.out.print(code);
+		String sql = "select * from users_subjects where subject_code ='"+code+"'";
+		List<User> users = new ArrayList<>();
+		try {
+		PreparedStatement stmt = DBConnection.prepare(sql);
+    	ResultSet rs = stmt.executeQuery();
+		while (rs.next()) {
+			int id = Integer.parseInt(rs.getString(1));
+			System.out.print(id);
+			User user=new User().getUser(id);
+			System.out.print(user);
+			users.add(user);
+		}
 		
-		String code = request.getParameter("code");
-		String name = request.getParameter("name");
-		int id = Integer.parseInt(request.getParameter("id"));
-	
-		Subject subject = new Subject(code, name, id);
-		subject.insert();
+		}catch (SQLException e) {
+			
+		}
 		
-		response.sendRedirect("/LMS/dashboard");
+		request.setAttribute("users",users);
+		//request.setAttribute("questions", questions);
+		request.getRequestDispatcher("./student_list.jsp").forward(request, response);
 		
-
+		
+		
 	}
 
 }

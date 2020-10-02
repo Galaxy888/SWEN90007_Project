@@ -1,5 +1,13 @@
 package domain;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import datasource.DBConnection;
+
 public class User {
 	private int id;
 	private String name;
@@ -50,5 +58,25 @@ public class User {
     public void setType(int type) {
     	this.type=type;
     }
-    
+  //Get all users by id
+  	public static User getUser(int id) {
+          User user=new User();
+          try {
+          	String stm = "select * from users where id='"+id+"' limit 1";
+          	PreparedStatement stmt = DBConnection.prepare(stm);
+          	ResultSet rs = stmt.executeQuery();
+  			while (rs.next()) {	
+  				int user_id = Integer.parseInt(rs.getString(1));
+  				String name = rs.getString(2);
+  				String email = rs.getString(3);
+  				String password = rs.getString(4);
+  				int type = Integer.parseInt(rs.getString(5));
+  				user=new User(user_id,name,email,password,type);
+  			}
+  	
+  		} catch (SQLException e) {
+  	
+  		}
+          return user;
+      }
 }

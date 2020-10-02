@@ -51,6 +51,7 @@ tr:nth-child(even) {
             
                 <tr>
  			<%
+ 			     String Type = (String)request.getAttribute("user_type");
  		         List<Subject> subjects = new ArrayList<>(); 
 		         subjects = (List<Subject>)request.getAttribute("subjects");//获取request中名称为student的值
            		 for (Subject subject : subjects) {
@@ -70,7 +71,12 @@ tr:nth-child(even) {
 	                 	<%-- <a href="./exams?subject_code=<%=subject.getSubjectCode()%>">Check</a> --%>
 	                 <%-- <a href="<%=request.getContextPath()%>/exams">Check</a> --%>
 	                 <%-- <a href="courses/<%=subject.getSubjectCode()%>/exams/<%= (String)request.getAttribute("user_type")%>">Check</a> --%>
+	                 <%if (Type.equals("Admin")){ %>
+	                  <a href="courses/<%=subject.getSubjectCode()%>/instructor">add Instructor</a>
+	                  <a href="courses/<%=subject.getSubjectCode()%>/student">add Student</a>
+	                 <%} else { %>
 	                 <a href="courses/<%=subject.getSubjectCode()%>/exams">Check</a>
+	                 <% } %>
 	                 </td>
                 </tr>
                 
@@ -82,5 +88,26 @@ tr:nth-child(even) {
     
     <div style="text-align: mid">
 <a href="<%=request.getContextPath()%>/logout">Logout</a></div>
+
+     <hr class="rounded">
+  <hr class="rounded">
+   <%if (Type.equals("Admin")){ %>
+    <div align="center">
+    
+    <form name="addSubject" action="addSubject" method="post">
+         code : <input type = "text" name = "code">
+         <br />
+         name: <input type = "text" name = "name">
+         <br />
+         Instructor id:<input type = "text" name="id">
+         <br />
+         <input type = "submit" value = "Add New Subject" />
+      </form>
+    
+    </div>
+    <%} %>
+
+
+
 </body>
 </html>
