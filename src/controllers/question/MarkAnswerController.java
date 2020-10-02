@@ -114,7 +114,7 @@ public class MarkAnswerController extends HttpServlet {
 
 //		  request.setAttribute("questions", questions);
 //	      request.getRequestDispatcher("./questions.jsp").forward(request, response);
-	    response.sendRedirect("/LMS/dashboard");
+	    response.sendRedirect("/dashboard");
 	}
 
 }

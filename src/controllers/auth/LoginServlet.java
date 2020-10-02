@@ -50,7 +50,7 @@ public class LoginServlet extends HttpServlet {
 //		PrintWriter writer = response.getWriter();
 //		writer.println("<h3> Hello from Get "+user+  "   " +pass+ "</h3>");
 //		doPost(request, response);
-		response.sendRedirect("/LMS/login.jsp");
+		response.sendRedirect("/login.jsp");
 	}
 
 	/**
@@ -83,7 +83,7 @@ public class LoginServlet extends HttpServlet {
 //            request.setAttribute("userName", userName);
 //            request.setAttribute("userType", "Admin");
 
-			response.sendRedirect("/LMS/dashboard");
+			response.sendRedirect("/dashboard");
 //            request.getRequestDispatcher("/dashboard").forward(request, response);
 
 		} else if (userValidate.getType()==2) {
@@ -96,7 +96,7 @@ public class LoginServlet extends HttpServlet {
 //            request.setAttribute("userName", userName);
 //            request.setAttribute("userType", "Instructor");
 
-			response.sendRedirect("/LMS/dashboard");
+			response.sendRedirect("/dashboard");
 //            request.getRequestDispatcher("/dashboard").forward(request, response);
 		} else if (userValidate.getType()==3) {
 			System.out.println("Student's Dashboard");
@@ -109,14 +109,14 @@ public class LoginServlet extends HttpServlet {
 //            request.setAttribute("userName", userName);
 //            request.setAttribute("userType", "Student");
 
-			response.sendRedirect("/LMS/dashboard");
+			response.sendRedirect("/dashboard");
 //            request.getRequestDispatcher("/dashboard").forward(request, response);
 		} else {
 			System.out.println("Error message = " + userValidate);
 //            request.setAttribute("errMessage", userValidate);
 			HttpSession session = request.getSession();
 			session.setAttribute("errMessage", userValidate);
-			response.sendRedirect("/LMS/login.jsp");
+			response.sendRedirect("/login.jsp");
 
 //            request.getRequestDispatcher("/login.jsp").forward(request, response);
 		}

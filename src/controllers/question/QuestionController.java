@@ -138,7 +138,7 @@ public class QuestionController extends HttpServlet {
 				request.setAttribute("questions", questions);
 				request.getRequestDispatcher("./take_question.jsp").forward(request, response);
 				}else {
-					response.sendRedirect("/LMS/dashboard");
+					response.sendRedirect("/dashboard");
 				}
 			}
 

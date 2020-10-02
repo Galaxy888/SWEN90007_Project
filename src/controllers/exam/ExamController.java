@@ -132,7 +132,7 @@ public class ExamController extends HttpServlet {
 					request.getRequestDispatcher("/ViewAnswer").forward(request, response);
 				}
 				else {
-					response.sendRedirect("/LMS/dashboard");
+					response.sendRedirect("/dashboard");
 				}
 			}
 		}
@@ -212,7 +212,7 @@ public class ExamController extends HttpServlet {
 					request.getRequestDispatcher("/question").forward(request, response);
 				} 
 				else {
-					response.sendRedirect("/LMS/dashboard");
+					response.sendRedirect("/dashboard");
 				}
 			}
 			
@@ -257,7 +257,7 @@ public class ExamController extends HttpServlet {
 		
 		
 		else {
-			response.sendRedirect("/LMS/login.jsp");
+			response.sendRedirect("/login.jsp");
 //		}
 
 		if (pathParts.length <= 1) {
@@ -351,7 +351,7 @@ public class ExamController extends HttpServlet {
 				request.setAttribute("operation", operation);
 				request.getRequestDispatcher("/question").forward(request, response);
 			} else {
-				response.sendRedirect("/LMS/dashboard");
+				response.sendRedirect("/dashboard");
 			}
 		}
 			
@@ -373,7 +373,7 @@ public class ExamController extends HttpServlet {
 				request.setAttribute("operation", operation);
 				request.getRequestDispatcher("/question").forward(request, response);
 			} else {
-				response.sendRedirect("/LMS/dashboard");
+				response.sendRedirect("/dashboard");
 			}
 
 //        	System.out.println("ExamController_question: "+pathInfo+" examID: "+examID);
@@ -393,7 +393,7 @@ public class ExamController extends HttpServlet {
 		else {
 			// TODO need update
 			System.out.println("ExamController_else: " + pathInfo + " length: " + pathParts.length);
-			response.sendRedirect("/LMS/dashboard");
+			response.sendRedirect("/dashboard");
 		}
 
 //        String stm = "select * from exams where subject_code='"+subjectCode+"'";
