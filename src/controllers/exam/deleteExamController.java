@@ -63,7 +63,7 @@ public class deleteExamController extends HttpServlet {
 			response.sendRedirect("./exams");
 		}else {
 			HttpSession session = request.getSession(); 
-			session.setAttribute("errMessageExam", "Something went wrong. The exam cannot be deleted");
+			session.setAttribute("errMessageExam", "The exam cannot be deleted. The exam has been published / Some students have submitted the exxam.");
 			response.sendRedirect("./exams");
 		}
 	}

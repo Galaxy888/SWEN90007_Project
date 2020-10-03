@@ -59,11 +59,14 @@
 <div>
 <h1 style="text-align:center"><%=request.getAttribute("subject_code") %></h1> 
 </div>
-
+ <button type="button" class="btn btn-primary col-md-4 offset-md-4" data-toggle="modal" data-target="#addExamModal">
+ Add new Exam
+</button>
  <div align="center">
         <table  style="width:70%">
             <tr>
-                <th>Exam Id</th>
+<!--                 <th>Exam Id</th> -->
+				<th>#Exam</th>
                 <th>Exam Title</th>
                 <th>Exam Status</th>
                 <th>Operation</th>
@@ -73,11 +76,13 @@
  			<%
  			     List<Exam> exams = new ArrayList<>(); 
  			     exams = (List<Exam>)request.getAttribute("exams");//获取request中名称为student的值
+ 			     int i=0;
            		 for (Exam exam : exams) {
        		 %>
-       		        <td><%= exam.getId() %></td>
+<%--        		        <td><%= exam.getId() %></td> --%>
+                    <td><%= i=i+1 %>
                     <td><%= exam.getTitle() %></td>
-                    <td><%= exam.getStatus() %>
+                    <td><%= exam.getStatus()==0 ? "unpublished":"published" %>
                     <td>
                     <button type="button" class="sel_btn" data-toggle="modal" data-target="#updateModal" id="btn_update" 
                     onclick="showInfo2('<%= exam.getId() %>','<%= exam.getTitle() %>','<%= exam.getStatus() %>')">
@@ -119,13 +124,15 @@
 												
 										<!---------------------form-------------------->
 										
-									<div class="form-group">
+<!-- 									<div class="form-group">
 											<label for="firstname" class="col-sm-3 control-label">Exam Id:</label>
 												<div class="col-sm-7">
 													<input type="number" class="form-control" id="updateId" name="id"  placeholder="exam id" required>
 												<label class="control-label" for="updateId" style="display: none;"></label>
 												</div>
-										</div>
+										</div> -->
+										
+										<input type = "hidden" id="updateId" name="id" />	
 										
 										 <div class="form-group">
 											<label for="firstname" class="col-sm-3 control-label">Exam Title:</label>
@@ -139,8 +146,8 @@
 											<label for="firstname" class="col-sm-3 control-label">Exam Status:</label>
 												<div class="col-sm-7">
 														<select name="status" id="status">
-														<option value="0">0</option>
-														<option value="1">1</option>
+														<option value="0">unpublished</option>
+														<option value="1">published</option>
 														</select>
 													<!-- <input type="text" class="form-control" id="updateStatus" name="status"  placeholder="input new status"> -->
 												<label class="control-label" for="updateStatus" style="display: none;"></label>
@@ -152,7 +159,7 @@
 												<div class="modal-footer">
 				
 													<button type="submit" class="btn btn-primary" >
-														modify
+														submit
 													</button>
 													<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 												</div>
@@ -180,8 +187,69 @@ session.removeAttribute("errMessageExam");
 		<form class="border border-light p-5 col-md-4 offset-md-4" name="AddExamController" action="addExam" method="post">
 		
 			
+			<div class="modal fade" id="addExamModal" tabindex="-1" role="dialog" aria-labelledby="addExamModalLabel" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title" id="addExamModalLabel">
+														Add new exam
+													</h4>
+												</div>
+												<div class="modal-body">
+												
+										<!---------------------form-------------------->
+										
+										 <div class="form-group">
+											<label for="firstname" class="col-sm-3 control-label">Exam Title:</label>
+												<div class="col-sm-7">
+													<input type="text" class="form-control" id="title" name="title"  placeholder="input new title" required>
+												<label class="control-label" for="title" style="display: none;"></label>
+												</div>
+										</div>
+										
+										<div class="form-group">
+											<label for="firstname" class="col-sm-3 control-label">Exam Status:</label>
+												<div class="col-sm-7">
+														<select name="status" id="status">
+														<option value="0">unpublished</option>
+														<!-- <option value="1">published</option> -->
+														</select>
+													<!-- <input type="text" class="form-control" id="updateStatus" name="status"  placeholder="input new status"> -->
+												<label class="control-label" for="status" style="display: none;"></label>
+												</div>
+										</div>
+										
+													<input type="hidden" value="<%=(String) request.getAttribute("subject_code")%>" name="subject_code" />
+										</div>
+												<div class="modal-footer">
+				
+													<button type="submit" class="btn btn-primary" >
+														submit
+													</button>
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+												</div>
+											</div><!-- /.modal-content -->
+										</div><!-- /.modal -->
+									</div>
 			
-			<div class="form-group row">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+<!-- 			<div class="form-group row">
 				<label class="col-md-4">Exam Title:</label> 
 				<div >
 				<input type="text" name="title" class="form-control" required>
@@ -196,7 +264,13 @@ session.removeAttribute("errMessageExam");
 				<option value="1">1</option>
 			</select> 
 				</div>
-			</div>
+			</div> -->
+			
+			
+			
+			
+			
+			
 			
 <!-- 			<div class="form-group">
 				<label>Title:</label> <input type="text" name="id" class="form-control">
@@ -213,12 +287,12 @@ session.removeAttribute("errMessageExam");
 
 
 			<!--  subject_code:  -->
-			<input type="hidden"
+<%-- 			<input type="hidden"
 				value="<%=(String) request.getAttribute("subject_code")%>"
 				name="subject_code" /> <br /> 
 				
 			<input class="btn btn-primary col-md-6  offset-md-2" type="submit"
-				value="Add New Exam" />
+				value="Add New Exam" /> --%>
 		</form>
 
 <!-- 	</div> -->

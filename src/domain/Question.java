@@ -7,7 +7,7 @@ import datasource.DBConnection;
 import mapper.AnswerMapper;
 import mapper.QuestionMapper;
 
-public class Question extends DomainObject {
+public class Question extends DomainObject implements Comparable<Question>{
 	private int id;
 	private int question_type;
 	private String title;
@@ -148,6 +148,11 @@ public class Question extends DomainObject {
 
 		}
 		return questions;
+	}
+
+	@Override
+	public int compareTo(Question o) {
+		return this.id-o.id;
 	}
 
 	// Insert an new question

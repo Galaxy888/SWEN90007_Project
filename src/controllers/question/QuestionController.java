@@ -57,6 +57,7 @@ public class QuestionController extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		int exam_id = Integer.parseInt((String) request.getAttribute("exam_id"));
 		String operation = (String) request.getAttribute("operation");
+		String subject_code = (String) request.getAttribute("subject_code");
 		System.out.println("Question Controller_0: " + exam_id + " operation: " + operation);
 		HttpSession session = request.getSession(false);
 		String userType = (String) session.getAttribute("userType");
@@ -85,10 +86,12 @@ public class QuestionController extends HttpServlet {
 				if (questions != null) {
 					request.setAttribute("exam_id", exam_id);
 					request.setAttribute("questions", questions);
+					request.setAttribute("subject_code", subject_code);
+
 					request.getRequestDispatcher("./questions.jsp").forward(request, response);
 
-				}else {
-					//TODO
+				} else {
+					// TODO
 					session.setAttribute("errMessageQuestion", "something went wrong.");
 					response.sendRedirect("./questions");
 				}

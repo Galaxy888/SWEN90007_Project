@@ -28,7 +28,7 @@ public class QuestionService {
 		question.setType(type);
 		question.setTitle(title);
 		question.setContent(content);
-		question.setContent(content);
+		question.setAnswer(answer);
 		question.setMark(mark);
 		question.setExam(exam_id);
 		UnitOfWork.getCurrent().registerNew(question);
@@ -48,7 +48,7 @@ public class QuestionService {
 		question.setType(type);
 		question.setTitle(title);
 		question.setContent(content);
-		question.setContent(content);
+		question.setAnswer(answer);
 		question.setMark(mark);
 		question.setExam(exam_id);
 		UnitOfWork.getCurrent().registerDiry(question);

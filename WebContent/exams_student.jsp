@@ -11,6 +11,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>	
 </head>
 <body>
 <a class="sel_btn" href="/login.jsp">DashBoard</a> 
@@ -25,28 +32,31 @@ session.removeAttribute("errMessageStudentTakeExam");
  <div align="center">
         <table  style="width:70%">
             <tr>
-                <th>exam Id</th>
-                <th>exam Title</th>
-                <th>exam Status</th>
+                <th>#Exam</th>
+                <th>Exam Title</th>
+                <th>Exam Status</th>
                 <th>Subject</th>
                 <th>Operation</th>
+                <th>Mark</th>
             </tr>
             
                 <tr>
  			<%
  			     List<Exam> exams = new ArrayList<>(); 
  			     exams = (List<Exam>)request.getAttribute("exams");//获取request中名称为student的值
-           		 for (Exam exam : exams) {
+           		 int i=0;
+ 			     for (Exam exam : exams) {
        		 %>
-       		        <td><%= exam.getId() %></td>
+       		        <%-- <td><%= exam.getId() %></td> --%>
+                    <td><%= i=i+1 %></td>
                     <td><%= exam.getTitle() %></td>
-                    <td><%= exam.getStatus() %>
+                    <td><%= exam.getStatus()==0 ? "unpublished" : "published"%>
                     <td><%= exam.getSubject()  %></td>
                     <td>
 	                 <%-- <a class="sel_btn" href="./updateExam?id=<%=exam.getId()%>&title=<%=exam.getTitle()%>&status=<%=exam.getStatus()%>&subject_code=<%=exam.getSubject()%>">Edit</a> --%>
 	                 <%-- <a class="sel_btn" href="./questions?exam_id=<%=exam.getId()%>">Edit Questions</a> --%>
 	               <a class="sel_btn" href="exams/<%=exam.getId()%>/questions">Take Exam</a>
-	                 <td><%=request.getAttribute("mark"+exam.getId()) %></td>
+	                 <td><%=request.getAttribute("mark"+exam.getId())%></td>
 	                 <%-- <a class="sel_btn" href="./deleteExam?subject_code=<%=exam.getSubject() %>&id=<%=exam.getId()%>">Delete</a> --%>
 	                 <%-- <a class="sel_btn" href="./deleteExam/<%=exam.getId()%>/<%= exam.getStatus() %>">Delete</a> --%>
 	                <%--  <button type="button" onclick="deleteExam('<%=exam.getId()%>')">Delete</button> --%> 
