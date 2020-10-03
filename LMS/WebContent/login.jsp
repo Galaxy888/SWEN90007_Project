@@ -11,7 +11,7 @@
 <%
 	//In case, if User session is not set, redirect to Login page
 if ((request.getSession(false).getAttribute("userName") != null)) {
-	response.sendRedirect("/dashboard");
+	response.sendRedirect("./dashboard");
 }
 %>
 <body>

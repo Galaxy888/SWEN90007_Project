@@ -54,12 +54,12 @@ public class addExamController extends HttpServlet {
 			throws ServletException, IOException {
 
 		System.out.println("addExamController doPost");
-		int id = Integer.parseInt(request.getParameter("id"));
+		//int id = Integer.parseInt(request.getParameter("id"));
 		String title = request.getParameter("title");
 		int status = Integer.parseInt(request.getParameter("status"));
 		String subject_code = request.getParameter("subject_code");
 
-		Boolean success = examService.createNewExam(id, title, status, subject_code);
+		Boolean success = examService.createNewExam(title, status, subject_code);
 		System.out.println("add exam doPost success: "+success);
 		if (success) {
 			response.sendRedirect("./exams");

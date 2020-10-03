@@ -169,8 +169,7 @@ session.removeAttribute("errMessageQuestion");
     <div align="center">
     
     <form name="AddQuestionController" action="addQuestion" method="post">
-         id : <input type = "text" name = "id">
-         <br />
+       
          type :<input type = "text" name = "type">
          <br />
          title: <input type = "text" name = "title">

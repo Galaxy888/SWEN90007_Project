@@ -179,12 +179,6 @@ session.removeAttribute("errMessageExam");
 
 		<form class="border border-light p-5 col-md-4 offset-md-4" name="AddExamController" action="addExam" method="post">
 		
-			<div class="form-group row">
-				<label class="col-md-4">Exam Id:</label> 
-				<div >
-				<input type="number" name="id" class="form-control" required>
-				</div>
-			</div>
 			
 			
 			<div class="form-group row">
