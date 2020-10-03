@@ -21,7 +21,7 @@
 </head>
 <body>
 <a class="sel_btn" href="/login.jsp">DashBoard</a> 
-
+<h1 style="text-align:center"><%=request.getAttribute("subject_code") %></h1> 
 <div class="text-center">
  <span style="color:red"><%=(request.getSession(false).getAttribute("errMessageStudentTakeExam") == null) ? "" : request.getSession(false).getAttribute("errMessageStudentTakeExam")%></span>
  <%
@@ -35,7 +35,7 @@ session.removeAttribute("errMessageStudentTakeExam");
                 <th>#Exam</th>
                 <th>Exam Title</th>
                 <th>Exam Status</th>
-                <th>Subject</th>
+               <!--  <th>Subject</th> -->
                 <th>Operation</th>
                 <th>Mark</th>
             </tr>
@@ -51,12 +51,14 @@ session.removeAttribute("errMessageStudentTakeExam");
                     <td><%= i=i+1 %></td>
                     <td><%= exam.getTitle() %></td>
                     <td><%= exam.getStatus()==0 ? "unpublished" : "published"%>
-                    <td><%= exam.getSubject()  %></td>
+                    <%-- <td><%= exam.getSubject()  %></td> --%>
                     <td>
 	                 <%-- <a class="sel_btn" href="./updateExam?id=<%=exam.getId()%>&title=<%=exam.getTitle()%>&status=<%=exam.getStatus()%>&subject_code=<%=exam.getSubject()%>">Edit</a> --%>
 	                 <%-- <a class="sel_btn" href="./questions?exam_id=<%=exam.getId()%>">Edit Questions</a> --%>
 	               <a class="sel_btn" href="exams/<%=exam.getId()%>/questions">Take Exam</a>
-	                 <td><%=request.getAttribute("mark"+exam.getId())%></td>
+	               <% int mark = (int) request.getAttribute("mark"+exam.getId());%>
+	                <%--  <td><%=request.getAttribute("mark"+exam.getId())%></td> --%>
+	                 <td><%= mark==0? "Unmarked":mark %>
 	                 <%-- <a class="sel_btn" href="./deleteExam?subject_code=<%=exam.getSubject() %>&id=<%=exam.getId()%>">Delete</a> --%>
 	                 <%-- <a class="sel_btn" href="./deleteExam/<%=exam.getId()%>/<%= exam.getStatus() %>">Delete</a> --%>
 	                <%--  <button type="button" onclick="deleteExam('<%=exam.getId()%>')">Delete</button> --%> 
