@@ -28,6 +28,14 @@ public class Exam extends DomainObject {
 		this.allMarks = null;
 		
 	}
+	public Exam(String title, int status, String subject_code) {
+		this.title = title;
+		this.status = status;
+		this.subject_code = subject_code;
+		this.allQuestions = null;
+		this.allMarks = null;
+		
+	}
 
 	public Exam() {
 		this.allQuestions = null;

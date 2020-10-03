@@ -21,18 +21,18 @@ public class ExamService {
 		examMapper = new ExamMapper();
 	}
 
-	public Boolean createNewExam(int id, String title, int status, String subject_code) {
+	public Boolean createNewExam(String title, int status, String subject_code) {
 		
 //		Exam exam = examMapper.findByID(id)
 		
 		UnitOfWork.newCurrent();
 		
 		//create the new exam
-		Exam exam = new Exam();
-		exam.setId(id);
-		exam.setTitle(title);
-		exam.setStatus(status);
-		exam.setSubject(subject_code);
+		Exam exam = new Exam(title,status,subject_code);
+		//exam.setId(id);
+		//exam.setTitle(title);
+		//exam.setStatus(status);
+		//exam.setSubject(subject_code);
 		UnitOfWork.getCurrent().registerNew(exam);
 		
 		return UnitOfWork.getCurrent().commit();

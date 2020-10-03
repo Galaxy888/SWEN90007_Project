@@ -21,19 +21,16 @@ public class QuestionMapper extends DataMapper{
 	 */
 	@Override
 	public Boolean insert(DomainObject obj) {
-		Question question = (Question) obj;
-		
-	    String insertQuestionStatement = "INSERT INTO questions VALUES (?, ?, ?,?,?,?,?)";
-	    
+	    String insertQuestionStatement = "INSERT INTO questions(question_type,title,content,answer,mark,exam_id) VALUES (?,?,?,?,?,?)";
+	    Question question = (Question) obj;
 		try {
 			PreparedStatement stmt = DBConnection.prepare(insertQuestionStatement);
-			stmt.setInt(1,question.getId());
-			stmt.setInt(2, question.getType());
-			stmt.setString(3, question.getTitle());
-			stmt.setString(4, question.getContent());
-			stmt.setString(5,question.getAnswer());
-			stmt.setInt(6,question.getMark());
-			stmt.setInt(7, question.getExam());
+			stmt.setInt(1, question.getType());
+			stmt.setString(2, question.getTitle());
+			stmt.setString(3, question.getContent());
+			stmt.setString(4,question.getAnswer());
+			stmt.setInt(5,question.getMark());
+			stmt.setInt(6, question.getExam());
 			stmt.execute();
 			stmt.close();
 			return true;

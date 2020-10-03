@@ -14,7 +14,7 @@ public class QuestionService {
 
 	}
 	
-	public Boolean createNewQuestion(int id, int type, String title, String content, String answer, int mark,
+	public Boolean createNewQuestion(int type, String title, String content, String answer, int mark,
 			int exam_id) {
 		
 //		Exam exam = examMapper.findByID(id)
@@ -24,7 +24,7 @@ public class QuestionService {
 		
 		//create the new question
 		Question question = new Question();
-		question.setId(id);
+		//question.setId(id);
 		question.setType(type);
 		question.setTitle(title);
 		question.setContent(content);

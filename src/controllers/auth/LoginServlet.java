@@ -72,7 +72,7 @@ public class LoginServlet extends HttpServlet {
 //            request.setAttribute("userName", userName);
 //            request.setAttribute("userType", "Admin");
 
-			response.sendRedirect("/dashboard");
+			response.sendRedirect("./dashboard");
 //            request.getRequestDispatcher("/dashboard").forward(request, response);
 
 		} else if (userValidate.getType()==2) {
@@ -85,7 +85,7 @@ public class LoginServlet extends HttpServlet {
 //            request.setAttribute("userName", userName);
 //            request.setAttribute("userType", "Instructor");
 
-			response.sendRedirect("/dashboard");
+			response.sendRedirect("./dashboard");
 //            request.getRequestDispatcher("/dashboard").forward(request, response);
 		} else if (userValidate.getType()==3) {
 			System.out.println("Student's Dashboard");
@@ -98,14 +98,14 @@ public class LoginServlet extends HttpServlet {
 //            request.setAttribute("userName", userName);
 //            request.setAttribute("userType", "Student");
 
-			response.sendRedirect("/dashboard");
+			response.sendRedirect("./dashboard");
 //            request.getRequestDispatcher("/dashboard").forward(request, response);
 		} else {
 			System.out.println("Error message = " + userValidate);
 //            request.setAttribute("errMessage", userValidate);
 			HttpSession session = request.getSession();
 			session.setAttribute("errMessage", "Invalid username or password");
-			response.sendRedirect("/login.jsp");
+			response.sendRedirect("./login.jsp");
 
 //            request.getRequestDispatcher("/login.jsp").forward(request, response);
 		}

@@ -21,14 +21,14 @@ public class ExamMapper extends DataMapper {
 	public Boolean insert(DomainObject obj) {
 		Exam exam = (Exam) obj;
 
-		String insertExamStatement = "INSERT INTO exams VALUES (?, ?, ?,?)";
+		String insertExamStatement = "INSERT INTO exams (title,status,subject_code) VALUES (?, ?,?)";
 
 		try {
 			PreparedStatement stmt = DBConnection.prepare(insertExamStatement);
-			stmt.setInt(1, exam.getId());
-			stmt.setString(2, exam.getTitle());
-			stmt.setInt(3, exam.getStatus());
-			stmt.setString(4, exam.getSubject());
+			//stmt.setInt(1, exam.getId());
+			stmt.setString(1, exam.getTitle());
+			stmt.setInt(2, exam.getStatus());
+			stmt.setString(3, exam.getSubject());
 			stmt.execute();
 
 			stmt.close();

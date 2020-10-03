@@ -56,7 +56,7 @@ public class addQuestionController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("addQuestioonController");
-		int id = Integer.parseInt(request.getParameter("id"));
+		//int id = Integer.parseInt(request.getParameter("id"));
 		int type = Integer.parseInt(request.getParameter("type"));
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
@@ -64,7 +64,7 @@ public class addQuestionController extends HttpServlet {
 		int mark = Integer.parseInt(request.getParameter("mark"));
 		int exam_id = Integer.parseInt(request.getParameter("exam_id"));
 		
-		Boolean success = questionService.createNewQuestion(id, type, title, content, answer, mark, exam_id);
+		Boolean success = questionService.createNewQuestion(type, title, content, answer, mark, exam_id);
 		System.out.println("add question doPost success: "+success);
 		if (success) {
 			response.sendRedirect("./questions");

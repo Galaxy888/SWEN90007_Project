@@ -10,6 +10,15 @@ CREATE TABLE users(
   PRIMARY  KEY(id)
 );
 
+CREATE SEQUENCE public.users_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 99999999
+    CACHE 1;
+
+alter table users alter column id set default nextval('public.users_seq');
+
 CREATE TABLE subjects(
    code  VARCHAR(20),
    name  VARCHAR(50),
@@ -24,6 +33,14 @@ CREATE TABLE exams(
    subject_code VARCHAR(20) REFERENCES subjects(code),
    PRIMARY KEY (id)
 );
+CREATE SEQUENCE public.exams_seq
+    INCREMENT 1
+    START 100
+    MINVALUE 100
+    MAXVALUE 99999999
+    CACHE 1;
+
+alter table exams alter column id set default nextval('public.exams_seq');
 
 CREATE TABLE questions(
     id INT,
@@ -35,6 +52,14 @@ CREATE TABLE questions(
     exam_id INT REFERENCES exams(id),
     PRIMARY KEY(id)
 );
+CREATE SEQUENCE public.questions_seq
+    INCREMENT 1
+    START 1000
+    MINVALUE 1000
+    MAXVALUE 99999999
+    CACHE 1;
+
+alter table questions alter column id set default nextval('public.questions_seq');
 
 CREATE TABLE users_subjects (
   user_id    INT REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE, 
@@ -61,14 +86,14 @@ CREATE TABLE users_questions (
 
 
 INSERT INTO users
-VALUES (001, 'Admin', '','123',1);
+VALUES (1, 'Admin', '','123',1);
 --INSERT INTO users
 --VALUES (001, 'Instructor', '','Instructor',1);
 INSERT INTO users
-VALUES (002, 'Tutor', 'Tutor@gmail.com','123',2);
+VALUES (2, 'Tutor', 'Tutor@gmail.com','123',2);
 
 INSERT INTO users
-VALUES (003, 'Student', '','123',3);
+VALUES (3, 'Student', '','123',3);
 
 INSERT INTO subjects
 VALUES ('SWEN90007','SDA',002);
@@ -83,17 +108,5 @@ VALUES (003,'SWEN90013',0);
 
 
 
-INSERT INTO exams
-VALUES(1301,'exam1','0','SWEN90013');
-
-INSERT INTO exams
-VALUES(1302,'exam2','0','SWEN90013');
-
-INSERT INTO questions
-VALUES(130101,1,'Answer the fllowing questions','Are you ok?','',10,1301);
-INSERT INTO questions
-VALUES(130102,2,'How many apples do you have?','A.1#B.2#C.3#D.4','A',20,1301);
-INSERT INTO questions
-VALUES(130103,2,'Which one is not the offical expression?','A.Hello#B.Goodbye#C.See ya#D.see you','C',15,1301);
 
 --Select * FROM users WHERE name = 'test' AND password = 'test';
