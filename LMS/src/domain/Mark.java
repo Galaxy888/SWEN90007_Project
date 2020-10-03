@@ -55,41 +55,41 @@ public class Mark extends DomainObject {
 	}
 
 	// Get mark
-	public static List<Mark> getAllMark(int exam_id) {
-		List<Mark> marks = new ArrayList<>();
-		try {
-			String stm = "select * from users_exams where exam_id='" + exam_id + "'";
-			PreparedStatement stmt = DBConnection.prepare(stm);
-			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
-				int id = Integer.parseInt(rs.getString(1));
-				int eid = Integer.parseInt(rs.getString(2));
-				int mark = Integer.parseInt(rs.getString(3));
-				int status = Integer.parseInt(rs.getString(4));
-				marks.add(new Mark(id, eid, mark, status));
-			}
-
-		} catch (SQLException e) {
-
-		}
-		return marks;
-	}
+//	public static List<Mark> getAllMark(int exam_id) {
+//		List<Mark> marks = new ArrayList<>();
+//		try {
+//			String stm = "select * from users_exams where exam_id='" + exam_id + "'";
+//			PreparedStatement stmt = DBConnection.prepare(stm);
+//			ResultSet rs = stmt.executeQuery();
+//			while (rs.next()) {
+//				int id = Integer.parseInt(rs.getString(1));
+//				int eid = Integer.parseInt(rs.getString(2));
+//				int mark = Integer.parseInt(rs.getString(3));
+//				int status = Integer.parseInt(rs.getString(4));
+//				marks.add(new Mark(id, eid, mark, status));
+//			}
+//
+//		} catch (SQLException e) {
+//
+//		}
+//		return marks;
+//	}
 
 	// Update an result info
-	public void updateResult(int id, int exam_id, int mark, int status) throws SQLException {
-		// TODO Auto-generated method stub
-		String sql = "update users_exams set mark=?,status=? where user_id=? and exam_id=? ";
-		PreparedStatement stmt = DBConnection.prepare(sql);
-		try {
-			stmt.setInt(1, mark);
-			stmt.setInt(2, status);
-			stmt.setInt(3, id);
-			stmt.setInt(4, exam_id);
-			stmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	public void updateResult(int id, int exam_id, int mark, int status) throws SQLException {
+//		// TODO Auto-generated method stub
+//		String sql = "update users_exams set mark=?,status=? where user_id=? and exam_id=? ";
+//		PreparedStatement stmt = DBConnection.prepare(sql);
+//		try {
+//			stmt.setInt(1, mark);
+//			stmt.setInt(2, status);
+//			stmt.setInt(3, id);
+//			stmt.setInt(4, exam_id);
+//			stmt.executeUpdate();
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 
 }

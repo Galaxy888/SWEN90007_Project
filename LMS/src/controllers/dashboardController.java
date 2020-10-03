@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import datasource.DBConnection;
 import domain.Exam;
 import domain.Subject;
+import mapper.SubjectMapper;
 
 /**
  * Servlet implementation class dashboardController
@@ -80,9 +81,9 @@ public class dashboardController extends HttpServlet {
 			        request.getRequestDispatcher("dashboard.jsp").forward(request, response);
 		
 				} else if (userType.equals("Admin")) {
-					Subject subject = new Subject();
+//					Subject subject = new Subject();
 					List<Subject> subjects = new ArrayList<>();
-					subjects = subject.getAllSubjects();
+					subjects = SubjectMapper.getAllAdminSubjects();
 					request.setAttribute("subjects", subjects);
 					request.setAttribute("user_type", userType);
 					request.getRequestDispatcher("dashboard.jsp").forward(request, response);

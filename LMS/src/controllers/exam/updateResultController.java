@@ -53,7 +53,7 @@ public class updateResultController extends HttpServlet {
 			response.sendRedirect("./ViewMark");
 		}else {
 			HttpSession session = request.getSession(); 
-			session.setAttribute("errMessageQuestion", "something went wrong. update result error");
+			session.setAttribute("errMessageQuestion", "Something went wrong. Update result error");
 			response.sendRedirect("./ViewMark");
 		}
 		

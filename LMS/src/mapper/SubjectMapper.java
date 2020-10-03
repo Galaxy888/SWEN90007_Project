@@ -31,5 +31,47 @@ public class SubjectMapper extends DataMapper {
 		}
 		return subjects;
 	}
+	
+	
+	public static List<Subject> getAllStudentSubjects(int id) {
+		List<Subject> subjects = new ArrayList<>();
+		try {
+			String stm = "Select * from subjects where coordinator_id ='" + id + "'";
+			PreparedStatement stmt = DBConnection.prepare(stm);
+
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				String code = rs.getString(1);
+				String name = rs.getString(2);
+				int coordinator = Integer.parseInt(rs.getString(3));
+				subjects.add(new Subject(code, name, coordinator));
+			}
+
+		} catch (SQLException e) {
+
+		}
+		return subjects;
+	}
+	
+	
+	public static List<Subject> getAllAdminSubjects() {
+		List<Subject> subjects = new ArrayList<>();
+		try {
+			String findAllSubjectsStatement = "SELECT * from subjects";
+			PreparedStatement stmt = DBConnection.prepare(findAllSubjectsStatement);
+
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				String code = rs.getString(1);
+				String name = rs.getString(2);
+				int coordinator = Integer.parseInt(rs.getString(3));
+				subjects.add(new Subject(code, name, coordinator));
+			}
+
+		} catch (SQLException e) {
+
+		}
+		return subjects;
+	}
 
 }

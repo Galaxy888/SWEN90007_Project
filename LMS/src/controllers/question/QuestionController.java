@@ -120,25 +120,26 @@ public class QuestionController extends HttpServlet {
 						System.out.println(e.getMessage());
 					}
 
-					List<Question> questions = new ArrayList<>();
-					String stm = "select * from questions where exam_id='" + exam_id + "'";
-					try {
-						PreparedStatement stmt = DBConnection.prepare(stm);
-						ResultSet rs = stmt.executeQuery();
-						while (rs.next()) {
-							int id2 = Integer.parseInt(rs.getString(1));
-							int type2 = Integer.parseInt(rs.getString(2));
-							String title2 = rs.getString(3);
-							String content2 = rs.getString(4);
-							String answer2 = rs.getString(5);
-							int mark2 = Integer.parseInt(rs.getString(6));
-							int examId2 = Integer.parseInt(rs.getString(7));
-							questions.add(new Question(id2, type2, title2, content2, answer2, mark2, examId2));
-						}
-					} catch (SQLException e) {
-
-						System.out.println(e.getMessage());
-					}
+//					List<Question> questions = new ArrayList<>();
+//					String stm = "select * from questions where exam_id='" + exam_id + "'";
+//					try {
+//						PreparedStatement stmt = DBConnection.prepare(stm);
+//						ResultSet rs = stmt.executeQuery();
+//						while (rs.next()) {
+//							int id2 = Integer.parseInt(rs.getString(1));
+//							int type2 = Integer.parseInt(rs.getString(2));
+//							String title2 = rs.getString(3);
+//							String content2 = rs.getString(4);
+//							String answer2 = rs.getString(5);
+//							int mark2 = Integer.parseInt(rs.getString(6));
+//							int examId2 = Integer.parseInt(rs.getString(7));
+//							questions.add(new Question(id2, type2, title2, content2, answer2, mark2, examId2));
+//						}
+//					} catch (SQLException e) {
+//
+//						System.out.println(e.getMessage());
+//					}
+					List<Question> questions = examService.getAllQuestions(exam_id);
 					request.setAttribute("exam_id", exam_id);
 					request.setAttribute("questions", questions);
 					request.getRequestDispatcher("./take_question.jsp").forward(request, response);

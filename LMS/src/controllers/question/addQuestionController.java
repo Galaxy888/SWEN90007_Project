@@ -70,7 +70,7 @@ public class addQuestionController extends HttpServlet {
 			response.sendRedirect("./questions");
 		}else {
 			HttpSession session = request.getSession(); 
-			session.setAttribute("errMessageQuestion", "something went wrong. The question is already exist");
+			session.setAttribute("errMessageQuestion", "Something went wrong. The question is already exist");
 			response.sendRedirect("./questions");
 		}
 	}
