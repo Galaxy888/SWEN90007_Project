@@ -4,6 +4,8 @@ import java.sql.*;
 import java.util.*;
 
 import datasource.DBConnection;
+import mapper.AnswerMapper;
+import mapper.QuestionMapper;
 
 public class Question extends DomainObject {
 	private int id;
@@ -13,6 +15,8 @@ public class Question extends DomainObject {
 	private String answer;
 	private int mark;
 	private int exam_id;
+	
+	private List<Answer> allAnswers;
 
 	public Question(int id, int type, String title, String content, String answer, int mark, int exam_id) {
 		this.id = id;
@@ -22,10 +26,11 @@ public class Question extends DomainObject {
 		this.answer = answer;
 		this.mark = mark;
 		this.exam_id = exam_id;
+		this.allAnswers = null;
 	}
 
 	public Question() {
-		// TODO Auto-generated constructor stub
+		this.allAnswers = null;
 	}
 
 	public int getId() {
@@ -83,6 +88,22 @@ public class Question extends DomainObject {
 	public void setExam(int exam_id) {
 		this.exam_id = exam_id;
 	}
+	
+	//lazy load
+	public List<Answer> getAllAnswers() {
+		if(this.allAnswers==null) {
+			List<Answer> allAnswers = new ArrayList<>();
+			AnswerMapper answerMapper = new AnswerMapper();
+			allAnswers = answerMapper.getAllAnswers(this.id);
+			this.allAnswers = allAnswers;
+		}
+		return allAnswers;
+	}
+	
+	public void setAllAnswers( List<Answer> allAnswers) {
+		this.allAnswers = allAnswers;
+	}
+	
 
 	// Update a question info
 //	public void updateQuestion(int id, int type, String title, String content, String answer, int mark, int exam_id)

@@ -14,6 +14,14 @@
 </head>
 <body>
 <a class="sel_btn" href="/login.jsp">DashBoard</a> 
+
+<div class="text-center">
+ <span style="color:red"><%=(request.getSession(false).getAttribute("errMessageStudentTakeExam") == null) ? "" : request.getSession(false).getAttribute("errMessageStudentTakeExam")%></span>
+ <%
+session.removeAttribute("errMessageStudentTakeExam");
+
+%>
+</div>
  <div align="center">
         <table  style="width:70%">
             <tr>

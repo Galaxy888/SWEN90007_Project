@@ -60,7 +60,7 @@ public class deleteQuestionController extends HttpServlet {
 			response.sendRedirect("./questions");
 		}else {
 			HttpSession session = request.getSession(); 
-			session.setAttribute("errMessageQuestion", "something went wrong. The question cannot be deleted");
+			session.setAttribute("errMessageQuestion", "Something went wrong. The question cannot be deleted");
 			response.sendRedirect("./questions");
 		}
 	}

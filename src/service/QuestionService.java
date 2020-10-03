@@ -1,5 +1,10 @@
 package service;
 
+import java.util.List;
+
+import domain.Answer;
+import domain.Exam;
+import domain.Mark;
 import domain.Question;
 import shared.UnitOfWork;
 
@@ -65,6 +70,13 @@ public class QuestionService {
 		UnitOfWork.getCurrent().registerDeleted(question);
 		
 		return UnitOfWork.getCurrent().commit();
+	}
+	
+	public List<Answer> getAllAnswers(int question_id)  {
+		Question question = new Question();
+		question.setId(question_id);
+		System.out.println("QuestionService.java: "+question.getId());
+		return question.getAllAnswers();
 	}
 
 
