@@ -18,6 +18,7 @@ import datasource.DBConnection;
 import domain.Answer;
 import domain.Question;
 import mapper.AnswerMapper;
+import service.QuestionService;
 
 /**
  * Servlet implementation class MarkAnswerController
@@ -25,13 +26,14 @@ import mapper.AnswerMapper;
 //@WebServlet("/MarkAnswerController")
 public class MarkAnswerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private QuestionService questionService;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
     public MarkAnswerController() {
         super();
-        // TODO Auto-generated constructor stub
+        questionService = new QuestionService();
     }
 
 	/**
@@ -47,7 +49,7 @@ public class MarkAnswerController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("TakeQuestionController");
+		System.out.println("MarkAnswerController");
 		int exam_id = Integer.parseInt(request.getParameter("exam_id"));
 		 System.out.print(exam_id);
 		 Question question2 = new Question();
@@ -57,9 +59,8 @@ public class MarkAnswerController extends HttpServlet {
 		 for (Question question: questions) {
 			 List<Answer> answers1 = new ArrayList<>();
 			 
-			 
-			 // TODO
-			 answers1 = AnswerMapper.getAllAnswer(question.getId());
+//			 answers1 = AnswerMapper.getAllAnswer(question.getId());
+			 answers1 = questionService.getAllAnswers(question.getId());
 			 answers.addAll(answers1);
 		 }
 		 for (Answer answer : answers) {

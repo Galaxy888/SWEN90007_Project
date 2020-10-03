@@ -12,7 +12,7 @@ import domain.Answer;
 public class AnswerMapper {
 	
 	// Get all answers by question id
-	public static List<Answer> getAllAnswer(int question_id) {
+	public List<Answer> getAllAnswers(int question_id) {
 		List<Answer> answers = new ArrayList<>();
 		try {
 			String stm = "select * from users_questions where question_id='" + question_id + "'";

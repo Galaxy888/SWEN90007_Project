@@ -58,7 +58,7 @@ public class ViewExamResultController extends HttpServlet {
 //		request.getRequestDispatcher("./exam_result.jsp").forward(request, response);
 		
 		List<Mark> marks = examService.getAllMarks(exam_id);
-		System.out.println("update Result doPost success: "+marks);
+		System.out.println("View Exam Result doPost success: "+marks);
 		if (marks!=null) {
 			request.setAttribute("marks",marks);
 			request.getRequestDispatcher("./exam_result.jsp").forward(request, response);

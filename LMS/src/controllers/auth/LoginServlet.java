@@ -39,17 +39,6 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
-//        response.setContentType("text/html");
-//		System.out.println("Hello from GET method in LoginServlet");
-//		String user = request.getParameter("userName");
-//		String pass = request.getParameter("passWord");
-//		
-//		
-//		PrintWriter writer = response.getWriter();
-//		writer.println("<h3> Hello from Get "+user+  "   " +pass+ "</h3>");
-//		doPost(request, response);
 		response.sendRedirect("/login.jsp");
 	}
 
@@ -121,43 +110,6 @@ public class LoginServlet extends HttpServlet {
 //            request.getRequestDispatcher("/login.jsp").forward(request, response);
 		}
        }
-//		String stm = ("Select * FROM users WHERE name = '" + userName + "' AND password = '" + password + "';" );
-////		writer.println("<h3> Hello from Post: Your user name is: "+user+", Your password is: " +pass+ "</h3>");
-//		try {
-//        	PreparedStatement loginStatement = DBConnection.prepare(stm);
-//
-//        	ResultSet rs = loginStatement.executeQuery();
-//			if (rs.next()) {
-//				correctUser = rs.getString(2);
-//				
-//				
-//			}
-//	
-//		} catch (SQLException e) {
-//	
-//		}
-//		
-//		if(correctUser != null) {
-//			//login success
-//			System.out.println("login success");
-//			
-//            //create session object
-//            HttpSession session = request.getSession();
-//            //store user data into the session object
-//            session.setAttribute("userName", userName);
-//            //go to dashboard.jsp
-////            response.sendRedirect(request.getContextPath()+"/IndexServlet");
-////			response.sendRedirect("success.jsp");
-//            request.setAttribute("userName", userName);
-//			request.getRequestDispatcher("success.jsp").forward(request, response);
-//		}
-//		else {
-//			//login fail
-//			System.out.println("login fail");
-//			//response.sendRedirect(request.getContextPath() + "/fail.html");
-//            request.setAttribute("errMessage", "Invalid username or password ");
-//            request.getRequestDispatcher("login.jsp").forward(request, response);
-//		}
 	}
 
 

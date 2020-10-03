@@ -17,6 +17,8 @@ import javax.servlet.http.HttpSession;
 import datasource.DBConnection;
 import domain.Question;
 import mapper.AnswerMapper;
+import service.ExamService;
+import service.QuestionService;
 import domain.Answer;
 /**
  * Servlet implementation class AnswerListController
@@ -24,13 +26,16 @@ import domain.Answer;
 //@WebServlet("/AnswerListController")
 public class AnswerListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private ExamService examService;
+	private QuestionService questionService;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
     public AnswerListController() {
         super();
-        // TODO Auto-generated constructor stub
+        examService = new ExamService();
+        questionService = new QuestionService();
     }
 
 	/**
@@ -51,16 +56,16 @@ public class AnswerListController extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		int exam_id = Integer.parseInt((String)request.getAttribute("exam_id"));
 		 System.out.print(exam_id);
-		 Question question2 = new Question();
+//		 Question question2 = new Question();
 		 List<Answer> answers = new ArrayList<>();
-		 List<Question> questions = new ArrayList<>();
-		 questions = question2.getAllQuestions(exam_id);
+//		 List<Question> questions = new ArrayList<>();
+//		 questions = question2.getAllQuestions(exam_id);
+		 List<Question> questions = examService.getAllQuestions(exam_id);
+		 
 		 for (Question question: questions) {
 			 List<Answer> answers1 = new ArrayList<>();
-			 
-			 
-			 // TODO
-			 answers1 = AnswerMapper.getAllAnswer(question.getId());
+			
+			 answers1 = questionService.getAllAnswers(question.getId());
 			 answers.addAll(answers1);
 		 }
 		 
