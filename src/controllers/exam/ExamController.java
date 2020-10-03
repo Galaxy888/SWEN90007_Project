@@ -155,6 +155,7 @@ public class ExamController extends HttpServlet {
 					
 					Collections.sort(exams);
 					request.setAttribute("exams", exams);
+					request.setAttribute("subjectCode", subjectCode);
 					request.getRequestDispatcher("/exams_student.jsp").forward(request, response);
 
 //					List<Exam> exams = subjectService.getAllStudentExams(subjectCode);
