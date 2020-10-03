@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import datasource.DBConnection;
@@ -131,6 +132,7 @@ public class QuestionMapper extends DataMapper{
 		} catch (SQLException e) {
 	
 		}
+        Collections.sort(questions);
         return questions;
     }
 	

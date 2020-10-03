@@ -7,7 +7,7 @@ import datasource.DBConnection;
 import mapper.MarkMapper;
 import mapper.QuestionMapper;
 
-public class Exam extends DomainObject {
+public class Exam extends DomainObject implements Comparable<Exam>{
 	private int id;
 	private String title;
 	private int status;
@@ -103,6 +103,12 @@ public class Exam extends DomainObject {
 	
 	public void setAllMarks( List<Mark> allMarks) {
 		this.allMarks = allMarks;
+	}
+	
+
+	@Override
+	public int compareTo(Exam o) {
+		return this.id-o.id;
 	}
 
 	// Update an exam info

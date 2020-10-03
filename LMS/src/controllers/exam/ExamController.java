@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -87,11 +88,13 @@ public class ExamController extends HttpServlet {
 				}
 			} else if (pathParts.length == 5) {
 				subjectCode = pathParts[1];
-				if (pathParts[2].equals("exams")) {
+				if (pathParts[2].equals("exams") &&(!pathParts[4].equals("markExamDone"))) {
+					String subject_code = pathParts[1];
 					String exam_id = pathParts[3];
 					String operation = pathParts[4];
 					request.setAttribute("exam_id", exam_id);
 					request.setAttribute("operation", operation);
+					request.setAttribute("subject_code", subject_code);
 					request.getRequestDispatcher("/question").forward(request, response);
 				} else if (pathParts[4].equals("ViewAnswer")) {
 					String exam_id = pathParts[3];
@@ -99,7 +102,13 @@ public class ExamController extends HttpServlet {
 					request.setAttribute("exam_id", exam_id);
 					request.setAttribute("operation", operation);
 					request.getRequestDispatcher("/ViewAnswer").forward(request, response);
-				} else {
+				} else if (pathParts[4].equals("markExamDone")){
+					//TODO
+//					HttpSession session = request.getSession(); 
+//					session.setAttribute("errMessageStudentTakeExam", "You have already submit the exam");
+					response.sendRedirect("/courses/"+subjectCode+"/exams");
+					
+				}else {
 					response.sendRedirect("/dashboard");
 				}
 			}
@@ -144,7 +153,7 @@ public class ExamController extends HttpServlet {
 						System.out.println(e.getMessage());
 					}
 					
-					
+					Collections.sort(exams);
 					request.setAttribute("exams", exams);
 					request.getRequestDispatcher("/exams_student.jsp").forward(request, response);
 
