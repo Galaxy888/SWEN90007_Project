@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import datasource.DBConnection;
 import domain.Answer;
 import domain.Question;
+import mapper.AnswerMapper;
 
 /**
  * Servlet implementation class MarkAnswerController
@@ -55,7 +56,10 @@ public class MarkAnswerController extends HttpServlet {
 		 questions = question2.getAllQuestions(exam_id);
 		 for (Question question: questions) {
 			 List<Answer> answers1 = new ArrayList<>();
-			 answers1 = new Answer().getAllAnswer(question.getId());
+			 
+			 
+			 // TODO
+			 answers1 = AnswerMapper.getAllAnswer(question.getId());
 			 answers.addAll(answers1);
 		 }
 		 for (Answer answer : answers) {

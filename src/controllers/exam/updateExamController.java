@@ -62,7 +62,7 @@ public class updateExamController extends HttpServlet {
 			response.sendRedirect("./exams");
 		} else {
 			HttpSession session = request.getSession();
-			session.setAttribute("errMessageExam", "something went wrong. The exam is update error");
+			session.setAttribute("errMessageExam", "Something went wrong. Update exam error");
 			response.sendRedirect("./exams");
 
 		}

@@ -8,6 +8,7 @@ import java.util.List;
 
 import datasource.DBConnection;
 import domain.Exam;
+import domain.Mark;
 import domain.Question;
 import mapper.ExamMapper;
 import shared.UnitOfWork;
@@ -71,8 +72,15 @@ public class ExamService {
 		
 		Exam exam = new Exam();
 		exam.setId(exam_id);
-		System.out.println("SubjectService.java: "+exam.getId());
+		System.out.println("ExamService.java: "+exam.getId());
 		return exam.getAllQuestions();
+	}
+
+	public List<Mark> getAllMarks(int exam_id) {
+		Exam exam = new Exam();
+		exam.setId(exam_id);
+		System.out.println("ExamService.java: "+exam.getId());
+		return exam.getAllMarks();
 	}
 
 }

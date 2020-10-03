@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.*;
 
 import datasource.DBConnection;
+import mapper.MarkMapper;
 import mapper.QuestionMapper;
 
 public class Exam extends DomainObject {
@@ -13,9 +14,10 @@ public class Exam extends DomainObject {
 	private String subject_code;
 	
 	private List<Question> allQuestions;
+	private List<Mark> allMarks;
 
-	private static final String findAllSubjectsStatement = "SELECT * from exams";
-	private static final String insertSubjectStatement = "INSERT INTO exams VALUES (?, ?, ?,?)";
+//	private static final String findAllSubjectsStatement = "SELECT * from exams";
+//	private static final String insertSubjectStatement = "INSERT INTO exams VALUES (?, ?, ?,?)";
 
 	public Exam(int id, String title, int status, String subject_code) {
 		this.id = id;
@@ -23,11 +25,13 @@ public class Exam extends DomainObject {
 		this.status = status;
 		this.subject_code = subject_code;
 		this.allQuestions = null;
+		this.allMarks = null;
 		
 	}
 
 	public Exam() {
 		this.allQuestions = null;
+		this.allMarks = null;
 	}
 
 	public int getId() {
@@ -76,6 +80,22 @@ public class Exam extends DomainObject {
 	public void setAllQuestions( List<Question> allQuestions) {
 		this.allQuestions = allQuestions;
 	}
+	
+	
+	//lazy load
+	public List<Mark> getAllMarks() {
+		if(this.allMarks==null) {
+			List<Mark> allMarks = new ArrayList<>();
+			MarkMapper markMapper = new MarkMapper();
+			allMarks = markMapper.getAllMarks(this.id);
+			this.allMarks = allMarks;
+		}
+		return allMarks;
+	}
+	
+	public void setAllMarks( List<Mark> allMarks) {
+		this.allMarks = allMarks;
+	}
 
 	// Update an exam info
 //	public void updateExam(int id, String title, int status, String subject_code) throws SQLException {
@@ -94,26 +114,30 @@ public class Exam extends DomainObject {
 //		}
 //	}
 
+	
+	
+	
+	
 	// Get all exams
-	public static List<Exam> getAllExams(String subject_code) {
-		List<Exam> exams = new ArrayList<>();
-		try {
-			String stm = "select * from exams where subject_code='" + subject_code + "'";
-			PreparedStatement stmt = DBConnection.prepare(stm);
-			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
-				int id = Integer.parseInt(rs.getString(1));
-				String title = rs.getString(2);
-				int status = Integer.parseInt(rs.getString(3));
-				String subject = rs.getString(4);
-				exams.add(new Exam(id, title, status, subject));
-			}
-
-		} catch (SQLException e) {
-
-		}
-		return exams;
-	}
+//	public static List<Exam> getAllExams(String subject_code) {
+//		List<Exam> exams = new ArrayList<>();
+//		try {
+//			String stm = "select * from exams where subject_code='" + subject_code + "'";
+//			PreparedStatement stmt = DBConnection.prepare(stm);
+//			ResultSet rs = stmt.executeQuery();
+//			while (rs.next()) {
+//				int id = Integer.parseInt(rs.getString(1));
+//				String title = rs.getString(2);
+//				int status = Integer.parseInt(rs.getString(3));
+//				String subject = rs.getString(4);
+//				exams.add(new Exam(id, title, status, subject));
+//			}
+//
+//		} catch (SQLException e) {
+//
+//		}
+//		return exams;
+//	}
 
 	// Insert an new exam
 //	public int insert() {
