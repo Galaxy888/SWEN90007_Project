@@ -111,18 +111,8 @@ public class QuestionController extends HttpServlet {
 
 					System.out.println(e.getMessage());
 				}
-				if (flag == 1) {
-					String sql2 = "INSERT INTO users_exams VALUES (?, ?, 0,0)";
-					try {
-						PreparedStatement insertStatement = DBConnection.prepare(sql2);
-						insertStatement.setInt(1, user_id);
-						insertStatement.setInt(2, exam_id);
-						insertStatement.execute();
-					} catch (SQLException e) {
-
-						System.out.println(e.getMessage());
-					}
-
+				
+				
 //					List<Question> questions = new ArrayList<>();
 //					String stm = "select * from questions where exam_id='" + exam_id + "'";
 //					try {
@@ -147,13 +137,7 @@ public class QuestionController extends HttpServlet {
 					request.setAttribute("exam_id", exam_id);
 					request.setAttribute("questions", questions);
 					request.getRequestDispatcher("./take_question.jsp").forward(request, response);
-				}else {
-					request.setAttribute("flag", flag);
-					List<Question> questions = examService.getAllQuestions(exam_id);
-					request.setAttribute("exam_id", exam_id);
-					request.setAttribute("questions", questions);
-					request.getRequestDispatcher("./take_question.jsp").forward(request, response);
-				}
+				
 			}
 
 		} else if (operation.equals("addQuestion")) {

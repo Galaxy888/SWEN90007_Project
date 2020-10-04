@@ -55,7 +55,15 @@ public class dashboardController extends HttpServlet {
 				Subject subject = new Subject();
 				List<Subject> subjects = new ArrayList<>();
 				subjects = subject.getAllSubjectsById(user_id);
-				
+				for (Subject subject2:subjects) {
+					int id = subject2.getCoordinator();
+					String stm = "select * from users where id='"+id+"' limit 1"; 
+	                PreparedStatement stmt = DBConnection.prepare(stm);
+	                 ResultSet rs = stmt.executeQuery();
+	                	if(rs.next()){
+	                		request.setAttribute("name"+subject2.getCoordinator(), rs.getString(2));
+	                		}
+				}
 				request.setAttribute("subjects", subjects);
 				request.setAttribute("user_type", userType);
 				request.getRequestDispatcher("dashboard.jsp").forward(request, response);
@@ -72,6 +80,12 @@ public class dashboardController extends HttpServlet {
 						String code = rs.getString(1); 
 						String name = rs.getString(2);
 						int id = Integer.parseInt(rs.getString(3));
+						String sql = "select * from users where id='"+id+"' limit 1"; 
+		                PreparedStatement sqlt = DBConnection.prepare(sql);
+		                 ResultSet rs1 = stmt.executeQuery();
+		                	if(rs1.next()){
+		                		request.setAttribute("name"+id, rs1.getString(2));
+		                		}
 						Subject subject = new Subject(code, name, id);
 						subjects.add(subject);
 			      } 	} catch (Exception exp) {
@@ -87,6 +101,15 @@ public class dashboardController extends HttpServlet {
 					List<User> users = new ArrayList<>();
 					users  = new User().getUser();
 					subjects = SubjectMapper.getAllAdminSubjects();
+					for (Subject subject2:subjects) {
+						int id = subject2.getCoordinator();
+						String stm = "select * from users where id='"+id+"' limit 1"; 
+		                PreparedStatement stmt = DBConnection.prepare(stm);
+		                 ResultSet rs = stmt.executeQuery();
+		                	if(rs.next()){
+		                		request.setAttribute("name"+subject2.getCoordinator(), rs.getString(2));
+		                		}
+					}
 					request.setAttribute("subjects", subjects);
 					request.setAttribute("user_type", userType);
 					request.setAttribute("users", users);
