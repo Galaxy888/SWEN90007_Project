@@ -189,7 +189,7 @@ public class ExamController extends HttpServlet {
 			}else if(pathParts.length == 6) {
 				if(pathParts[5].equals("done")) {
 					HttpSession session = request.getSession(); 
-					session.setAttribute("errMessageStudentTakeExam", "You have already submit the exam");
+					session.setAttribute("errMessageStudentTakeExam", "You have already submitted the exam");
 					response.sendRedirect("/courses/"+pathParts[1]+"/exams");
 				}else {
 					response.sendRedirect("/dashboard");
