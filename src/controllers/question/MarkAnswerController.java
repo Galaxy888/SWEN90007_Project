@@ -79,11 +79,11 @@ public class MarkAnswerController extends HttpServlet {
 		    	ResultSet rs = search.executeQuery();
 		    	int mark_before=0;
 		    	while(rs.next()) {
-		    	if(Integer.parseInt(rs.getString(4))!=1){
+//		    	if(Integer.parseInt(rs.getString(4))!=1){
 		    	mark_before=Integer.parseInt(rs.getString(3));
-		    	}else {
-		    		flag=1;
-		    	}
+//		    	}else {
+//		    		flag=1;
+//		    	}
 		    	System.out.print(mark_before);
 		    	}
 		    	if(flag==0) {
