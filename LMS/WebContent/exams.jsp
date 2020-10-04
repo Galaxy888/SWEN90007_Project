@@ -146,7 +146,7 @@
 											<label for="firstname" class="col-sm-3 control-label">Exam Status:</label>
 												<div class="col-sm-7">
 														<select name="status" id="status">
-														<option value="0">unpublished</option>
+														<!-- <option value="0">unpublished</option> -->
 														<option value="1">published</option>
 														</select>
 													<!-- <input type="text" class="form-control" id="updateStatus" name="status"  placeholder="input new status"> -->
