@@ -122,7 +122,7 @@ public class ExamController extends HttpServlet {
 				request.setAttribute("subject_code", subjectCode);
 
 				if (operation.equals("exams")) {
-                    int flag = 1;
+               
 					String stm = "select * from exams where subject_code='" + subjectCode + "' and status=1";
 					List<Exam> exams = new ArrayList<>();
 					try {
@@ -131,11 +131,13 @@ public class ExamController extends HttpServlet {
 						while (rs.next()) {
 							int id = Integer.parseInt(rs.getString(1));
 							int mark = 0;
+							int flag = 1;
 							String sql = "select * from users_exams where user_id ='" + user_id + "' and exam_id='" + id
 									+ "' limit 1";
 							PreparedStatement search = DBConnection.prepare(sql);
 							ResultSet rs1 = search.executeQuery();
 							while (rs1.next()) {
+								
 								flag = 0;
 								mark = Integer.parseInt(rs1.getString(3));
 							}
@@ -155,7 +157,6 @@ public class ExamController extends HttpServlet {
 					}
 					
 					Collections.sort(exams);
-					request.setAttribute("flag", flag);
 					request.setAttribute("exams", exams);
 					request.setAttribute("subjectCode", subjectCode);
 					request.getRequestDispatcher("/exams_student.jsp").forward(request, response);
