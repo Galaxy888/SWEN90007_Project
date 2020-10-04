@@ -51,6 +51,7 @@ public class ViewExamResultController extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.out.println("View Exam results");
 		int exam_id = Integer.parseInt((String) request.getAttribute("exam_id"));
+		String subject_code = (String) request.getAttribute("subject_code");
 		
 //		List<Mark> marks = new ArrayList<>();
 //		marks = new Mark().getAllMark(exam_id);
@@ -61,6 +62,7 @@ public class ViewExamResultController extends HttpServlet {
 		System.out.println("View Exam Result doPost success: "+marks);
 		if (marks!=null) {
 			request.setAttribute("marks",marks);
+			request.setAttribute("subject_code",subject_code);
 			request.getRequestDispatcher("./exam_result.jsp").forward(request, response);
 		}else {
 //			HttpSession session = request.getSession(); 
