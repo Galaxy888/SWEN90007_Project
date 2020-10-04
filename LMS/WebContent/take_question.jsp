@@ -63,7 +63,10 @@
         	%>
         	
         	     <tr>
+        	     <% int flag = (int)request.getAttribute("flag");
+        	     if(flag==1){ %>
         	     <input type = "submit" value = "Answer" />
+        	     <%} %>
         	   </form>
         	    </tr>
         </table>

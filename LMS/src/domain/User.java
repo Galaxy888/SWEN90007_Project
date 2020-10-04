@@ -28,6 +28,15 @@ public class User extends DomainObject {
 		this.type = type;
 		this.allSubjects = null;
 	}
+	
+	public User(String name, String email, String password, int type) {
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.type = type;
+		this.allSubjects = null;
+	}
 
 	public User() {
 		this.allSubjects = null;
@@ -90,7 +99,7 @@ public class User extends DomainObject {
 	
 	
 
-	// Get all users by id
+	// Get user by id
 	public static User getUser(int id) {
 		User user = new User();
 		try {
@@ -111,4 +120,50 @@ public class User extends DomainObject {
 		}
 		return user;
 	}
+	// Get all users
+			public static List<User> getUser() {
+				List<User> users = new ArrayList<>();
+				User user = new User();
+				try {
+					String stm = "select * from users where user_type=3 or user_type=2";
+					PreparedStatement stmt = DBConnection.prepare(stm);
+					ResultSet rs = stmt.executeQuery();
+					while (rs.next()) {
+						int user_id = Integer.parseInt(rs.getString(1));
+						String name = rs.getString(2);
+						String email = rs.getString(3);
+						String password = rs.getString(4);
+						int type = Integer.parseInt(rs.getString(5));
+						user = new User(user_id, name, email, password, type);
+						users.add(user);
+					}
+
+				} catch (SQLException e) {
+
+				}
+				return users;
+			}
+	// Get all users by type
+		public static List<User> getUserbyType(int user_type) {
+			List<User> users = new ArrayList<>();
+			User user = new User();
+			try {
+				String stm = "select * from users where user_type='" + user_type + "'";
+				PreparedStatement stmt = DBConnection.prepare(stm);
+				ResultSet rs = stmt.executeQuery();
+				while (rs.next()) {
+					int user_id = Integer.parseInt(rs.getString(1));
+					String name = rs.getString(2);
+					String email = rs.getString(3);
+					String password = rs.getString(4);
+					int type = Integer.parseInt(rs.getString(5));
+					user = new User(user_id, name, email, password, type);
+					users.add(user);
+				}
+
+			} catch (SQLException e) {
+
+			}
+			return users;
+		}
 }

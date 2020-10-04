@@ -6,22 +6,41 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import mapper.UserMapper;
 import datasource.DBConnection;
+import domain.Exam;
 import domain.Subject;
 import domain.User;
+import mapper.ExamMapper;
+import shared.UnitOfWork;
 
 public class UserService {
 	
-	public UserService() {
-
-	}
+    private UserMapper userMapper;
 	
-	public static List<Subject> getAllSubjects(int id) {
-		User user = new User();
-		user.setId(id);
-		System.out.println("UserService.java: "+user.getId());
-		return user.getAllSubjects();
+	public UserService() {
+		userMapper = new UserMapper();
+	}
+    
+	public Boolean createNewUser(String name, String email, String password, int type) {
+		
+//		Exam exam = examMapper.findByID(id)
+		
+		UnitOfWork.newCurrent();
+		
+		//create the new exam
+		User user = new User(name,email,password,type);
+		//exam.setId(id);
+		//exam.setTitle(title);
+		//exam.setStatus(status);
+		//exam.setSubject(subject_code);
+		UnitOfWork.getCurrent().registerNew(user);
+		
+		return UnitOfWork.getCurrent().commit();
 	}
 
+
+	
+	
 
 }
