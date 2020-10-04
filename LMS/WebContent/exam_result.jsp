@@ -10,7 +10,37 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Exam result</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>	
+<style>
+ .sel_btn{
+            height: 21px;
+            line-height: 21px;
+            padding: 0 11px;
+            background: #02bafa;
+            border: 1px #26bbdb solid;
+            border-radius: 3px;
+            color: #fff;
+            display: inline-block;
+            text-decoration: none;
+            font-size: 12px;
+            outline: none;
+        }
+.form-popup {
+  display: none;
+ /*  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1; */
+  z-index: 9;
+}
+</style>
 <script type="text/javascript">
     function showInfo2(id,eid,mark,status) {
         document.getElementById("updateId").value = id;
@@ -21,13 +51,14 @@
     </script>
 </head>
 <body>
-<a class="sel_btn" href="/login.jsp">DashBoard</a> 
- <div align="center">
+<a class="sel_btn" href="/login.jsp">DashBoard</a>
+<h1 style="text-align:center"><%=request.getAttribute("subject_code") %> Exam Mark</h1> 
+ <div align="center" class="col-auto">
         <table  style="width:70%">
             <tr>
                 <th>User Id</th>
                 <th>Mark</th>
-                <th>Status</th>
+                <!-- <th>Status</th> -->
                 <th>Operation</th>
             </tr>
             
@@ -39,7 +70,7 @@
        		 %>
        		        <td><%= mark.getId() %></td>
                     <td><%= mark.getMark() %></td>
-                    <td><%= mark.getStatus() %></td>
+                 <%--    <td><%= mark.getStatus() %></td> --%>
                     <td>
 	                <button type="button" class="sel_btn" data-toggle="modal" data-target="#updateModal" id="btn_update" 
                     onclick="showInfo2('<%= mark.getId() %>','<%= mark.getEId() %>','<%= mark.getMark() %>','<%= mark.getStatus() %>')">
@@ -64,37 +95,42 @@
 												
 										<!---------------------form-------------------->
 										
-									<div class="form-group">
+<!-- 									<div class="form-group">
 											<label for="firstname" class="col-sm-3 control-label">user_id</label>
 												<div class="col-sm-7">
-													<input type="text" class="form-control" id="updateId" name="user_id"  placeholder="exam id">
+													<input type="hidden" class="form-control" id="updateId" name="user_id"  placeholder="exam id">
 												<label class="control-label" for="updateId" style="display: none;"></label>
 												</div>
-										</div>
+										</div> -->
+										<input type="hidden" class="form-control" id="updateId" name="user_id"  placeholder="exam id">
 										
-										 <div class="form-group">
+<!-- 										 <div class="form-group">
 											<label for="firstname" class="col-sm-3 control-label">exam_id</label>
 												<div class="col-sm-7">
-													<input type="text" class="form-control" id="updateEId" name="exam_id"  placeholder="input new title">
+													<input type="hidden" class="form-control" id="updateEId" name="exam_id"  placeholder="input new title">
 												<label class="control-label" for="updateEId" style="display: none;"></label>
 												</div>
-										</div>
+										</div> -->
+										
+										<input type="hidden" class="form-control" id="updateEId" name="exam_id"  placeholder="input new title">
 										
 										<div class="form-group">
 											<label for="firstname" class="col-sm-3 control-label">mark</label>
 												<div class="col-sm-7">
-													<input type="text" class="form-control" id="updateMark" name="mark"  placeholder="input new status">
+													<input type="number" class="form-control" id="updateMark" name="mark"  placeholder="input new status">
 												<label class="control-label" for="updateMark" style="display: none;"></label>
 												</div>
 										</div>
 										
-										<div class="form-group">
+<!-- 										<div class="form-group">
 											<label for="firstname" class="col-sm-3 control-label">status</label>
 												<div class="col-sm-7">
-													<input type="text" class="form-control" id="updateStatus" name="status"  placeholder="subject">
+													<input type="hidden" class="form-control" id="updateStatus" name="status"  placeholder="subject">
 												<label class="control-label" for="updateStatus" style="display: none;"></label>
 												</div>
-										</div>
+										</div> -->
+										
+										<input type="hidden" class="form-control" id="updateStatus" name="status"  placeholder="subject">
 											
 										</div>
 												<div class="modal-footer">
