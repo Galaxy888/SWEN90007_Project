@@ -34,10 +34,9 @@ session.removeAttribute("errMessageStudentTakeExam");
             <tr>
                 <th>#Exam</th>
                 <th>Exam Title</th>
-                <th>Exam Status</th>
-                <th>Mark Status</th>
                <!--  <th>Subject</th> -->
                 <th>Operation</th>
+                <th>Status</th>
                 <th>Mark</th>
             </tr>
             
@@ -51,7 +50,6 @@ session.removeAttribute("errMessageStudentTakeExam");
        		        <%-- <td><%= exam.getId() %></td> --%>
                     <td><%= i=i+1 %></td>
                     <td><%= exam.getTitle() %></td>
-                    <td><%= exam.getStatus()==0 ? "unpublished" : "published"%>
                     <%-- <td><%= exam.getSubject()  %></td> --%>
                     <td>
 	                 <%-- <a class="sel_btn" href="./updateExam?id=<%=exam.getId()%>&title=<%=exam.getTitle()%>&status=<%=exam.getStatus()%>&subject_code=<%=exam.getSubject()%>">Edit</a> --%>
@@ -60,7 +58,7 @@ session.removeAttribute("errMessageStudentTakeExam");
 	               <% int mark = (int) request.getAttribute("mark"+exam.getId());
 	                  int flag =(int) request.getAttribute("flag"+exam.getId());%>
 	                <%--  <td><%=request.getAttribute("mark"+exam.getId())%></td> --%>
-	                 <% if (flag==0){ %>
+	                 <% if (flag==1){ %>
 	                 <td>Unfinished</td>
 	                 <%  }else { %>
 	                  <td>Finished</td>

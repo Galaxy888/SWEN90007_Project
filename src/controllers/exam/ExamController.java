@@ -122,7 +122,7 @@ public class ExamController extends HttpServlet {
 				request.setAttribute("subject_code", subjectCode);
 
 				if (operation.equals("exams")) {
-                    int flag = 0;
+                    int flag = 1;
 					String stm = "select * from exams where subject_code='" + subjectCode + "' and status=1";
 					List<Exam> exams = new ArrayList<>();
 					try {
@@ -136,12 +136,13 @@ public class ExamController extends HttpServlet {
 							PreparedStatement search = DBConnection.prepare(sql);
 							ResultSet rs1 = search.executeQuery();
 							while (rs1.next()) {
-								flag = 1;
+								flag = 0;
 								mark = Integer.parseInt(rs1.getString(3));
 							}
 							System.out.print(mark);
 							request.setAttribute("mark" + id, mark);
 							request.setAttribute("flag" + id, flag);
+							System.out.print("flag is:"+flag);
 							String title = rs.getString(2);
 							int status = Integer.parseInt(rs.getString(3));
 							String code = rs.getString(4);
