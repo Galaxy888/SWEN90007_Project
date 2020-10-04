@@ -54,7 +54,7 @@
     </script>
 </head>
 <body>
-<a class="sel_btn" href="./dashboard">DashBoard</a> 
+<a class="sel_btn" href="/dashboard">DashBoard</a> 
 
 <div>
 <h1 style="text-align:center"><%=request.getAttribute("subject_code") %></h1> 

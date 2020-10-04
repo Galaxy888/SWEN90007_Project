@@ -21,7 +21,7 @@
     </script>
 </head>
 <body>
-<a class="sel_btn" href="./login.jsp">DashBoard</a> 
+<a class="sel_btn" href="/login.jsp">DashBoard</a> 
  <div align="center">
         <table  style="width:70%">
             <tr>
