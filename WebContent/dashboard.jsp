@@ -1,4 +1,5 @@
 <%@ page import="domain.Subject" 
+    import="domain.User"
     import="datasource.DBConnection"
     import="java.sql.*"
     import="java.util.*"
@@ -11,7 +12,7 @@
 <% //In case, if Instructor session is not set, redirect to Login page
 if((request.getSession(false).getAttribute("userName")== null) )
 {
-	 response.sendRedirect("/login.jsp");
+	 response.sendRedirect("./login.jsp");
 }
 
 %>
@@ -92,6 +93,7 @@ tr:nth-child(even) {
      <hr class="rounded">
   <hr class="rounded">
    <%if (Type.equals("Admin")){ %>
+   
     <div align="center">
     
     <form name="addSubject" action="addSubject" method="post">
@@ -105,6 +107,64 @@ tr:nth-child(even) {
       </form>
     
     </div>
+    <div align="center">
+     <hr class="rounded">
+  <hr class="rounded">
+    <form name="addUser" action="addUser" method="post">
+         name: <input type = "text" name = "name">
+         <br />
+         email:<input type = "text" name="email">
+         <br />
+         password:<input type = "text" name="password">
+         <br />
+         type:<input type = "text" name="type">
+         <br />
+         <input type = "submit" value = "Add New User" />
+      </form>
+     <hr class="rounded">
+  <hr class="rounded">
+    </div>
+      <table  style="width:70%">
+            <tr>
+                <th>User Id</th>
+                <th>User Name</th>
+                <th>User Password</th>
+                <th>User Email</th>
+                <th>User Type</th>
+                <th>Operation</th>
+            </tr>
+            
+                <tr>
+ 			<%
+ 			     List<User> users = new ArrayList<>(); 
+ 			     users = (List<User>)request.getAttribute("users");//获取request中名称为student的值
+           		 for (User user: users) {
+       		 %>
+       		        <td><%= user.getId() %></td>
+                    <td><%= user.getName() %></td>
+                    <td><%= user.getEmail() %>
+                    <td><%= user.getPassword()  %></td>
+                    <% if(user.getType()==2){ %>
+                    <td> Instructor</td>
+                    <% } else {%>
+                    <td> Student</td>
+                    <%} %>
+                    <td>
+                    <button type="button" class="sel_btn" data-toggle="modal" data-target="#updateModal" id="btn_update" 
+                    onclick="showInfo2('<%= user.getId() %>','<%= user.getName() %>','<%= user.getEmail() %>','<%= user.getPassword() %>','<%= user.getType() %>')">
+                    Update</button>
+	                 <form class = "sel_btn" name="delete" method="post" action="deleteExam">
+	                 <input class = "sel_btn"  name="id" type="hidden" value=<%=user.getId()%>>
+	                 <input class = "sel_btn"  type = "submit" value = "Delete" />
+	                 </form>
+
+	                 
+	                 </td>
+                </tr>
+            <%
+          		  } // for loop
+        	%>
+        </table>
     <%} %>
 
 

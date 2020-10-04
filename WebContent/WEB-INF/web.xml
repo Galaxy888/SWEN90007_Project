@@ -57,8 +57,16 @@
 		<servlet-name>dashboardController</servlet-name>
 		<url-pattern>/courses</url-pattern>
 	</servlet-mapping>
-
-
+	
+    <servlet>
+		<servlet-name>addUserController</servlet-name>
+		<servlet-class>controllers.addUserController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>addUserController</servlet-name>
+		<url-pattern>/addUser</url-pattern>
+	</servlet-mapping>
+    
 	<!--#################### Subject #################### -->
 	<servlet>
 		<servlet-name>SubjectServlet</servlet-name>

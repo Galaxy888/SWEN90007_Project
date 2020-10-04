@@ -142,13 +142,17 @@ public class QuestionController extends HttpServlet {
 //
 //						System.out.println(e.getMessage());
 //					}
+					request.setAttribute("flag", flag);
 					List<Question> questions = examService.getAllQuestions(exam_id);
 					request.setAttribute("exam_id", exam_id);
 					request.setAttribute("questions", questions);
 					request.getRequestDispatcher("./take_question.jsp").forward(request, response);
-				} else {
-					response.sendRedirect("./exams/done");
-//					request.getRequestDispatcher("/exams").forward(request, response);
+				}else {
+					request.setAttribute("flag", flag);
+					List<Question> questions = examService.getAllQuestions(exam_id);
+					request.setAttribute("exam_id", exam_id);
+					request.setAttribute("questions", questions);
+					request.getRequestDispatcher("./take_question.jsp").forward(request, response);
 				}
 			}
 
