@@ -52,7 +52,7 @@ public class addSubjectController extends HttpServlet {
 		Subject subject = new Subject(code, name, id);
 		subject.insert();
 		
-		response.sendRedirect("/LMS/dashboard");
+		response.sendRedirect("/dashboard");
 		
 
 	}
