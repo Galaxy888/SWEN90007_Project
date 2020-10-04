@@ -109,7 +109,12 @@ tr:nth-child(even) {
          <br />
          password:<input type = "text" name="password">
          <br />
-         type:<input type = "text" name="type">
+         type:
+         <!-- <input type = "text" name="type"> -->
+		<select name="type" id="type">
+		<option value="2">Instructor</option>
+		<option value="3">Student</option>
+		</select>         
          <br />
          <input type = "submit" value = "Add New User" />
       </form>
@@ -120,8 +125,8 @@ tr:nth-child(even) {
             <tr>
                 <th>User Id</th>
                 <th>User Name</th>
-                <th>User Password</th>
                 <th>User Email</th>
+                <th>User Password</th>
                 <th>User Type</th>
                 <th>Operation</th>
             </tr>
