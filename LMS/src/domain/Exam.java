@@ -6,6 +6,7 @@ import java.util.*;
 import datasource.DBConnection;
 import mapper.MarkMapper;
 import mapper.QuestionMapper;
+import mapper.UserMapper;
 
 public class Exam extends DomainObject implements Comparable<Exam>{
 	private int id;
@@ -15,6 +16,7 @@ public class Exam extends DomainObject implements Comparable<Exam>{
 	
 	private List<Question> allQuestions;
 	private List<Mark> allMarks;
+	
 
 //	private static final String findAllSubjectsStatement = "SELECT * from exams";
 //	private static final String insertSubjectStatement = "INSERT INTO exams VALUES (?, ?, ?,?)";
@@ -27,6 +29,7 @@ public class Exam extends DomainObject implements Comparable<Exam>{
 		this.allQuestions = null;
 		this.allMarks = null;
 		
+		
 	}
 	public Exam(String title, int status, String subject_code) {
 		this.title = title;
@@ -35,11 +38,13 @@ public class Exam extends DomainObject implements Comparable<Exam>{
 		this.allQuestions = null;
 		this.allMarks = null;
 		
+		
 	}
 
 	public Exam() {
 		this.allQuestions = null;
 		this.allMarks = null;
+	
 	}
 
 	public int getId() {
@@ -105,7 +110,7 @@ public class Exam extends DomainObject implements Comparable<Exam>{
 		this.allMarks = allMarks;
 	}
 	
-
+	
 	@Override
 	public int compareTo(Exam o) {
 		return this.id-o.id;
