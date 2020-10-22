@@ -16,10 +16,13 @@ import javax.servlet.http.HttpSession;
 
 import datasource.DBConnection;
 import domain.Question;
+import domain.UserQuestion;
 import mapper.AnswerMapper;
 import service.ExamService;
+import service.MarkService;
 import service.QuestionService;
 import domain.Answer;
+import domain.Mark;
 /**
  * Servlet implementation class AnswerListController
  */
@@ -28,6 +31,7 @@ public class AnswerListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ExamService examService;
 	private QuestionService questionService;
+	
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -36,6 +40,7 @@ public class AnswerListController extends HttpServlet {
         super();
         examService = new ExamService();
         questionService = new QuestionService();
+
     }
 
 	/**
@@ -56,6 +61,24 @@ public class AnswerListController extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		int exam_id = Integer.parseInt((String)request.getAttribute("exam_id"));
 		 System.out.print(exam_id);
+		// find all the users by exam_id and find all questions at this user, 
+		//Using sublist, the first elements of this sublist is the user id
+		 List<Mark> users = new ArrayList<>();
+		 users = examService.getAllMarks(exam_id);
+		 System.out.print(users);
+		 
+		 List<ArrayList<UserQuestion>> StudentList = new ArrayList<ArrayList<UserQuestion>>();
+		 for(Mark user:users) {
+			 ArrayList<UserQuestion> questionList = new ArrayList<UserQuestion>();
+			 int id = user.getId();
+			 questionList = new UserQuestion().getAllQuestionsbyId(id,exam_id);
+		     StudentList.add(questionList);
+		 }
+        System.out.print(StudentList);
+         
+         
+         
+         
 //		 Question question2 = new Question();
 		 List<Answer> answers = new ArrayList<>();
 //		 List<Question> questions = new ArrayList<>();
@@ -70,6 +93,7 @@ public class AnswerListController extends HttpServlet {
 		 }
 		 
 		request.setAttribute("answers", answers);
+		request.setAttribute("answerList", StudentList);
 		request.setAttribute("exam_id",exam_id);
 		request.getRequestDispatcher("./answers.jsp").forward(request, response);
 		 

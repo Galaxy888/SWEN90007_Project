@@ -12,7 +12,7 @@ CREATE TABLE users(
 
 CREATE SEQUENCE public.users_seq
     INCREMENT 1
-    START 1
+    START 10
     MINVALUE 1
     MAXVALUE 99999999
     CACHE 1;
@@ -83,6 +83,7 @@ CREATE TABLE users_exams (
 CREATE TABLE users_questions (
   user_id    INT REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE, 
   question_id    INT REFERENCES questions (id) ON UPDATE CASCADE, 
+  exam_id INT REFERENCES exams (id) ON UPDATE CASCADE, 
   answer VARCHAR(20),
   mark INT,
   status     INT, 
@@ -95,7 +96,7 @@ VALUES (1, 'Admin', '','123',1);
 --INSERT INTO users
 --VALUES (001, 'Instructor', '','Instructor',1);
 INSERT INTO users
-VALUES (2, 'Instructor', 'Tutor@gmail.com','123',2);
+VALUES (2, 'Tutor', 'Tutor@gmail.com','123',2);
 
 INSERT INTO users
 VALUES (4, 'Instructor2', 'Tutor@gmail.com','123',2);
@@ -103,8 +104,8 @@ VALUES (4, 'Instructor2', 'Tutor@gmail.com','123',2);
 INSERT INTO users
 VALUES (3, 'Student', '','123',3);
 
---INSERT INTO subjects
---VALUES ('SWEN90007','SDA',002);
+INSERT INTO subjects
+VALUES ('SWEN90007','SDA',002);
 
 INSERT INTO subjects
 VALUES ('SWEN90013','HIS',002);
