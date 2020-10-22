@@ -15,6 +15,9 @@ public class Question extends DomainObject implements Comparable<Question>{
 	private String answer;
 	private int mark;
 	private int exam_id;
+	private Timestamp modifiedTime;
+	private String modifiedBy;
+	private int version;
 	
 	private List<Answer> allAnswers;
 
@@ -31,6 +34,30 @@ public class Question extends DomainObject implements Comparable<Question>{
 
 	public Question() {
 		this.allAnswers = null;
+	}
+
+	public Timestamp getModifiedTime() {
+		return modifiedTime;
+	}
+
+	public void setModifiedTime(Timestamp modifiedTime) {
+		this.modifiedTime = modifiedTime;
+	}
+
+	public String getModifiedBy() {
+		return modifiedBy;
+	}
+
+	public void setModifiedBy(String modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	public int getId() {
