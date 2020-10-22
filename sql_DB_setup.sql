@@ -50,6 +50,11 @@ CREATE TABLE questions(
     answer VARCHAR(100),
     mark INT,
     exam_id INT REFERENCES exams(id),
+    
+    modifiedTime timestamp,
+    modifiedBy VARCHAR(100),
+    version INT,
+    
     PRIMARY KEY(id)
 );
 CREATE SEQUENCE public.questions_seq
@@ -93,6 +98,9 @@ INSERT INTO users
 VALUES (2, 'Instructor', 'Tutor@gmail.com','123',2);
 
 INSERT INTO users
+VALUES (4, 'Instructor2', 'Tutor@gmail.com','123',2);
+
+INSERT INTO users
 VALUES (3, 'Student', '','123',3);
 
 --INSERT INTO subjects
@@ -103,6 +111,9 @@ VALUES ('SWEN90013','HIS',002);
 
 INSERT INTO users_subjects 
 VALUES (003,'SWEN90013',0);
+
+INSERT INTO users_subjects 
+VALUES (4,'SWEN90013',0);
 
 
 
