@@ -86,14 +86,7 @@
 		<url-pattern>/addSubject</url-pattern>
 	</servlet-mapping>
 
-	<servlet>
-		<servlet-name>addInstructorController</servlet-name>
-		<servlet-class>controllers.addInstructorController</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>addInstructorController</servlet-name>
-		<url-pattern>/addInstructor</url-pattern>
-	</servlet-mapping>
+	
 	
 	<servlet>
 		<servlet-name>StudentController</servlet-name>
@@ -105,12 +98,12 @@
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>addStudentController</servlet-name>
-		<servlet-class>controllers.addStudentController</servlet-class>
+		<servlet-name>assignUserController</servlet-name>
+		<servlet-class>controllers.assignUserController</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>addStudentController</servlet-name>
-		<url-pattern>/addStudent</url-pattern>
+		<servlet-name>assignUserController</servlet-name>
+		<url-pattern>/assignUser</url-pattern>
 	</servlet-mapping>
 
 	<!--#################### Exam #################### -->

@@ -66,6 +66,7 @@ public class ExamService {
 		
 		return UnitOfWork.getCurrent().commit();
 	}
+
 	
 	// Get all questions
 	public List<Question> getAllQuestions(int exam_id) {
@@ -75,7 +76,9 @@ public class ExamService {
 		System.out.println("ExamService.java: "+exam.getId());
 		return exam.getAllQuestions();
 	}
+	
 
+	
 	public List<Mark> getAllMarks(int exam_id) {
 		Exam exam = new Exam();
 		exam.setId(exam_id);

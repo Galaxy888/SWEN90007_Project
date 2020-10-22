@@ -79,7 +79,7 @@ public class TakeQuestionController extends HttpServlet {
 			int question_id = Integer.parseInt(request.getParameter("id" + question.getId()));
 			String answer = request.getParameter("answer" + question.getId());
 
-			Boolean success = userQuestionService.createNewUserQuestion(user_id, question_id, answer);
+			Boolean success = userQuestionService.createNewUserQuestion(user_id, question_id,exam_id,answer);
              
 //			try {
 //				String stm = "INSERT INTO users_questions VALUES (?, ?, ?,0,0)";

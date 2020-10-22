@@ -8,13 +8,15 @@ import datasource.DBConnection;
 public class Answer extends DomainObject {
 	private int user_id;
 	private int question_id;
+	private int exam_id;
 	private String answer;
 	private int mark;
 	private int status;
 
-	public Answer(int id, int question_id, String answer, int mark, int status) {
+	public Answer(int id, int question_id, int exam_id, String answer, int mark, int status) {
 		this.user_id = id;
 		this.question_id = question_id;
+		this.exam_id = exam_id;
 		this.answer = answer;
 		this.mark = mark;
 		this.status = status;
@@ -47,7 +49,12 @@ public class Answer extends DomainObject {
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
-
+	public int getExam_id() {
+		return exam_id;
+	}
+	public void setExam_id(int exam_id) {
+		this.exam_id = exam_id;
+	}
 	public int getMark() {
 		return mark;
 	}
