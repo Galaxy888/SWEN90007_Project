@@ -3,6 +3,7 @@ package mapper;
 import datasource.DBConnection;
 import domain.DomainObject;
 import domain.Exam;
+import domain.Mark;
 import domain.User;
 
 import java.io.IOException;
@@ -12,6 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -102,4 +105,6 @@ public class UserMapper  extends DataMapper {
 		//return "Invalid username or password ";
 	 
 	}
+	
+
 }

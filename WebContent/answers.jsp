@@ -1,4 +1,5 @@
 <%@ page import="domain.Answer" 
+    import = "domain.UserQuestion"
     import="datasource.DBConnection"
     import="java.sql.*"
     import="java.util.*"
@@ -45,6 +46,11 @@
 <body>
 <a class="sel_btn" href="/login.jsp">DashBoard</a> 
  <div align="center">
+        <%  List<ArrayList<UserQuestion>> studentList = new ArrayList<ArrayList<UserQuestion>>(); 
+            studentList = (List<ArrayList<UserQuestion>>)request.getAttribute("answerList");
+            for (List<UserQuestion> answers: studentList ) {
+        %>
+ 
         <table  style="width:70%">
             <tr>
                 <th>User Id</th>
@@ -54,19 +60,20 @@
             </tr>
             <form name="mark" method="post" action="markAnswer">
             <input name="exam_id" type="hidden" value=<%=(int)request.getAttribute("exam_id") %>>
+            
                 <tr>
- 			<%
- 			     List<Answer> answers = new ArrayList<>(); 
- 			     answers = (List<Answer>)request.getAttribute("answers");//获取request中名称为student的值
-           		 for (Answer answer : answers) {
+ 			<%   
+ 		
+           		 for (UserQuestion answer : answers) {
        		 %>
-       		        <td><%= answer.getId() %></td>
+       		        <td><%= answer.getUser_id() %></td>
                     <td><%= answer.getQuestion_id() %></td>
                     <td><%= answer.getAnswer() %>
                     <td>
-	                 <input name="id<%=answer.getId() %>" type="hidden" value=<%=answer.getId()%>>
+                     <input name="user_id" type="hidden" value=<%=answer.getUser_id() %>>
+	                 <input name="id<%=answer.getUser_id() %>" type="hidden" value=<%=answer.getUser_id()%>>
 	                 <input name="qid<%=answer.getQuestion_id() %>" type="hidden" value=<%=answer.getQuestion_id()%>>
-	                 <input type="number" name="mark<%=answer.getId() %><%=answer.getQuestion_id() %>" required>
+	                 <input type="number" name="mark<%=answer.getUser_id() %><%=answer.getQuestion_id() %>" required>
 	                 </td>
                 </tr>
             <%
@@ -75,6 +82,8 @@
         </table>
              <input type = "submit" value = "Mark" />
          </form>
+         <% } %>
+         
     </div>
 </body>
 </html>

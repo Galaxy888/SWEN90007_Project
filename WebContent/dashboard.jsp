@@ -46,8 +46,8 @@ tr:nth-child(even) {
             <tr>
                 <th>Subject Code</th>
                 <th>Subject Name</th>
-                <th>Coordinator</th>
-                <th>Exam List</th>
+                <th>Coordinator List</th>
+                <th>Student List</th>
             </tr>
             
                 <tr>
@@ -65,8 +65,7 @@ tr:nth-child(even) {
 	                 <%-- <a href="<%=request.getContextPath()%>/exams">Check</a> --%>
 	                 <%-- <a href="courses/<%=subject.getSubjectCode()%>/exams/<%= (String)request.getAttribute("user_type")%>">Check</a> --%>
 	                 <%if (Type.equals("Admin")){ %>
-	                  <a href="courses/<%=subject.getSubjectCode()%>/instructor">add Instructor</a>
-	                  <a href="courses/<%=subject.getSubjectCode()%>/student">add Student</a>
+	                  <a href="courses/<%=subject.getSubjectCode()%>/instructor">Student List</a>
 	                 <%} else { %>
 	                 <a href="courses/<%=subject.getSubjectCode()%>/exams">Check</a>
 	                 <% } %>
@@ -120,7 +119,20 @@ tr:nth-child(even) {
       </form>
      <hr class="rounded">
   <hr class="rounded">
+
+
+    <form name="assignUser" action="assignUser" method="post">
+         user id: <input type = "text" name = "id">
+         <br />
+         subject code: <input type = "text" name = "code">
+          <br />
+         <input type = "submit" value = "Assign User" />
+      </form>
+     <hr class="rounded">
+  <hr class="rounded">
+
     </div>
+     <div align="center">
       <table  style="width:70%">
             <tr>
                 <th>User Id</th>
@@ -128,7 +140,6 @@ tr:nth-child(even) {
                 <th>User Email</th>
                 <th>User Password</th>
                 <th>User Type</th>
-                <th>Operation</th>
             </tr>
             
                 <tr>
@@ -146,24 +157,13 @@ tr:nth-child(even) {
                     <% } else {%>
                     <td> Student</td>
                     <%} %>
-                    <td>
-                    <button type="button" class="sel_btn" data-toggle="modal" data-target="#updateModal" id="btn_update" 
-                    onclick="showInfo2('<%= user.getId() %>','<%= user.getName() %>','<%= user.getEmail() %>','<%= user.getPassword() %>','<%= user.getType() %>')">
-                    Update</button>
-	                 <form class = "sel_btn" name="delete" method="post" action="deleteExam">
-	                 <input class = "sel_btn"  name="id" type="hidden" value=<%=user.getId()%>>
-	                 <input class = "sel_btn"  type = "submit" value = "Delete" />
-	                 </form>
-
-	                 
-	                 </td>
                 </tr>
             <%
           		  } // for loop
         	%>
         </table>
     <%} %>
-
+   </div>
 
 
 </body>

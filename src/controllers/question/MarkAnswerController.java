@@ -51,20 +51,24 @@ public class MarkAnswerController extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.out.println("MarkAnswerController");
 		int exam_id = Integer.parseInt(request.getParameter("exam_id"));
-		 System.out.print(exam_id);
-		 Question question2 = new Question();
+		int user_id = Integer.parseInt(request.getParameter("user_id"));
+		System.out.print(exam_id);
+		System.out.print(user_id);
+		Question question2 = new Question();
 		 List<Answer> answers = new ArrayList<>();
 		 List<Question> questions = new ArrayList<>();
 		 questions = question2.getAllQuestions(exam_id);
 		 for (Question question: questions) {
 			 List<Answer> answers1 = new ArrayList<>();
 			 
-//			 answers1 = AnswerMapper.getAllAnswer(question.getId());
-			 answers1 = questionService.getAllAnswers(question.getId());
+         answers1 = AnswerMapper.getAllAnswer(question.getId(),user_id);
+			// answers1 = questionService.getAllAnswers(question.getId());
 			 answers.addAll(answers1);
 		 }
+		 System.out.print("answers"+answers);
 		 for (Answer answer : answers) {
 				int id = Integer.parseInt(request.getParameter("id"+answer.getId()));
+				System.out.print(id);
 		    	int qid = Integer.parseInt(request.getParameter("qid"+answer.getQuestion_id()));
 		    	int mark = Integer.parseInt(request.getParameter("mark"+answer.getId()+answer.getQuestion_id()));
 		    	int flag=0;
