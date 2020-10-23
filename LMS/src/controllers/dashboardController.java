@@ -50,7 +50,7 @@ public class dashboardController extends HttpServlet {
 			String userName = (String) session.getAttribute("userName");
 			String userType = (String) session.getAttribute("userType");
 
-			if (userType.equals("Instructor")) {
+			if (userType.equals("Instructor") || userType.equals("Student")) {
 				int user_id=(int)session.getAttribute("user_id");
 				
 				String stm = "SELECT * FROM subjects as subject LEFT JOIN users_subjects as us on subject.code=us.subject_code "
@@ -80,51 +80,52 @@ public class dashboardController extends HttpServlet {
 			// TODO student and admin
 			        request.getRequestDispatcher("dashboard.jsp").forward(request, response);
 			}
-			else if (userType.equals("Student")) {
-				int user_id=(int)session.getAttribute("user_id");
-			
-				String stm = "SELECT * FROM subjects as subject LEFT JOIN users_subjects as us on subject.code=us.subject_code "
-						+ "LEFT JOIN users as u on us.user_id=u.id WHERE u.id= '" + user_id + "'";
-				List<Subject> subjects= new ArrayList<>();
-				try {
-					PreparedStatement stmt = DBConnection.prepare(stm);
-					ResultSet rs = stmt.executeQuery();
-					while (rs.next()) {
-						String code = rs.getString(1); 
-						String name = rs.getString(2);
-						int id = Integer.parseInt(rs.getString(3));
-						String sql = "select * from users where id='"+id+"' limit 1"; 
-		                PreparedStatement sqlt = DBConnection.prepare(sql);
-		                 ResultSet rs1 = sqlt.executeQuery();
-		                	if(rs1.next()){
-		                		request.setAttribute("name"+id, rs1.getString(2));
-		                		}
-						Subject subject = new Subject(code, name, id);
-						subjects.add(subject);
-						System.out.print("result:"+subject+"11111");
-			          } 	
-					} catch (Exception exp) {
-						System.out.println(exp);}
-					request.setAttribute("subjects", subjects);
-					request.setAttribute("user_type", userType);
-			// TODO student and admin
-			        request.getRequestDispatcher("dashboard.jsp").forward(request, response);
 		
-				} else if (userType.equals("Admin")) {
+			else if (userType.equals("Admin")) {
 //					Subject subject = new Subject();
 					List<Subject> subjects = new ArrayList<>();
 					List<User> users = new ArrayList<>();
 					users  = new User().getUser();
 					subjects = SubjectMapper.getAllAdminSubjects();
 					for (Subject subject2:subjects) {
-						int id = subject2.getCoordinator();
-						String stm = "select * from users where id='"+id+"' limit 1"; 
+						String stm = "select * from users LEFT JOIN users_subjects on users_subjects.user_id = users.id LEFT JOIN "
+								+ "subjects on users_subjects.subject_code = subjects.code where subjects.code = '"+ subject2.getSubjectCode()+"' "
+										+ " and users.user_type = '"+3+"'";
+						String stm1 = "select * from users LEFT JOIN users_subjects on users_subjects.user_id = users.id LEFT JOIN "
+								+ "subjects on users_subjects.subject_code = subjects.code where subjects.code = '"+ subject2.getSubjectCode()+"' "
+								+ " and users.user_type = '"+2+"'";
+						List<User> students = new ArrayList<>();
+						List<User> tutors = new ArrayList<>();
 		                PreparedStatement stmt = DBConnection.prepare(stm);
 		                 ResultSet rs = stmt.executeQuery();
 		                	if(rs.next()){
+		                	    String userNameDB = rs.getString("name");
+		         	            String passwordDB = rs.getString("password");
+		         	            int userTypeDB = rs.getInt("user_type");
+		         	            int id = rs.getInt("id");
+		         	            String email = rs.getString("email");
+		         	            User user =new User(id,userNameDB,email,passwordDB,userTypeDB);
+		         	            students.add(user);
 		                		request.setAttribute("name"+subject2.getCoordinator(), rs.getString(2));
 		                		}
+		                	 PreparedStatement stmt1 = DBConnection.prepare(stm1);
+			                 ResultSet rs1 = stmt1.executeQuery();
+			                	if(rs1.next()){
+			                	    String userNameDB = rs1.getString("name");
+			         	            String passwordDB = rs1.getString("password");
+			         	            int userTypeDB = rs1.getInt("user_type");
+			         	            int id = rs1.getInt("id");
+			         	            String email = rs1.getString("email");
+			         	            User user =new User(id,userNameDB,email,passwordDB,userTypeDB);
+			         	            tutors.add(user);
+			                		request.setAttribute("name"+subject2.getCoordinator(), rs.getString(2));
+			                		}
+			                	request.setAttribute("students"+subject2.getSubjectCode(), students);
+			                	request.setAttribute("tutors"+subject2.getSubjectCode(), tutors);
+			                	System.out.print(subject2.getSubjectCode()+"students"+students);
+			                	System.out.print(subject2.getSubjectCode()+"tutors"+tutors);
 					}
+					
 					request.setAttribute("subjects", subjects);
 					request.setAttribute("user_type", userType);
 					request.setAttribute("users", users);

@@ -56,20 +56,31 @@ tr:nth-child(even) {
  		         List<Subject> subjects = new ArrayList<>(); 
 		         subjects = (List<Subject>)request.getAttribute("subjects");//获取request中名称为student的值
            		 for (Subject subject : subjects) {
+           			 List<User> students =  (List<User>)request.getAttribute("students"+subject.getSubjectCode());
+           			 List<User> tutors =  (List<User>)request.getAttribute("tutors"+subject.getSubjectCode());
        		 %>
        		        <td><%= subject.getSubjectCode() %></td>
                     <td><%= subject.getName() %></td>
-                    <td><%= (String)request.getAttribute("name"+subject.getCoordinator()) %></td>
-	                 <td>
+	         
 	                 	<%-- <a href="./exams?subject_code=<%=subject.getSubjectCode()%>">Check</a> --%>
 	                 <%-- <a href="<%=request.getContextPath()%>/exams">Check</a> --%>
 	                 <%-- <a href="courses/<%=subject.getSubjectCode()%>/exams/<%= (String)request.getAttribute("user_type")%>">Check</a> --%>
-	                 <%if (Type.equals("Admin")){ %>
-	                  <a href="courses/<%=subject.getSubjectCode()%>/instructor">Student List</a>
-	                 <%} else { %>
-	                 <a href="courses/<%=subject.getSubjectCode()%>/exams">Check</a>
+	                 <%if (Type.equals("Admin")){ 
+	                	 for (User user:students){
+	                 %>
+	                    <td><%= user.getId() %></td>
+	                    <td><%= user.getName() %></td>
+	                 <% } 
+	                   for(User user2: tutors){ %>
+	                   
+	                     <td><%= user2.getId() %></td>
+	                     <td><%= user2.getName() %></td>
+	                     <% }
+	                 }
+	                	 else { %>
+	                 <td><a href="courses/<%=subject.getSubjectCode()%>/exams">Check</a></td>
 	                 <% } %>
-	                 </td>
+	                 
                 </tr>
                 
             <%
