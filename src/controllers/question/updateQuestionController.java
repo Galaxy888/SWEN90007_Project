@@ -66,7 +66,7 @@ public class updateQuestionController extends HttpServlet {
 			response.sendRedirect("./questions");
 		}else {
 			HttpSession session = request.getSession(); 
-			session.setAttribute("errMessageQuestion", "Someone has already update the question. Please view the latsest version");
+			session.setAttribute("errMessageQuestion", "Someone has already updated the question. Please view the latsest version");
 			response.sendRedirect("./questions");
 		}
 	}

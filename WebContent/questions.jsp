@@ -55,39 +55,12 @@
  <%
 session.removeAttribute("errMessageQuestion");
 %> --%>
-<%--  <script type="text/javascript">
-var Msg =<%=request.getSession(false).getAttribute("errMessageQuestion")%>;
-    if (Msg != null) {
- function alertName(){
- alert(<%=request.getSession(false).getAttribute("errMessageQuestion")%>);
- } 
- }
- </script> 
- <script type="text/javascript"> window.onload = alertName; </script> --%>
-<%--   <%
-session.removeAttribute("errMessageQuestion");
-%> --%>
-<%-- <% String message = (String)request.getSession(false).getAttribute("errMessageQuestion");%>
-<script type="text/javascript">
-    var msg = "<%=message%>";
-    if (msg!=null){
-    	alert(msg);
-    }
-    
-   /*  alert(msg); */
-</script>  --%>
-
-
-
-
 
 <%
-String strExpired = (String)request.getSession(false).getAttribute("errMessageQuestion");
-if (strExpired!=null){
-	/* out.println("alert("+strExpired+");"); */
+String strError = (String)request.getSession(false).getAttribute("errMessageQuestion");
+if (strError!=null){
 	out.println("<script type=\"text/javascript\">");  
-	out.println("alert('"+strExpired+"');");
-	/* out.println("alert('deadbeef');");   */
+	out.println("alert('"+strError+"');");
 	out.println("</script>");
 }      
 %>

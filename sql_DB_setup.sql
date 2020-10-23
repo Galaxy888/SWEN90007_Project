@@ -23,6 +23,7 @@ CREATE TABLE subjects(
    code  VARCHAR(20),
    name  VARCHAR(50),
    coordinator_id INT REFERENCES users(id) ,
+   version INT,
    PRIMARY KEY (code)
 );
 
@@ -31,6 +32,7 @@ CREATE TABLE exams(
    title VARCHAR(50),
    status INT,
    subject_code VARCHAR(20) REFERENCES subjects(code),
+   version INT,   
    PRIMARY KEY (id)
 );
 CREATE SEQUENCE public.exams_seq
@@ -110,11 +112,14 @@ VALUES ('SWEN90007','SDA',002);
 INSERT INTO subjects
 VALUES ('SWEN90013','HIS',002);
 
+--INSERT INTO subjects
+--VALUES ('SWEN90013','HIS',004);
+
 INSERT INTO users_subjects 
 VALUES (003,'SWEN90013',0);
 
-INSERT INTO users_subjects 
-VALUES (4,'SWEN90013',0);
+--INSERT INTO users_subjects 
+--VALUES (004,'SWEN90013',0);
 
 
 

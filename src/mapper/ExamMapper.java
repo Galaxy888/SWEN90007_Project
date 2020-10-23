@@ -22,7 +22,7 @@ public class ExamMapper extends DataMapper {
 	public Boolean insert(DomainObject obj) {
 		Exam exam = (Exam) obj;
 
-		String insertExamStatement = "INSERT INTO exams (title,status,subject_code) VALUES (?, ?,?)";
+		String insertExamStatement = "INSERT INTO exams (title,status,subject_code,version) VALUES (?, ?,?,?)";
 
 		try {
 			PreparedStatement stmt = DBConnection.prepare(insertExamStatement);
@@ -30,6 +30,7 @@ public class ExamMapper extends DataMapper {
 			stmt.setString(1, exam.getTitle());
 			stmt.setInt(2, exam.getStatus());
 			stmt.setString(3, exam.getSubject());
+			stmt.setInt(4, exam.getVersion());
 			stmt.execute();
 
 			stmt.close();
@@ -82,15 +83,21 @@ public class ExamMapper extends DataMapper {
 	public Boolean update(DomainObject obj) throws SQLException {
 		Exam exam = (Exam) obj;
 
-		String updateExamStatement = "update exams set title=?,status=?,subject_code=? where id=?";
+		String updateExamStatement = "update exams set title=?,status=?,subject_code=?, version=? where id=? and version=?";
 
 		PreparedStatement stmt = DBConnection.prepare(updateExamStatement);
 		try {
 			stmt.setString(1, exam.getTitle());
 			stmt.setInt(2, exam.getStatus());
 			stmt.setString(3, exam.getSubject());
-			stmt.setInt(4, exam.getId());
-			stmt.executeUpdate();
+			stmt.setInt(4,exam.getVersion()+1);
+			stmt.setInt(5, exam.getId());
+			stmt.setInt(6,exam.getVersion());
+			int rowCount = stmt.executeUpdate();
+			if (rowCount==0) {
+				System.out.println("Exam throwConcurrencyException");
+				return false;
+			}
 			stmt.close();
 			return true;
 		} catch (SQLException e) {
@@ -114,7 +121,8 @@ public class ExamMapper extends DataMapper {
 				String title = rs.getString(2);
 				int status = Integer.parseInt(rs.getString(3));
 				String subject = rs.getString(4);
-				exams.add(new Exam(id, title, status, subject));
+				int version = Integer.parseInt(rs.getString(5));
+				exams.add(new Exam(id, title, status, subject,version));
 			}
 
 		} catch (SQLException e) {

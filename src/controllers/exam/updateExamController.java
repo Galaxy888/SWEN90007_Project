@@ -55,14 +55,18 @@ public class updateExamController extends HttpServlet {
 		String title = request.getParameter("title");
 		int status = Integer.parseInt(request.getParameter("status"));
 		String subject = request.getParameter("subject");
+		System.out.println("Version0");
+		int version = Integer.parseInt(request.getParameter("version"));
+		System.out.println("Version");
+		System.out.println(version);
 
-		Boolean success = examService.updateExam(id, title, status, subject);
+		Boolean success = examService.updateExam(id, title, status, subject,version);
 		System.out.println("update exam doPost success: " + success);
 		if (success) {
 			response.sendRedirect("./exams");
 		} else {
 			HttpSession session = request.getSession();
-			session.setAttribute("errMessageExam", "Something went wrong. Update exam error");
+			session.setAttribute("errMessageExam", "Something one has already updated the exam. Please view the latsest version ");
 			response.sendRedirect("./exams");
 
 		}

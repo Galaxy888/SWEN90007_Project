@@ -41,11 +41,12 @@
 }
 </style>
  <script type="text/javascript">
-    function showInfo2(id,title,status,subject) {
+    function showInfo2(id,title,status,version) {
         document.getElementById("updateId").value = id;
         document.getElementById("updateTitle").value = title;
         document.getElementById("updateStatus").value = status;
-        document.getElementById("updateSubject").value = subject;
+       /*  document.getElementById("updateSubject").value = subject; */
+        document.getElementById("updateVersion").value = version;
     }
     
     function openForm() {
@@ -55,6 +56,19 @@
 </head>
 <body>
 <a class="sel_btn" href="/dashboard">DashBoard</a> 
+
+
+<%
+String strError = (String)request.getSession(false).getAttribute("errMessageExam");
+if (strError!=null){
+	out.println("<script type=\"text/javascript\">");  
+	out.println("alert('"+strError+"');");
+	out.println("</script>");
+}      
+%>
+<%
+session.removeAttribute("errMessageExam");
+%>  
 
 <div>
 <h1 style="text-align:center"><%=request.getAttribute("subject_code") %></h1> 
@@ -70,6 +84,7 @@
                 <th>Exam Title</th>
                 <th>Exam Status</th>
                 <th>Operation</th>
+                <th>Version</th>
             </tr>
             
                 <tr>
@@ -85,7 +100,7 @@
                     <td><%= exam.getStatus()==0 ? "unpublished":"published" %>
                     <td>
                     <button type="button" class="sel_btn" data-toggle="modal" data-target="#updateModal" id="btn_update" 
-                    onclick="showInfo2('<%= exam.getId() %>','<%= exam.getTitle() %>','<%= exam.getStatus() %>')">
+                    onclick="showInfo2('<%= exam.getId() %>','<%= exam.getTitle() %>','<%= exam.getStatus() %>', '<%= exam.getVersion() %>')">
                     Update</button>
 	                 <%-- <a class="sel_btn" href="./updateExam?id=<%=exam.getId()%>&title=<%=exam.getTitle()%>&status=<%=exam.getStatus()%>&subject_code=<%=exam.getSubject()%>">Edit</a> --%>
 	                 <%-- <a class="sel_btn" href="./questions?exam_id=<%=exam.getId()%>">Edit Questions</a> --%>
@@ -102,6 +117,8 @@
 
 	                 
 	                 </td>
+	                 
+	                 <td><%= exam.getVersion() %></td>
                 </tr>
             <%
           		  } // for loop
@@ -132,7 +149,7 @@
 												</div>
 										</div> -->
 										
-										<input type = "hidden" id="updateId" name="id" />	
+										<input type = "hidden" id="updateId" name="id" />
 										
 										 <div class="form-group">
 											<label for="firstname" class="col-sm-3 control-label">Exam Title:</label>
@@ -154,7 +171,9 @@
 												</div>
 										</div>
 										
-										<input type = "hidden" value="<%= (String)request.getAttribute("subject_code")%>" name = "subject" />				
+										<input type = "hidden" value="<%= (String)request.getAttribute("subject_code")%>" name = "subject" />
+										<input type = "hidden" id="updateVersion" name="version" />	
+										<input type = "hidden" id="updateStatus" name="status" />	
 										</div>
 												<div class="modal-footer">
 				
@@ -176,13 +195,13 @@
   
 
  <!--    <div align="center"> -->
-<div class="text-center">
+<%-- <div class="text-center">
  <span style="color:red"><%=(request.getSession(false).getAttribute("errMessageExam") == null) ? "" : request.getSession(false).getAttribute("errMessageExam")%></span>
  <%
 session.removeAttribute("errMessageExam");
 
 %>
-</div>
+</div> --%>
 
 		<form class="border border-light p-5 col-md-4 offset-md-4" name="AddExamController" action="addExam" method="post">
 		

@@ -28,11 +28,13 @@ public class ExamService {
 		UnitOfWork.newCurrent();
 		
 		//create the new exam
-		Exam exam = new Exam(title,status,subject_code);
-		//exam.setId(id);
-		//exam.setTitle(title);
-		//exam.setStatus(status);
-		//exam.setSubject(subject_code);
+//		Exam exam = new Exam(title,status,subject_code);
+		Exam exam = new Exam();
+//		exam.setId(id);
+		exam.setTitle(title);
+		exam.setStatus(status);
+		exam.setSubject(subject_code);
+		exam.setVersion(0);
 		UnitOfWork.getCurrent().registerNew(exam);
 		
 		return UnitOfWork.getCurrent().commit();
@@ -40,7 +42,7 @@ public class ExamService {
 	
 	
 	
-	public Boolean updateExam(int id, String title, int status, String subject_code) {
+	public Boolean updateExam(int id, String title, int status, String subject_code, int version) {
 		
 //		Exam exam = examMapper.findByID(id)
 
@@ -52,6 +54,7 @@ public class ExamService {
 		exam.setTitle(title);
 		exam.setStatus(status);
 		exam.setSubject(subject_code);
+		exam.setVersion(version);
 		UnitOfWork.getCurrent().registerDiry(exam);
 		
 		

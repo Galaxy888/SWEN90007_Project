@@ -130,6 +130,9 @@ public class dashboardController extends HttpServlet {
 					request.setAttribute("users", users);
 					request.getRequestDispatcher("dashboard.jsp").forward(request, response);
 					
+				}else {
+					response.sendRedirect("/login.jsp");
+
 				}
 				
 			
@@ -140,6 +143,7 @@ public class dashboardController extends HttpServlet {
 			
 			
 				} catch (Exception exp) {
+					response.sendRedirect("/login.jsp");
 			System.out.println(exp);}
 		
 
