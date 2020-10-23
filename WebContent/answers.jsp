@@ -73,7 +73,9 @@
                      <input name="user_id" type="hidden" value=<%=answer.getUser_id() %>>
 	                 <input name="id<%=answer.getUser_id() %>" type="hidden" value=<%=answer.getUser_id()%>>
 	                 <input name="qid<%=answer.getQuestion_id() %>" type="hidden" value=<%=answer.getQuestion_id()%>>
+	                 <%if(answer.getMark()==0) { %>
 	                 <input type="number" name="mark<%=answer.getUser_id() %><%=answer.getQuestion_id() %>" required>
+	                 <% }%>
 	                 </td>
                 </tr>
             <%
