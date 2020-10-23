@@ -106,9 +106,9 @@ VALUES (4, 'Instructor2', 'Tutor@gmail.com','123',2);
 INSERT INTO users
 VALUES (3, 'Student', '','123',3);
 
-INSERT INTO subjects
-VALUES ('SWEN90007','SDA',002);
-
+--INSERT INTO subjects
+--VALUES ('SWEN90007','SDA',002);
+--
 INSERT INTO subjects
 VALUES ('SWEN90013','HIS',002);
 
@@ -116,7 +116,13 @@ VALUES ('SWEN90013','HIS',002);
 --VALUES ('SWEN90013','HIS',004);
 
 INSERT INTO users_subjects 
+VALUES (002,'SWEN90013',0);
+
+INSERT INTO users_subjects 
 VALUES (003,'SWEN90013',0);
+
+INSERT INTO users_subjects 
+VALUES (004,'SWEN90013',0);
 
 --INSERT INTO users_subjects 
 --VALUES (004,'SWEN90013',0);

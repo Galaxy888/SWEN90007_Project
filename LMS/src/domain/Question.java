@@ -169,7 +169,7 @@ public class Question extends DomainObject implements Comparable<Question>{
 				String answer = rs.getString(5);
 				int mark = Integer.parseInt(rs.getString(6));
 				int examId = Integer.parseInt(rs.getString(7));
-				int version = Integer.parseInt(rs.getString(8));
+				int version = Integer.parseInt(rs.getString(10));
 				questions.add(new Question(id, type, title, content, answer, mark, examId,version));
 			}
 

@@ -154,7 +154,12 @@ public class ExamController extends HttpServlet {
 							int version = Integer.parseInt(rs.getString(5));
 							
 							// TODO
-							Exam exam = new Exam(id, title, status, code, version);
+//							Exam exam = new Exam(id, title, status, code, version);
+							Exam exam = new Exam();
+							exam.setId(id);
+							exam.setTitle(title);
+							exam.setStatus(status);
+							exam.setSubject(code);
 							exams.add(exam);
 						}
 					} catch (SQLException e) {
