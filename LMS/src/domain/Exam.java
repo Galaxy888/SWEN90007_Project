@@ -13,6 +13,7 @@ public class Exam extends DomainObject implements Comparable<Exam>{
 	private String title;
 	private int status;
 	private String subject_code;
+	private int version;
 	
 	private List<Question> allQuestions;
 	private List<Mark> allMarks;
@@ -21,15 +22,22 @@ public class Exam extends DomainObject implements Comparable<Exam>{
 //	private static final String findAllSubjectsStatement = "SELECT * from exams";
 //	private static final String insertSubjectStatement = "INSERT INTO exams VALUES (?, ?, ?,?)";
 
-	public Exam(int id, String title, int status, String subject_code) {
+	public Exam(int id, String title, int status, String subject_code, int version) {
 		this.id = id;
 		this.title = title;
 		this.status = status;
 		this.subject_code = subject_code;
+		this.version = version;
 		this.allQuestions = null;
 		this.allMarks = null;
 		
 		
+	}
+	public int getVersion() {
+		return version;
+	}
+	public void setVersion(int version) {
+		this.version = version;
 	}
 	public Exam(String title, int status, String subject_code) {
 		this.title = title;
