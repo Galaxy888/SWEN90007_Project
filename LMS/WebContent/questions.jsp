@@ -33,7 +33,7 @@
         }
 </style>
  <script type="text/javascript">
-    function showInfo2(id,type,title,content,mark,answer,exam) {
+    function showInfo2(id,type,title,content,mark,answer,exam,version) {
     	document.getElementById("updateId").value = id;
         document.getElementById("updateType").value = type;
         document.getElementById("updateTitle").value = title;
@@ -41,6 +41,7 @@
         document.getElementById("updateMark").value = mark;
         document.getElementById("updateAnswer").value = answer;
         document.getElementById("updateExam").value = exam;
+        document.getElementById("updateVersion").value = version;
     }
     </script>
 </head>
@@ -49,11 +50,50 @@
 <div>
 <h1 style="text-align:center"><%=request.getAttribute("subject_code") %> Exam</h1> 
 </div>
-<span style="color:red"><%=(request.getSession(false).getAttribute("errMessageQuestion") == null) ? "" : request.getSession(false).getAttribute("errMessageQuestion")%></span>
+
+<%-- <span style="color:red"><%=(request.getSession(false).getAttribute("errMessageQuestion") == null) ? "" : request.getSession(false).getAttribute("errMessageQuestion")%></span>
  <%
 session.removeAttribute("errMessageQuestion");
+%> --%>
+<%--  <script type="text/javascript">
+var Msg =<%=request.getSession(false).getAttribute("errMessageQuestion")%>;
+    if (Msg != null) {
+ function alertName(){
+ alert(<%=request.getSession(false).getAttribute("errMessageQuestion")%>);
+ } 
+ }
+ </script> 
+ <script type="text/javascript"> window.onload = alertName; </script> --%>
+<%--   <%
+session.removeAttribute("errMessageQuestion");
+%> --%>
+<%-- <% String message = (String)request.getSession(false).getAttribute("errMessageQuestion");%>
+<script type="text/javascript">
+    var msg = "<%=message%>";
+    if (msg!=null){
+    	alert(msg);
+    }
+    
+   /*  alert(msg); */
+</script>  --%>
 
+
+
+
+
+<%
+String strExpired = (String)request.getSession(false).getAttribute("errMessageQuestion");
+if (strExpired!=null){
+	/* out.println("alert("+strExpired+");"); */
+	out.println("<script type=\"text/javascript\">");  
+	out.println("alert('"+strExpired+"');");
+	/* out.println("alert('deadbeef');");   */
+	out.println("</script>");
+}      
 %>
+<%
+session.removeAttribute("errMessageQuestion");
+%>  
  <button type="button" class="btn btn-primary col-md-4 offset-md-4" data-toggle="modal" data-target="#addQuestionModal">
  Add new question
 </button>
@@ -67,6 +107,7 @@ session.removeAttribute("errMessageQuestion");
                 <th>Question content</th>
                 <th>Question mark</th>
                 <th>Operation</th>
+                <th>Version</th>
             </tr>
             
                 <tr>
@@ -82,10 +123,11 @@ session.removeAttribute("errMessageQuestion");
                     <td><%= question.getTitle() %></td>
                     <td><%= question.getContent() %></td>
                     <td><%= question.getMark() %></td>
+                    
                     <td>
                     <button type="button" class="sel_btn" data-toggle="modal" data-target="#updateModal" id="btn_update" 
                     onclick="showInfo2('<%= question.getId() %>','<%= question.getType() %>','<%= question.getTitle() %>',
-                    '<%= question.getContent() %>','<%= question.getMark()%>','<%= question.getAnswer()%>','<%= question.getExam() %>')">
+                    '<%= question.getContent() %>','<%= question.getMark()%>','<%= question.getAnswer()%>','<%= question.getExam() %>','<%= question.getVersion() %>')">
                     Update</button>
 	                 <%-- <a class="sel_btn" href="./deleteQuestion?exam_id=<%=question.getExam() %>&id=<%=question.getId()%>">Delete</a> --%>
 	                 <form name="delete" method=post action="deleteQuestion">
@@ -93,6 +135,7 @@ session.removeAttribute("errMessageQuestion");
 	                 <input type = "submit" value = "Delete" />
 	                 </form>
 	                 </td>
+	                 <td><%= question.getVersion() %></td>
                 </tr>
             <%
           		  } // for loop
@@ -174,6 +217,7 @@ session.removeAttribute("errMessageQuestion");
 										</div> -->
 										
 										<input type = "hidden" id="updateExam" name="exam_id" />
+										<input type = "hidden" id="updateVersion" name="version" />
 											
 										</div>
 												<div class="modal-footer">
