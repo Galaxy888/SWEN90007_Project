@@ -67,7 +67,8 @@ public class UserQuestion extends DomainObject {
 	public static ArrayList<UserQuestion> getAllQuestionsbyId(int user_id, int exam_id) {
 		ArrayList<UserQuestion> questions = new ArrayList<>();
 		try {
-			String stm = "Select * from users_questions where user_id ='" + user_id + "'";
+//			String stm = "Select * from users_questions where user_id ='" + user_id + "'";
+			String stm = "Select * from users_questions where user_id ='" + user_id + "'and exam_id= '"+exam_id+"'";
 			PreparedStatement stmt = DBConnection.prepare(stm);
 
 			ResultSet rs = stmt.executeQuery();

@@ -70,9 +70,15 @@ public class MarkAnswerController extends HttpServlet {
 				int id = Integer.parseInt(request.getParameter("id"+answer.getId()));
 				System.out.print(id);
 		    	int qid = Integer.parseInt(request.getParameter("qid"+answer.getQuestion_id()));
-		    	int mark = Integer.parseInt(request.getParameter("mark"+answer.getId()+answer.getQuestion_id()));
+//		    	int mark = Integer.parseInt(request.getParameter("mark"+answer.getId()+answer.getQuestion_id()));
 		    	int flag=0;
-		    	System.out.print(mark);
+//		    	System.out.print(mark);
+		    	int mark=0;
+		    	if(request.getParameter("mark"+answer.getId()+answer.getQuestion_id())!=null) 
+		        {
+		         mark = Integer.parseInt(request.getParameter("mark"+answer.getId()+answer.getQuestion_id()));
+		        }
+
 		    	String Answer=answer.getAnswer();
 		    	try {
 		    	String stm = "update users_questions set answer=?,mark=?,status=? where user_id=? and question_id=?";
