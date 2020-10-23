@@ -46,7 +46,7 @@ public class QuestionService {
 	
 
 	public Boolean updateQuestion(int id, int type, String title, String content, String answer, int mark,
-			int exam_id) {
+			int exam_id, int version) {
 		
 		UnitOfWork.newCurrent();
 		
@@ -58,6 +58,7 @@ public class QuestionService {
 		question.setAnswer(answer);
 		question.setMark(mark);
 		question.setExam(exam_id);
+		question.setVersion(version);
 		UnitOfWork.getCurrent().registerDiry(question);
 		
 		

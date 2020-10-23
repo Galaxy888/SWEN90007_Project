@@ -21,7 +21,7 @@ public class Question extends DomainObject implements Comparable<Question>{
 	
 	private List<Answer> allAnswers;
 
-	public Question(int id, int type, String title, String content, String answer, int mark, int exam_id) {
+	public Question(int id, int type, String title, String content, String answer, int mark, int exam_id, int version) {
 		this.id = id;
 		this.question_type = type;
 		this.title = title;
@@ -29,6 +29,7 @@ public class Question extends DomainObject implements Comparable<Question>{
 		this.answer = answer;
 		this.mark = mark;
 		this.exam_id = exam_id;
+		this.version = version;
 		this.allAnswers = null;
 	}
 
@@ -168,7 +169,8 @@ public class Question extends DomainObject implements Comparable<Question>{
 				String answer = rs.getString(5);
 				int mark = Integer.parseInt(rs.getString(6));
 				int examId = Integer.parseInt(rs.getString(7));
-				questions.add(new Question(id, type, title, content, answer, mark, examId));
+				int version = Integer.parseInt(rs.getString(8));
+				questions.add(new Question(id, type, title, content, answer, mark, examId,version));
 			}
 
 		} catch (SQLException e) {
