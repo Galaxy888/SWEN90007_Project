@@ -52,24 +52,7 @@ public class dashboardController extends HttpServlet {
 
 			if (userType.equals("Instructor")) {
 				int user_id=(int)session.getAttribute("user_id");
-				Subject subject = new Subject();
-				List<Subject> subjects = new ArrayList<>();
-				subjects = subject.getAllSubjectsById(user_id);
-				for (Subject subject2:subjects) {
-					int id = subject2.getCoordinator();
-					String stm = "select * from users where id='"+id+"' limit 1"; 
-	                PreparedStatement stmt = DBConnection.prepare(stm);
-	                 ResultSet rs = stmt.executeQuery();
-	                	if(rs.next()){
-	                		request.setAttribute("name"+subject2.getCoordinator(), rs.getString(2));
-	                		}
-				}
-				request.setAttribute("subjects", subjects);
-				request.setAttribute("user_type", userType);
-				request.getRequestDispatcher("dashboard.jsp").forward(request, response);
-			}
-			else if (userType.equals("Student")) {
-				int user_id=(int)session.getAttribute("user_id");
+				
 				String stm = "SELECT * FROM subjects as subject LEFT JOIN users_subjects as us on subject.code=us.subject_code "
 						+ "LEFT JOIN users as u on us.user_id=u.id WHERE u.id= '" + user_id + "'";
 				List<Subject> subjects= new ArrayList<>();
@@ -82,13 +65,45 @@ public class dashboardController extends HttpServlet {
 						int id = Integer.parseInt(rs.getString(3));
 						String sql = "select * from users where id='"+id+"' limit 1"; 
 		                PreparedStatement sqlt = DBConnection.prepare(sql);
-		                 ResultSet rs1 = stmt.executeQuery();
+		                 ResultSet rs1 = sqlt.executeQuery();
 		                	if(rs1.next()){
 		                		request.setAttribute("name"+id, rs1.getString(2));
 		                		}
 						Subject subject = new Subject(code, name, id);
 						subjects.add(subject);
-			      } 	} catch (Exception exp) {
+						System.out.print("result:"+subject+"11111");
+			          } 	
+					} catch (Exception exp) {
+						System.out.println(exp);}
+					request.setAttribute("subjects", subjects);
+					request.setAttribute("user_type", userType);
+			// TODO student and admin
+			        request.getRequestDispatcher("dashboard.jsp").forward(request, response);
+			}
+			else if (userType.equals("Student")) {
+				int user_id=(int)session.getAttribute("user_id");
+			
+				String stm = "SELECT * FROM subjects as subject LEFT JOIN users_subjects as us on subject.code=us.subject_code "
+						+ "LEFT JOIN users as u on us.user_id=u.id WHERE u.id= '" + user_id + "'";
+				List<Subject> subjects= new ArrayList<>();
+				try {
+					PreparedStatement stmt = DBConnection.prepare(stm);
+					ResultSet rs = stmt.executeQuery();
+					while (rs.next()) {
+						String code = rs.getString(1); 
+						String name = rs.getString(2);
+						int id = Integer.parseInt(rs.getString(3));
+						String sql = "select * from users where id='"+id+"' limit 1"; 
+		                PreparedStatement sqlt = DBConnection.prepare(sql);
+		                 ResultSet rs1 = sqlt.executeQuery();
+		                	if(rs1.next()){
+		                		request.setAttribute("name"+id, rs1.getString(2));
+		                		}
+						Subject subject = new Subject(code, name, id);
+						subjects.add(subject);
+						System.out.print("result:"+subject+"11111");
+			          } 	
+					} catch (Exception exp) {
 						System.out.println(exp);}
 					request.setAttribute("subjects", subjects);
 					request.setAttribute("user_type", userType);
