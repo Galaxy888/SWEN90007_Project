@@ -82,6 +82,9 @@ public class ExamController extends HttpServlet {
 				else if (operation.equals("addExam")) {
 					request.getRequestDispatcher("/addExam").forward(request, response);
 				} else if (operation.equals("updateExam")) {
+					System.out.println("VVVVVVVVVVVV");
+					System.out.println(request.getParameter("title"));
+					System.out.println(request.getParameter("version"));
 					request.getRequestDispatcher("/updateExam").forward(request, response);
 				} else if (operation.equals("deleteExam")) {
 					request.getRequestDispatcher("/deleteExam").forward(request, response);
@@ -148,7 +151,15 @@ public class ExamController extends HttpServlet {
 							String title = rs.getString(2);
 							int status = Integer.parseInt(rs.getString(3));
 							String code = rs.getString(4);
-							Exam exam = new Exam(id, title, status, code);
+							int version = Integer.parseInt(rs.getString(5));
+							
+							// TODO
+//							Exam exam = new Exam(id, title, status, code, version);
+							Exam exam = new Exam();
+							exam.setId(id);
+							exam.setTitle(title);
+							exam.setStatus(status);
+							exam.setSubject(code);
 							exams.add(exam);
 						}
 					} catch (SQLException e) {

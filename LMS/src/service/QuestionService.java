@@ -1,6 +1,8 @@
 package service;
 
+import java.sql.*;
 import java.util.List;
+import java.util.Date;
 
 import domain.Answer;
 import domain.Exam;
@@ -24,6 +26,9 @@ public class QuestionService {
 		
 		//create the new question
 		Question question = new Question();
+//		Date date = new Date();  
+//        Timestamp modifiedTime=new Timestamp(date.getTime());  
+		Timestamp modifiedTime = new Timestamp(System.currentTimeMillis());
 		//question.setId(id);
 		question.setType(type);
 		question.setTitle(title);
@@ -31,6 +36,8 @@ public class QuestionService {
 		question.setAnswer(answer);
 		question.setMark(mark);
 		question.setExam(exam_id);
+		question.setModifiedTime(modifiedTime);
+		question.setVersion(0);
 		UnitOfWork.getCurrent().registerNew(question);
 		
 		
@@ -39,7 +46,7 @@ public class QuestionService {
 	
 
 	public Boolean updateQuestion(int id, int type, String title, String content, String answer, int mark,
-			int exam_id) {
+			int exam_id, int version) {
 		
 		UnitOfWork.newCurrent();
 		
@@ -51,6 +58,7 @@ public class QuestionService {
 		question.setAnswer(answer);
 		question.setMark(mark);
 		question.setExam(exam_id);
+		question.setVersion(version);
 		UnitOfWork.getCurrent().registerDiry(question);
 		
 		

@@ -22,7 +22,7 @@ public class QuestionMapper extends DataMapper{
 	 */
 	@Override
 	public Boolean insert(DomainObject obj) {
-	    String insertQuestionStatement = "INSERT INTO questions(question_type,title,content,answer,mark,exam_id) VALUES (?,?,?,?,?,?)";
+	    String insertQuestionStatement = "INSERT INTO questions(question_type,title,content,answer,mark,exam_id,modifiedTime,version) VALUES (?,?,?,?,?,?,?,?)";
 	    Question question = (Question) obj;
 		try {
 			PreparedStatement stmt = DBConnection.prepare(insertQuestionStatement);
@@ -32,6 +32,8 @@ public class QuestionMapper extends DataMapper{
 			stmt.setString(4,question.getAnswer());
 			stmt.setInt(5,question.getMark());
 			stmt.setInt(6, question.getExam());
+			stmt.setTimestamp(7, question.getModifiedTime());
+			stmt.setInt(8,question.getVersion());
 			stmt.execute();
 			stmt.close();
 			return true;
@@ -57,7 +59,7 @@ public class QuestionMapper extends DataMapper{
 		
 		Question question = (Question) obj;
 		
-		String updateQuestionStatement = "update questions set question_type=?,title=?,content=?,answer=?,mark=?,exam_id=? where id=?";
+		String updateQuestionStatement = "update questions set question_type=?,title=?,content=?,answer=?,mark=?,exam_id=?,version=? where id=? and version=?";
 		
 		PreparedStatement stmt = DBConnection.prepare(updateQuestionStatement);
 		try {			
@@ -67,8 +69,15 @@ public class QuestionMapper extends DataMapper{
 			stmt.setString(4, question.getAnswer());
 			stmt.setInt(5, question.getMark());
 			stmt.setInt(6, question.getExam());
-			stmt.setInt(7,question.getId());
-			stmt.executeUpdate();
+			stmt.setInt(7,question.getVersion()+1);
+			stmt.setInt(8,question.getId());
+			stmt.setInt(9,question.getVersion());
+			int rowCount = stmt.executeUpdate();
+			if (rowCount==0) {
+//				throwConcurrencyException(question);
+				System.out.println("throwConcurrencyException");
+				return false;
+			}
 			stmt.close();
 			return true;
 		} catch (SQLException e) {
@@ -126,7 +135,8 @@ public class QuestionMapper extends DataMapper{
 				String answer = rs.getString(5);
 				int mark = Integer.parseInt(rs.getString(6));
 				int examId = Integer.parseInt(rs.getString(7));
-				questions.add(new Question(id,type,title,content,answer,mark,examId));
+				int version = Integer.parseInt(rs.getString(10));
+				questions.add(new Question(id,type,title,content,answer,mark,examId,version));
 			}
 	
 		} catch (SQLException e) {

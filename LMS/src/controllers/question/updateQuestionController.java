@@ -58,14 +58,15 @@ public class updateQuestionController extends HttpServlet {
 		String answer = request.getParameter("answer");
 		int mark = Integer.parseInt(request.getParameter("mark"));
 		int exam_id = Integer.parseInt(request.getParameter("exam_id"));
+		int version = Integer.parseInt(request.getParameter("version"));
 
-		Boolean success = questionService.updateQuestion(id, type, title, content,  answer,  mark,  exam_id);
+		Boolean success = questionService.updateQuestion(id, type, title, content,  answer,  mark,  exam_id, version);
 		System.out.println("update question doPost success: "+success);
 		if (success) {
 			response.sendRedirect("./questions");
 		}else {
 			HttpSession session = request.getSession(); 
-			session.setAttribute("errMessageQuestion", "something went wrong. The question is update error");
+			session.setAttribute("errMessageQuestion", "Someone has already updated the question. Please view the latsest version");
 			response.sendRedirect("./questions");
 		}
 	}
