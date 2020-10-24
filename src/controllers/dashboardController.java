@@ -97,20 +97,20 @@ public class dashboardController extends HttpServlet {
 						List<User> students = new ArrayList<>();
 						List<User> tutors = new ArrayList<>();
 		                PreparedStatement stmt = DBConnection.prepare(stm);
-		                 ResultSet rs = stmt.executeQuery();
-		                	if(rs.next()){
-		                	    String userNameDB = rs.getString("name");
-		         	            String passwordDB = rs.getString("password");
-		         	            int userTypeDB = rs.getInt("user_type");
-		         	            int id = rs.getInt("id");
-		         	            String email = rs.getString("email");
+		                ResultSet rs2 = stmt.executeQuery();
+		                	while(rs2.next()){
+		                	    String userNameDB = rs2.getString("name");
+		         	            String passwordDB = rs2.getString("password");
+		         	            int userTypeDB = rs2.getInt("user_type");
+		         	            int id = rs2.getInt("id");
+		         	            String email = rs2.getString("email");
 		         	            User user =new User(id,userNameDB,email,passwordDB,userTypeDB);
 		         	            students.add(user);
-		                		request.setAttribute("name"+subject2.getCoordinator(), rs.getString(2));
+		                		request.setAttribute("name"+subject2.getCoordinator(), rs2.getString(2));
 		                		}
 		                	 PreparedStatement stmt1 = DBConnection.prepare(stm1);
 			                 ResultSet rs1 = stmt1.executeQuery();
-			                	if(rs1.next()){
+			                 while (rs1.next()){
 			                	    String userNameDB = rs1.getString("name");
 			         	            String passwordDB = rs1.getString("password");
 			         	            int userTypeDB = rs1.getInt("user_type");
@@ -118,7 +118,7 @@ public class dashboardController extends HttpServlet {
 			         	            String email = rs1.getString("email");
 			         	            User user =new User(id,userNameDB,email,passwordDB,userTypeDB);
 			         	            tutors.add(user);
-			                		request.setAttribute("name"+subject2.getCoordinator(), rs.getString(2));
+			                		request.setAttribute("name"+subject2.getCoordinator(), rs1.getString(2));
 			                		}
 			                	request.setAttribute("students"+subject2.getSubjectCode(), students);
 			                	request.setAttribute("tutors"+subject2.getSubjectCode(), tutors);
