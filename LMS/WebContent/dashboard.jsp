@@ -16,7 +16,18 @@ if((request.getSession(false).getAttribute("userName")== null) )
 }
 
 %>
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 </head>
+
 <style>
 table {
   font-family: arial, sans-serif;
@@ -32,6 +43,12 @@ td, th {
 
 tr:nth-child(even) {
   background-color: #dddddd;
+}
+
+.row > div {
+  flex: 1;
+/*   background: lightgrey; */
+  border-right: 1px solid black;
 }
 </style>
   
@@ -73,6 +90,16 @@ tr:nth-child(even) {
 	                 	<%-- <a href="./exams?subject_code=<%=subject.getSubjectCode()%>">Check</a> --%>
 	                 <%-- <a href="<%=request.getContextPath()%>/exams">Check</a> --%>
 	                 <%-- <a href="courses/<%=subject.getSubjectCode()%>/exams/<%= (String)request.getAttribute("user_type")%>">Check</a> --%>
+<%-- 	                 <%if (Type.equals("Admin")){ 
+	                %>
+	                 <button type="button" class="btn btn-primary col-md-4 offset-md-4" data-toggle="modal" data-target="#studentListModal">
+ Check Students 
+</button>
+	                <%	 
+	                 }
+	                 %> --%>
+	                 
+	                 
 	                 <%if (Type.equals("Admin")){ 
 	                	 for (User user:students){
 	                 %>
@@ -94,6 +121,9 @@ tr:nth-child(even) {
         </table>
     </div>
     
+    
+
+    
     <div style="text-align: mid">
 <a href="<%=request.getContextPath()%>/logout">Logout</a></div>
 
@@ -101,7 +131,89 @@ tr:nth-child(even) {
   <hr class="rounded">
    <%if (Type.equals("Admin")){ %>
    
-    <div align="center">
+   
+   
+ <div class="container">
+  <div class="row">
+    <div class="col-sm">
+    
+    <form  class="border border-light"
+    name="addSubject" action="addSubject" method="post">
+    		<div class="form-group">
+			<label> Subject code:&nbsp;&nbsp;</label> 
+			<input type="text" name="code">
+		</div>
+		    		<div class="form-group">
+			<label> Subject Name: </label> 
+			<input type="text" name="name">
+		</div>
+		    		<div class="form-group">
+			<label> Instructor id:</label> 
+			<input type="hidden" name="id">
+		</div>
+		 <div align="center">
+         <input type = "submit" value = "Add New Subject" />
+         </div>
+      </form>
+  
+    </div>
+    <div class="col-sm">
+      <form class="border border-light"
+      name="addUser" action="addUser" method="post">
+          		<div class="form-group">
+			<label>User name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> 
+			<input type="text" name="name">
+		</div>
+		    		<div class="form-group">
+			<label>Email:</label> 
+			<input type="hidden" name="email">
+		</div>
+		    		<div class="form-group">
+			<label>User Password:</label> 
+			<input type="text" name="password">
+		</div>
+		
+		<div class="form-group">
+			<label>User type:</label> 
+				<select name="type" id="type">
+		<option value="2">Instructor</option>
+		<option value="3">Student</option>
+		</select>  
+			</div>
+         <!-- <input type = "text" name="type"> -->
+       
+		 <div align="center">
+         <input type = "submit" value = "Add New User" />
+         </div>
+      </form>
+    </div>
+    <div class="col-sm">
+         <form class="border border-light"
+         name="assignUser" action="assignUser" method="post">
+                   		<div class="form-group">
+			<label>User id:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> 
+			<input type=number name="id">
+		</div>
+		          		<div class="form-group">
+			<label>Subject code:</label> 
+			<input type="text" name="code">
+		</div>
+		 <div align="center">
+         <input type = "submit" value = "Assign User" />
+         </div>
+      </form>
+
+  </div>
+</div>
+   
+   
+
+   
+   
+   
+   
+   
+<!--     <div align="center">
     
     <form name="addSubject" action="addSubject" method="post">
          code : <input type = "text" name = "code">
@@ -125,7 +237,7 @@ tr:nth-child(even) {
          password:<input type = "text" name="password">
          <br />
          type:
-         <!-- <input type = "text" name="type"> -->
+         <input type = "text" name="type">
 		<select name="type" id="type">
 		<option value="2">Instructor</option>
 		<option value="3">Student</option>
@@ -146,8 +258,17 @@ tr:nth-child(even) {
       </form>
      <hr class="rounded">
   <hr class="rounded">
-
+ -->
     </div>
+    
+          <hr class="rounded">
+  <hr class="rounded">
+    
+    
+    
+    
+    
+    
      <div align="center">
       <table  style="width:70%">
             <tr>
