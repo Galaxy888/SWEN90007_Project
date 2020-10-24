@@ -59,6 +59,7 @@ public class AnswerListController extends HttpServlet {
 		System.out.println("AnswerListController");
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
+		
 		int exam_id = Integer.parseInt((String)request.getAttribute("exam_id"));
 		 System.out.print(exam_id);
 		// find all the users by exam_id and find all questions at this user, 
@@ -71,6 +72,27 @@ public class AnswerListController extends HttpServlet {
 		 for(Mark user:users) {
 			 ArrayList<UserQuestion> questionList = new ArrayList<UserQuestion>();
 			 int id = user.getId();
+			 int mark_before = 0;
+			 int flag = 0;
+			 String sql3= "select * from users_exams where user_id='"+id+"' and exam_id='"+exam_id+"' limit 1";
+			 try { 
+			 PreparedStatement search2 = DBConnection.prepare(sql3);
+		    	ResultSet rs3 = search2.executeQuery();
+		    	if(rs3.next()) {
+//		    	if(Integer.parseInt(rs.getString(4))!=1){
+		    	mark_before=Integer.parseInt(rs3.getString(3));
+//		    	}else {
+//		    		flag=1;
+//		    	}
+		    	System.out.print(mark_before);
+		    	}
+		    	if (mark_before!=0) {
+		    		flag = 1;
+		    	} } catch (SQLException e) {
+
+					System.out.println(e.getMessage());
+				}
+			 request.setAttribute(id+"flag",flag);
 			 questionList = new UserQuestion().getAllQuestionsbyId(id,exam_id);
 		     StudentList.add(questionList);
 		 }
