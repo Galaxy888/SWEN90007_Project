@@ -199,7 +199,7 @@ session.removeAttribute("errMessageExam");
  <span style="color:red"><%=(request.getSession(false).getAttribute("errMessageExam") == null) ? "" : request.getSession(false).getAttribute("errMessageExam")%></span>
  <%
 session.removeAttribute("errMessageExam");
-
+s
 %>
 </div> --%>
 

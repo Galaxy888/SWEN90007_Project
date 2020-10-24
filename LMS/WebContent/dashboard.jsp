@@ -63,18 +63,26 @@ tr:nth-child(even) {
             <tr>
                 <th>Subject Code</th>
                 <th>Subject Name</th>
-                <th>Coordinator List</th>
-                <th>Student List</th>
+                 <%
+                 String Type = (String)request.getAttribute("user_type");
+                 if (Type.equals("Admin")){ %>
+                 <th>Student list</th>
+                 <th>Instructor list</th>
+                 <% } else { %>
+                <th>Operation</th>
+                <% } %>
+              
             </tr>
             
                 <tr>
  			<%
- 			     String Type = (String)request.getAttribute("user_type");
+ 			     //String Type = (String)request.getAttribute("user_type");
  		         List<Subject> subjects = new ArrayList<>(); 
 		         subjects = (List<Subject>)request.getAttribute("subjects");//获取request中名称为student的值
            		 for (Subject subject : subjects) {
            			 List<User> students =  (List<User>)request.getAttribute("students"+subject.getSubjectCode());
            			 List<User> tutors =  (List<User>)request.getAttribute("tutors"+subject.getSubjectCode());
+           			
        		 %>
        		        <td><%= subject.getSubjectCode() %></td>
                     <td><%= subject.getName() %></td>
@@ -145,12 +153,9 @@ tr:nth-child(even) {
 	                 <%if (Type.equals("Admin")){ 
 	                	 for (User user:students){
 	                 %>
-	                    <td><%= user.getId() %></td>
 	                    <td><%= user.getName() %></td>
 	                 <% } 
 	                   for(User user2: tutors){ %>
-	                   
-	                     <td><%= user2.getId() %></td>
 	                     <td><%= user2.getName() %></td>
 	                     <% }
 	                 }

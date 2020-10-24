@@ -49,6 +49,7 @@
         <%  List<ArrayList<UserQuestion>> studentList = new ArrayList<ArrayList<UserQuestion>>(); 
             studentList = (List<ArrayList<UserQuestion>>)request.getAttribute("answerList");
             for (List<UserQuestion> answers: studentList ) {
+            	int id = 0;
         %>
  
         <table  style="width:70%">
@@ -65,6 +66,7 @@
  			<%   
  		
            		 for (UserQuestion answer : answers) {
+           			 id = answer.getUser_id();
        		 %>
        		        <td><%= answer.getUser_id() %></td>
                     <td><%= answer.getQuestion_id() %></td>
@@ -82,7 +84,10 @@
           		  } // for loop
         	%>
         </table>
+             <% int flag = (int)request.getAttribute(id+"flag");
+          	    if (flag==0) {%>
              <input type = "submit" value = "Mark" />
+                 <%} %>
          </form>
          <% } %>
          

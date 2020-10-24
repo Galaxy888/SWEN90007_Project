@@ -103,7 +103,7 @@ session.removeAttribute("errMessageQuestion");
                     '<%= question.getContent() %>','<%= question.getMark()%>','<%= question.getAnswer()%>','<%= question.getExam() %>','<%= question.getVersion() %>')">
                     Update</button>
 	                 <%-- <a class="sel_btn" href="./deleteQuestion?exam_id=<%=question.getExam() %>&id=<%=question.getId()%>">Delete</a> --%>
-	                 <form name="delete" method=post action="deleteQuestion">
+	                 <form name="delete" method=post action="deleteQuestion">s
 	                 <input name="id" type="hidden" value=<%=question.getId()%>>
 	                 <input type = "submit" value = "Delete" />
 	                 </form>
