@@ -82,14 +82,64 @@ tr:nth-child(even) {
 	                 	<%-- <a href="./exams?subject_code=<%=subject.getSubjectCode()%>">Check</a> --%>
 	                 <%-- <a href="<%=request.getContextPath()%>/exams">Check</a> --%>
 	                 <%-- <a href="courses/<%=subject.getSubjectCode()%>/exams/<%= (String)request.getAttribute("user_type")%>">Check</a> --%>
-<%-- 	                 <%if (Type.equals("Admin")){ 
+	                 <%if (Type.equals("Admin")){ 
 	                %>
 	                 <button type="button" class="btn btn-primary col-md-4 offset-md-4" data-toggle="modal" data-target="#studentListModal">
  Check Students 
 </button>
+
+    <div>
+                 <form class="form-horizontal" method="post" action="">     
+									<div class="modal fade" id="studentListModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title" id="updateModalLabel">
+														Student List
+													</h4>
+												</div>
+												<div class="modal-body">
+												
+										<!---------------------form-------------------->
+			
+										
+										 <div class="form-group">
+											<label for="firstname" class="col-sm-3 control-label">Student ID</label>
+												<div class="col-sm-7">
+													<input type="text" class="form-control" id="updateTitle" name="title"  placeholder="input new title" required>
+												<label class="control-label" for="updateTitle" style="display: none;"></label>
+												</div>
+										</div>
+										
+										<div class="form-group">
+											<label for="firstname" class="col-sm-3 control-label">Student Name</label>
+												<div class="col-sm-7">
+													
+													<!-- <input type="text" class="form-control" id="updateStatus" name="status"  placeholder="input new status"> -->
+												<label class="control-label" for="updateStatus" style="display: none;"></label>
+												</div>
+										</div>
+										
+										</div>
+												<div class="modal-footer">
+				
+													<button type="submit" class="btn btn-primary" >
+														submit
+													</button>
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+												</div>
+											</div><!-- /.modal-content -->
+										</div><!-- /.modal -->
+									</div>
+	
+                                 </form>
+                                 
+ </div>                                
+
+
 	                <%	 
 	                 }
-	                 %> --%>
+	                 %>
 	                 
 	                 
 	                 <%if (Type.equals("Admin")){ 
