@@ -132,7 +132,9 @@ public class MarkAnswerController extends HttpServlet {
 
 //		  request.setAttribute("questions", questions);
 	
-	      response.sendRedirect("./markExamDone");
+//	      response.sendRedirect("./markExamDone");
+		 response.sendRedirect("./ViewAnswer");
+	      
 	}
 
 }
