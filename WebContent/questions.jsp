@@ -43,9 +43,24 @@
         document.getElementById("updateExam").value = exam;
         document.getElementById("updateVersion").value = version;
     }
+    function addForm(){
+		var form = document.createElement("form");
+		var str= "  <input type = 'text' value = 'Delete' />";//这里放bai你想在duform里放的标签zhi。
+		form.innerHTML = str;
+		document.body.appendChild(form);
+		}
     </script>
+    
 </head>
 <body>
+
+
+<input type="button" onclick="addForm()" value="addForm"/>
+
+
+
+
+
 <a class="sel_btn" href="/dashboard">Dashboard</a> 
 <div>
 <h1 style="text-align:center"><%=request.getAttribute("subject_code") %> Exam</h1> 

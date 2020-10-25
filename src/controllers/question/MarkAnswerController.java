@@ -52,7 +52,6 @@ public class MarkAnswerController extends HttpServlet {
 		System.out.println("MarkAnswerController");
 		int exam_id = Integer.parseInt(request.getParameter("exam_id"));
 		int user_id = Integer.parseInt(request.getParameter("user_id"));
-		int mark_before = 0;
 		System.out.print(exam_id);
 		System.out.print(user_id);
 		Question question2 = new Question();
@@ -66,6 +65,7 @@ public class MarkAnswerController extends HttpServlet {
 			 answers.addAll(answers1);
 		 }
 		 System.out.print("answers"+answers);
+		 int total_mark = 0;
 		 for (Answer answer : answers) {
 				int id = Integer.parseInt(request.getParameter("id"+answer.getId()));
 				System.out.print(id);
@@ -73,42 +73,11 @@ public class MarkAnswerController extends HttpServlet {
 //		    	int mark = Integer.parseInt(request.getParameter("mark"+answer.getId()+answer.getQuestion_id()));
 //		    	System.out.print(mark);
 		    	int mark=0;
+		    	mark = 	mark = Integer.parseInt(request.getParameter("mark"+answer.getId()+answer.getQuestion_id())); 
+		    	total_mark += mark;
 		    	String Answer=answer.getAnswer();
 		    	try {
-		    	String stm1 = "select * from users_questions where user_id='"+id+"' and question_id='"+ qid+"' limit 1";
 		    	String stm = "update users_questions set answer=?,mark=?,status=? where user_id=? and question_id=?";
-		    	String sql1 = "select * from users_exams where user_id='"+id+"' and exam_id='"+exam_id+"' limit 1";
-		    	String sql2 = "update users_exams set mark=?, status=1 where user_id=? and exam_id=?";
-		    	int before_mark =0;
-		    	PreparedStatement search1 = DBConnection.prepare(stm1);
-		    	ResultSet rs1 = search1.executeQuery();
-		    	if (rs1.next()) {
-		    		before_mark = Integer.parseInt(rs1.getString(5));
-		    		System.out.print("Previous mark"+before_mark);
-		    	}
-		    	if (before_mark!=0) {
-		    		mark = before_mark;
-		    	}else {
-		    		mark = Integer.parseInt(request.getParameter("mark"+answer.getId()+answer.getQuestion_id())); 
-		    	}
-		    	
-		    	PreparedStatement search = DBConnection.prepare(sql1);
-		    	ResultSet rs = search.executeQuery();
-		    
-		    	while(rs.next()) {
-//		    	if(Integer.parseInt(rs.getString(4))!=1){
-		    	mark_before=Integer.parseInt(rs.getString(3));
-//		    	}else {
-//		    		flag=1;
-//		    	}
-		    	System.out.print(mark_before);
-		    	}
-		    	int mark_current = mark+mark_before;
-		    	PreparedStatement update = DBConnection.prepare(sql2);
-		    	update.setInt(1,mark_current);
-		    	update.setInt(2,id);
-		    	update.setInt(3,exam_id);
-		    	update.executeUpdate();
 		    	
 		    	
 		    	PreparedStatement insertStatement = DBConnection.prepare(stm);
@@ -120,7 +89,6 @@ public class MarkAnswerController extends HttpServlet {
 				
 				insertStatement.executeUpdate();
 		
-		    	
 		    	}catch (SQLException e) {
 
 					System.out.println(e.getMessage());
@@ -128,7 +96,21 @@ public class MarkAnswerController extends HttpServlet {
 			    
 	    System.out.print("Success!");
 	    	
-	    }
+	    }      
+		     try {
+		    	String sql2 = "update users_exams set mark=?, status=1 where user_id=? and exam_id=?";
+		    	PreparedStatement update = DBConnection.prepare(sql2);
+		    	update.setInt(1,total_mark);
+		    	update.setInt(2,user_id);
+		    	update.setInt(3,exam_id);
+		    	update.executeUpdate();
+		    	
+		     } catch (SQLException e) {
+		    	 
+		     }
+		    	
+		    	
+		    	
 
 //		  request.setAttribute("questions", questions);
 	

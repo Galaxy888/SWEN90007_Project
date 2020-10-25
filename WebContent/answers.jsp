@@ -1,8 +1,10 @@
 <%@ page import="domain.Answer" 
     import = "domain.UserQuestion"
+    import = "domain.Question"
     import="datasource.DBConnection"
     import="java.sql.*"
     import="java.util.*"
+   
 %>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -56,8 +58,11 @@
             <tr>
                 <th>User Id</th>
                 <th>Question Id</th>
+                <th>Question Content</th>
+                <th>Question Correct Answer</th>
                 <th>Question Answer</th>
-                <th>Answer Mark</th>
+                <th>Input Mark</th>
+                <th>Current Mark</th>
             </tr>
             <form name="mark" method="post" action="markAnswer">
             <input name="exam_id" type="hidden" value=<%=(int)request.getAttribute("exam_id") %>>
@@ -66,28 +71,47 @@
  			<%   
  		
            		 for (UserQuestion answer : answers) {
-           			 id = answer.getUser_id();
+           			 Question question = new Question();
+           			 id = answer.getQuestion_id();
+           			 String sql = "select * from questions where id = '"+ id+"' limit 1";
+           			 try{
+           				PreparedStatement stmt = DBConnection.prepare(sql);
+           				ResultSet rs = stmt.executeQuery();
+           				while (rs.next()) {
+           					int q_id = Integer.parseInt(rs.getString(1));
+           					int type = Integer.parseInt(rs.getString(2));
+           					String title = rs.getString(3);
+           					String content = rs.getString(4);
+           					String q_answer = rs.getString(5);
+           					int mark = Integer.parseInt(rs.getString(6));
+           					int examId = Integer.parseInt(rs.getString(7));
+           					int version = Integer.parseInt(rs.getString(10));
+           					question = new Question(q_id,type,title,content,q_answer,mark,examId,version);
+           				}
+           			 } catch (SQLException e) {
+           				 
+           			 }
        		 %>
        		        <td><%= answer.getUser_id() %></td>
                     <td><%= answer.getQuestion_id() %></td>
+                    <td><%= question.getContent() %>
+                    <td><%= question.getAnswer() %>
                     <td><%= answer.getAnswer() %>
                     <td>
                      <input name="user_id" type="hidden" value=<%=answer.getUser_id() %>>
 	                 <input name="id<%=answer.getUser_id() %>" type="hidden" value=<%=answer.getUser_id()%>>
 	                 <input name="qid<%=answer.getQuestion_id() %>" type="hidden" value=<%=answer.getQuestion_id()%>>
-	                 <%if(answer.getMark()==0) { %>
 	                 <input type="number" name="mark<%=answer.getUser_id() %><%=answer.getQuestion_id() %>" required>
-	                 <% }%>
-	                 </td>
+	                </td>
+	                <td><%= answer.getMark() %></td>
                 </tr>
             <%
           		  } // for loop
         	%>
         </table>
-             <% int flag = (int)request.getAttribute(id+"flag");
-          	    if (flag==0) {%>
+           
              <input type = "submit" value = "Mark" />
-                 <%} %>
+          
          </form>
          <% } %>
          
