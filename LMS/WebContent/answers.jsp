@@ -46,6 +46,31 @@
 </style>
 </head>
 <body>
+<script type="text/javascript">
+var value = $('#inputMark').val();
+  
+
+$( ".inputMark" ).on('input', function() {
+    if ($(this).val().length>3) {
+        alert('you have reached a limit of 3');       
+    }
+});
+
+</script>
+
+
+<%
+String strError = (String)request.getSession(false).getAttribute("errMessageMark");
+if (strError!=null){
+	out.println("<script type=\"text/javascript\">");  
+	out.println("alert('"+strError+"');");
+	out.println("</script>");
+}      
+%>
+<%
+session.removeAttribute("errMessageMark");
+%>  
+
 <a class="sel_btn" href="/login.jsp">DashBoard</a> 
  <div align="center">
         <%  List<ArrayList<UserQuestion>> studentList = new ArrayList<ArrayList<UserQuestion>>(); 
@@ -54,15 +79,16 @@
             	int id = 0;
         %>
  
-        <table  style="width:70%">
+        <table  class="table table-bordered"style="width:70%">
             <tr>
                 <th>User Id</th>
                 <th>Question Id</th>
                 <th>Question Content</th>
                 <th>Question Correct Answer</th>
-                <th>Question Answer</th>
+                <th>Student Answer</th>
                 <th>Input Mark</th>
                 <th>Current Mark</th>
+                <th>Version</th>
             </tr>
             <form name="mark" method="post" action="markAnswer">
             <input name="exam_id" type="hidden" value=<%=(int)request.getAttribute("exam_id") %>>
@@ -74,6 +100,15 @@
            			 Question question = new Question();
            			 id = answer.getQuestion_id();
            			 String sql = "select * from questions where id = '"+ id+"' limit 1";
+       				 String sql2 = "select version from users_questions where user_id = '"+ answer.getUser_id()+"' and question_id = '"+answer.getQuestion_id()+"'";
+           			 
+           			PreparedStatement stmt2 = DBConnection.prepare(sql2);
+       				ResultSet rs2 = stmt2.executeQuery();
+       				int markVersion=0;
+       				if(rs2.next()){
+       					markVersion = Integer.parseInt(rs2.getString(1));
+       				}
+           			 
            			 try{
            				PreparedStatement stmt = DBConnection.prepare(sql);
            				ResultSet rs = stmt.executeQuery();
@@ -101,9 +136,15 @@
                      <input name="user_id" type="hidden" value=<%=answer.getUser_id() %>>
 	                 <input name="id<%=answer.getUser_id() %>" type="hidden" value=<%=answer.getUser_id()%>>
 	                 <input name="qid<%=answer.getQuestion_id() %>" type="hidden" value=<%=answer.getQuestion_id()%>>
-	                 <input type="number" name="mark<%=answer.getUser_id() %><%=answer.getQuestion_id() %>" required>
+	                 <input id='inputMark' type = "number" style="width:65px"
+	                 maxlength="4" 
+	                 oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+	                 
+	                 name="mark<%=answer.getUser_id() %><%=answer.getQuestion_id() %>" required>/<%= question.getMark() %>
 	                </td>
-	                <td><%= answer.getMark() %></td>
+	                <td><%= answer.getMark() %>/<%= question.getMark() %></td>
+	                <td><input type = "hidden" id="version" name="version" value=<%= markVersion%>><%= markVersion%></td>
+	                
                 </tr>
             <%
           		  } // for loop

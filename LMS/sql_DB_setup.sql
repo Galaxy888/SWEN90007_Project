@@ -89,6 +89,7 @@ CREATE TABLE users_questions (
   answer VARCHAR(20),
   mark INT,
   status     INT, 
+  version INT,
   CONSTRAINT user_question_pkey PRIMARY KEY (user_id, question_id)  -- explicit pk
 );
 
