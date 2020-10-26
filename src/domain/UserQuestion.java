@@ -15,6 +15,7 @@ public class UserQuestion extends DomainObject {
 	private String answer;
 	private int mark;
 	private int status;
+	private int version;
 	
 	public UserQuestion(int id, int question_id,int exam_id, String answer,int mark,int status) {
 		this.user_id = id;
@@ -23,6 +24,12 @@ public class UserQuestion extends DomainObject {
 		this.answer = answer;
 		this.mark = mark;
 		this.status = status;
+	}
+	public int getVersion() {
+		return version;
+	}
+	public void setVersion(int version) {
+		this.version = version;
 	}
 	public UserQuestion() {
 		// TODO Auto-generated constructor stub

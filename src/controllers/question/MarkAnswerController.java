@@ -65,6 +65,11 @@ public class MarkAnswerController extends HttpServlet {
 			 answers.addAll(answers1);
 		 }
 		 System.out.print("answers"+answers);
+		 
+	    	int version = Integer.parseInt(request.getParameter("version"));
+	    	
+	    	System.out.println("VVVVVVVVVVV: "+version);
+	    	boolean updateSuccess=true;
 		 int total_mark = 0;
 		 for (Answer answer : answers) {
 				int id = Integer.parseInt(request.getParameter("id"+answer.getId()));
@@ -76,18 +81,33 @@ public class MarkAnswerController extends HttpServlet {
 		    	mark = 	mark = Integer.parseInt(request.getParameter("mark"+answer.getId()+answer.getQuestion_id())); 
 		    	total_mark += mark;
 		    	String Answer=answer.getAnswer();
+		    	
+
 		    	try {
-		    	String stm = "update users_questions set answer=?,mark=?,status=? where user_id=? and question_id=?";
+		    	String stm = "update users_questions set answer=?,mark=?,status=?,version=? where user_id=? and question_id=? and version=?";
 		    	
 		    	
 		    	PreparedStatement insertStatement = DBConnection.prepare(stm);
 		    	insertStatement.setString(1,Answer);
 				insertStatement.setInt(2,mark);
 				insertStatement.setInt(3, 1);
-				insertStatement.setInt(4, id);
-				insertStatement.setInt(5, qid);
+				insertStatement.setInt(4, version+1);
+				insertStatement.setInt(5, id);
+				insertStatement.setInt(6, qid);
+				insertStatement.setInt(7,version);
 				
-				insertStatement.executeUpdate();
+				int rowCount = insertStatement.executeUpdate();
+				if (rowCount==0) {
+//					throwConcurrencyException(question);
+					updateSuccess=false;
+//					System.out.println("throwConcurrencyException");
+
+				}
+	
+				insertStatement.close();
+//				return true;
+				
+//				insertStatement.executeUpdate();
 		
 		    	}catch (SQLException e) {
 
@@ -96,7 +116,14 @@ public class MarkAnswerController extends HttpServlet {
 			    
 	    System.out.print("Success!");
 	    	
-	    }      
+	    } 
+		 
+		 if(!updateSuccess) {
+				HttpSession session = request.getSession(); 
+				session.setAttribute("errMessageMark", "Someone has already updated the mark. Please view the latsest version");
+				response.sendRedirect("./ViewAnswer");
+		 }else {
+		 
 		     try {
 		    	String sql2 = "update users_exams set mark=?, status=1 where user_id=? and exam_id=?";
 		    	PreparedStatement update = DBConnection.prepare(sql2);
@@ -108,14 +135,16 @@ public class MarkAnswerController extends HttpServlet {
 		     } catch (SQLException e) {
 		    	 
 		     }
-		    	
+		     
+		     response.sendRedirect("./ViewAnswer");
+		 }
 		    	
 		    	
 
 //		  request.setAttribute("questions", questions);
 	
 //	      response.sendRedirect("./markExamDone");
-		 response.sendRedirect("./ViewAnswer");
+		 
 	      
 	}
 

@@ -22,7 +22,7 @@ public class UserQuestionMapper extends DataMapper {
 	public Boolean insert(DomainObject obj) {
 		UserQuestion userQuestion = (UserQuestion) obj;
 
-		String stm = "INSERT INTO users_questions VALUES (?, ?, ?,?,0,0)";
+		String stm = "INSERT INTO users_questions VALUES (?, ?, ?,?,0,0,0)";
 
 		try {
 			PreparedStatement stmt = DBConnection.prepare(stm);
