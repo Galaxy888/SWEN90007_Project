@@ -59,7 +59,7 @@ public class TakeQuestionController extends HttpServlet {
 		int exam_id = Integer.parseInt(request.getParameter("exam_id"));
 		HttpSession session = request.getSession(false);
 		int user_id = (int) session.getAttribute("user_id");
-		String sql2 = "INSERT INTO users_exams VALUES (?, ?, 0,0)";
+		String sql2 = "INSERT INTO users_exams VALUES (?, ?, 0,0,0)";
 		try {
 			PreparedStatement insertStatement = DBConnection.prepare(sql2);
 			insertStatement.setInt(1, user_id);
