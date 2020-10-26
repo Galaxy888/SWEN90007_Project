@@ -79,6 +79,7 @@ CREATE TABLE users_exams (
   exam_id    INT REFERENCES exams(id) ON UPDATE CASCADE, 
   mark       INT,
   status     INT,
+  version INT,
   CONSTRAINT user_exam_pkey PRIMARY KEY (user_id, exam_id)  -- explicit pk
 );
 
@@ -102,10 +103,13 @@ INSERT INTO users
 VALUES (2, 'Tutor', 'Tutor@gmail.com','123',2);
 
 INSERT INTO users
-VALUES (4, 'Instructor2', 'Tutor@gmail.com','123',2);
+VALUES (3, 'Instructor2', 'Tutor@gmail.com','123',2);
 
 INSERT INTO users
-VALUES (3, 'Student', '','123',3);
+VALUES (4, 'Student', '','123',3);
+
+INSERT INTO users
+VALUES (5, 'Student2', '','123',3);
 
 --INSERT INTO subjects
 --VALUES ('SWEN90007','SDA',002);
@@ -124,6 +128,9 @@ VALUES (003,'SWEN90013',0);
 
 INSERT INTO users_subjects 
 VALUES (004,'SWEN90013',0);
+
+INSERT INTO users_subjects 
+VALUES (005,'SWEN90013',0);
 
 --INSERT INTO users_subjects 
 --VALUES (004,'SWEN90013',0);

@@ -66,7 +66,7 @@ public class updateExamController extends HttpServlet {
 			response.sendRedirect("./exams");
 		} else {
 			HttpSession session = request.getSession();
-			session.setAttribute("errMessageExam", "Something one has already updated the exam. Please view the latsest version ");
+			session.setAttribute("errMessageExam", "Someone has already updated the exam. Please view the latsest version ");
 			response.sendRedirect("./exams");
 
 		}

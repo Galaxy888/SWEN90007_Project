@@ -42,24 +42,40 @@
 }
 </style>
 <script type="text/javascript">
-    function showInfo2(id,eid,mark,status) {
+    function showInfo2(id,eid,mark,status,version) {
         document.getElementById("updateId").value = id;
         document.getElementById("updateEId").value = eid;
         document.getElementById("updateMark").value = mark;
         document.getElementById("updateStatus").value = status;
+        document.getElementById("updateVersion").value = version;
     }
     </script>
 </head>
 <body>
+
+
+<%
+String strError = (String)request.getSession(false).getAttribute("errMessageResult");
+if (strError!=null){
+	out.println("<script type=\"text/javascript\">");  
+	out.println("alert('"+strError+"');");
+	out.println("</script>");
+}      
+%>
+<%
+session.removeAttribute("errMessageResult");
+%>  
+
 <a class="sel_btn" href="/login.jsp">DashBoard</a>
 <h1 style="text-align:center"><%=request.getAttribute("subject_code") %> Exam Mark</h1> 
  <div align="center" class="col-auto">
         <table  style="width:70%">
             <tr>
-                <th>User Id</th>
-                <th>Mark</th>
+                <th>Student Id</th>
+                <th>Final Mark</th>
                 <!-- <th>Status</th> -->
                 <th>Operation</th>
+                <th>Version</th>
             </tr>
             
                 <tr>
@@ -73,9 +89,10 @@
                  <%--    <td><%= mark.getStatus() %></td> --%>
                     <td>
 	                <button type="button" class="sel_btn" data-toggle="modal" data-target="#updateModal" id="btn_update" 
-                    onclick="showInfo2('<%= mark.getId() %>','<%= mark.getEId() %>','<%= mark.getMark() %>','<%= mark.getStatus() %>')">
+                    onclick="showInfo2('<%= mark.getId() %>','<%= mark.getEId() %>','<%= mark.getMark() %>','<%= mark.getStatus() %>','<%= mark.getVersion() %>')">
                     Update</button>
 	                 </td>
+	                 <td><%= mark.getVersion() %></td>
                 </tr>
             <%
           		  } // for loop
@@ -131,7 +148,7 @@
 										</div> -->
 										
 										<input type="hidden" class="form-control" id="updateStatus" name="status"  placeholder="subject">
-											
+										<input type = "hidden" id="updateVersion" name="version" />		
 										</div>
 												<div class="modal-footer">
 				

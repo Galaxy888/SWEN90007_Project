@@ -22,18 +22,28 @@ public class MarkMapper extends DataMapper{
 	public Boolean update(DomainObject obj) throws SQLException {
 		Mark mark = (Mark) obj;
 		
-		String updateMarkStatement = "update users_exams set mark=?,status=? where user_id=? and exam_id=? ";
+		String updateMarkStatement = "update users_exams set mark=?,status=?, version=? where user_id=? and exam_id=? and version=?";
 		
 		PreparedStatement stmt = DBConnection.prepare(updateMarkStatement);
 		try {
 			stmt.setInt(1,mark.getMark());
 			stmt.setInt(2, mark.getStatus());
-			stmt.setInt(3,mark.getId());
-			stmt.setInt(4,mark.getEId());
-		
-			stmt.executeUpdate();
+			stmt.setInt(3,mark.getVersion()+1);
+			stmt.setInt(4,mark.getId());
+			stmt.setInt(5,mark.getEId());
+			stmt.setInt(6,mark.getVersion());
+			int rowCount = stmt.executeUpdate();
+			if (rowCount==0) {
+//				throwConcurrencyException(question);
+				System.out.println("throwConcurrencyException");
+				return false;
+			}
 			stmt.close();
 			return true;
+		
+//			stmt.executeUpdate();
+//			stmt.close();
+//			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -54,7 +64,8 @@ public class MarkMapper extends DataMapper{
 				int eid = Integer.parseInt(rs.getString(2));
 				int mark = Integer.parseInt(rs.getString(3));
 				int status = Integer.parseInt(rs.getString(4));
-				marks.add(new Mark(id, eid, mark, status));
+				int version = Integer.parseInt(rs.getString(5));
+				marks.add(new Mark(id, eid, mark, status,version));
 			}
 
 		} catch (SQLException e) {

@@ -46,14 +46,16 @@ public class updateResultController extends HttpServlet {
 		int exam_id = Integer.parseInt(request.getParameter("exam_id"));
 		int mark = Integer.parseInt(request.getParameter("mark"));
 		int status = Integer.parseInt(request.getParameter("status"));
+		int version = Integer.parseInt(request.getParameter("version"));
+		System.out.println("VVVVVVV: "+version);
 		
-		Boolean success = markService.updateResult(id, exam_id, mark, status);
+		Boolean success = markService.updateResult(id, exam_id, mark, status,version);
 		System.out.println("update Result doPost success: "+success);
 		if (success) {
 			response.sendRedirect("./ViewMark");
 		}else {
 			HttpSession session = request.getSession(); 
-			session.setAttribute("errMessageQuestion", "Something went wrong. Update result error");
+			session.setAttribute("errMessageResult", "Someone has already updated the result. Please view the latsest version");
 			response.sendRedirect("./ViewMark");
 		}
 		

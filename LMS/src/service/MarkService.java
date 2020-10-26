@@ -9,7 +9,7 @@ public class MarkService {
 
 	}
 
-	public Boolean updateResult(int id, int exam_id, int mark, int status) {
+	public Boolean updateResult(int id, int exam_id, int mark, int status, int version) {
 		UnitOfWork.newCurrent();
 		
 		Mark result = new Mark();
@@ -17,6 +17,7 @@ public class MarkService {
 		result.setStatus(status);
 		result.setId(id);
 		result.setEId(exam_id);
+		result.setVersion(version);
 		UnitOfWork.getCurrent().registerDiry(result);
 		
 		return UnitOfWork.getCurrent().commit();
