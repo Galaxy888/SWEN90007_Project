@@ -54,12 +54,12 @@ public class ExamMapper extends DataMapper {
 	public Boolean delete(DomainObject obj) {
 		Exam exam = (Exam) obj;
 
-		String deleteExamStatement = "delete from exams where id=? and status = 0";
+		String deleteExamStatement = "delete from exams where id=?";
 
 		try {
 			PreparedStatement stmt = DBConnection.prepare(deleteExamStatement);
 			stmt.setInt(1, exam.getId());
-			System.out.println("ExamMapper delete ");
+			System.out.println("ExamMapper delete");
 			stmt.executeUpdate();
 			stmt.close();
 		} catch (SQLException e) {

@@ -88,7 +88,9 @@ public class ExamController extends HttpServlet {
 					request.getRequestDispatcher("/updateExam").forward(request, response);
 				} else if (operation.equals("deleteExam")) {
 					request.getRequestDispatcher("/deleteExam").forward(request, response);
-				}
+				} else if (operation.equals("closeExam")) {
+					request.getRequestDispatcher("/closeExam").forward(request, response);
+				} 
 			} else if (pathParts.length == 5) {
 				subjectCode = pathParts[1];
 				if (pathParts[2].equals("exams") &&(!pathParts[4].equals("markExamDone"))) {

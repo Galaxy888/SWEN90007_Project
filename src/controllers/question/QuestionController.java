@@ -56,6 +56,7 @@ public class QuestionController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		int exam_id = Integer.parseInt((String) request.getAttribute("exam_id"));
+	
 		String operation = (String) request.getAttribute("operation");
 		String subject_code = (String) request.getAttribute("subject_code");
 		System.out.println("Question Controller_0: " + exam_id + " operation: " + operation);
@@ -63,7 +64,6 @@ public class QuestionController extends HttpServlet {
 		String userType = (String) session.getAttribute("userType");
 		if (operation.equals("questions")) {
 			if (userType.equals("Instructor")) {
-
 				List<Question> questions = examService.getAllQuestions(exam_id);
 //			String stm = "select * from questions where exam_id='" + exam_id + "'";
 //			try {
@@ -96,21 +96,42 @@ public class QuestionController extends HttpServlet {
 					response.sendRedirect("./questions");
 				}
 
-			} else if (userType.equals("Student")) { // show all questions
+			} else if (userType.equals("Student")) { // show all questions and if the user take the exam before,flag =1, else flag=0
 				System.out.print("Student");
 				int flag = 0;
-				int user_id = (int) session.getAttribute("user_id");
+				int user_id = (int) session.getAttribute("user_id");								
 				String sql1 = "select * from users_exams where user_id='" + user_id + "'and exam_id='" + exam_id + "'";
+				String sql2 = "INSERT INTO users_exams VALUES (?, ?,0,0,0)";
+				String sql3 = "select * from exams where id = '"+ exam_id+"' limit 1";
 				try {
 					PreparedStatement stmt = DBConnection.prepare(sql1);
 					ResultSet rs = stmt.executeQuery();
 					if (!rs.next()) {
 						flag = 1;
+						PreparedStatement insertStatement = DBConnection.prepare(sql2);
+						insertStatement.setInt(1, user_id);
+						insertStatement.setInt(2, exam_id);
+						insertStatement.execute();
+					}
+					else {
+						flag = 0;
+					}
+					int status = 0;
+					PreparedStatement stm = DBConnection.prepare(sql3);
+					ResultSet result = stm.executeQuery();
+					if(result.next()) {
+						status = Integer.parseInt(rs.getString(3));
+					}
+					if (status==3) {
+						flag = 0;
 					}
 				} catch (SQLException e) {
 
 					System.out.println(e.getMessage());
-				}
+				} 
+				    
+				
+				
 				
 				
 //					List<Question> questions = new ArrayList<>();

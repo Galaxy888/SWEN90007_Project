@@ -59,16 +59,16 @@ public class TakeQuestionController extends HttpServlet {
 		int exam_id = Integer.parseInt(request.getParameter("exam_id"));
 		HttpSession session = request.getSession(false);
 		int user_id = (int) session.getAttribute("user_id");
-		String sql2 = "INSERT INTO users_exams VALUES (?, ?, 0,0,0)";
+		String sql2 = "update users_exams set status=1,version=0 where user_id='"+user_id+"' and "
+				+ "exam_id='"+exam_id+"'";
 		try {
 			PreparedStatement insertStatement = DBConnection.prepare(sql2);
-			insertStatement.setInt(1, user_id);
-			insertStatement.setInt(2, exam_id);
-			insertStatement.execute();
-		} catch (SQLException e) {
+			insertStatement.executeUpdate();
+		}catch (SQLException e) {
 
 			System.out.println(e.getMessage());
 		}
+		
 //		Question question2 = new Question();
 //		List<Question> questions = new ArrayList<>();
 //	    questions = question2.getAllQuestions(exam_id);

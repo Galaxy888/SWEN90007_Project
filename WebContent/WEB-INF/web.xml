@@ -142,6 +142,15 @@
 		<servlet-name>deleteExamController</servlet-name>
 		<url-pattern>/deleteExam</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>closeExamController</servlet-name>
+		<servlet-class>controllers.exam.closeExamController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>closeExamController</servlet-name>
+		<url-pattern>/closeExam</url-pattern>
+	</servlet-mapping>
     
     <servlet>
 		<servlet-name>ViewExamResultController</servlet-name>
