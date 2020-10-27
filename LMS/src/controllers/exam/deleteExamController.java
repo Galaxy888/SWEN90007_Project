@@ -55,10 +55,56 @@ public class deleteExamController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		int id = Integer.parseInt(request.getParameter("id"));
-		
-		Boolean success = examService.deleteExam(id);
-		System.out.println("delete exam doPost success: "+success);
-		
+		String sql = "select * from users_exams where exam_id='"+id+"'";
+		int flag = 0;
+		try {
+			PreparedStatement stmt = DBConnection.prepare(sql);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+			   int status = Integer.parseInt(rs.getString(4));
+			   System.out.print("the exam status:"+status);
+			   if (status==0) {
+				   flag =1;
+			   }
+			}
+			} catch (SQLException e) {
+				
+			}
+		System.out.print("the exam flag:"+flag);
+		Boolean success = true;
+		if (flag==1){
+			success = false;
+		    
+		}else {
+			String deleteExamStatement = "delete from users_exams where exam_id=?";
+			String deleteUserQuestionStatement = "delete from users_questions where exam_id=?";
+			String deleteQuestionStatement = "delete from questions where exam_id=?";
+			try {
+				PreparedStatement stmt = DBConnection.prepare(deleteExamStatement);
+				PreparedStatement stm = DBConnection.prepare(deleteUserQuestionStatement);
+				PreparedStatement st = DBConnection.prepare(deleteQuestionStatement);
+				stmt.setInt(1, id);
+				stm.setInt(1, id);
+				st.setInt(1, id);
+				System.out.println("Delete Users_exams table");
+				stmt.executeUpdate();
+				stmt.close();
+				System.out.println("Delete Users_questions table");
+				stm.executeUpdate();
+				stm.close();
+				System.out.println("Delete Questions table");
+				st.executeUpdate();
+				st.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			
+			
+			
+			  success = examService.deleteExam(id);
+			  System.out.println("delete exam doPost success: "+success);
+		}
 		if (success) {
 			response.sendRedirect("./exams");
 		}else {

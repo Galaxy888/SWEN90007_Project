@@ -93,7 +93,17 @@ session.removeAttribute("errMessageExam");
  			     List<Exam> exams = new ArrayList<>(); 
  			     exams = (List<Exam>)request.getAttribute("exams");//获取request中名称为student的值
  			     int i=0;
+ 			     int flag=0;
            		 for (Exam exam : exams) {
+           			String sql = "select * from users_exams where exam_id='"+exam.getId()+"'";
+    				try {
+    					PreparedStatement stmt = DBConnection.prepare(sql);
+    					ResultSet rs = stmt.executeQuery();
+    					if (rs.next()) {
+    					  flag = 1;
+    					}
+    					} catch (SQLException e) {
+    					}
        		 %>
 <%--        		        <td><%= exam.getId() %></td> --%>
                     <td><%= i=i+1 %>
@@ -117,16 +127,26 @@ session.removeAttribute("errMessageExam");
             
 	                 <%-- <a class="sel_btn" href="./updateExam?id=<%=exam.getId()%>&title=<%=exam.getTitle()%>&status=<%=exam.getStatus()%>&subject_code=<%=exam.getSubject()%>">Edit</a> --%>
 	                 <%-- <a class="sel_btn" href="./questions?exam_id=<%=exam.getId()%>">Edit Questions</a> --%>
+	                 <% if (flag!=1){ %>
 	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/questions">Edit Questions</a>
+	                 <% } else{ %>
+	                 <a class="sel_btn" >Cannot be updated</a>
+	                 <%} %>
 	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/ViewAnswer">View answers</a>
 	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/ViewMark">View exam results</a>
 	                 <%--<a class="sel_btn" href="./deleteExam?subject_code=<%=exam.getSubject() %>&id=<%=exam.getId()%>">Delete</a>--%>
 	                 <%-- <a class="sel_btn" href="./deleteExam/<%=exam.getId()%>/<%= exam.getStatus() %>">Delete</a> --%>
 	                <%--  <button type="button" onclick="deleteExam('<%=exam.getId()%>')">Delete</button> --%>
+	                  <form  style="display: inline" name="close" method="post" action="closeExam">
+	                 <input class = "sel_btn"  name="id" type="hidden" value=<%=exam.getId()%>>
+	                 <input class = "sel_btn"  type = "submit" value = "Delete" />
+	                 </form>
+	                <%-- >
 	                 <form  style="display: inline" name="delete" method="post" action="deleteExam">
 	                 <input class = "sel_btn"  name="id" type="hidden" value=<%=exam.getId()%>>
 	                 <input class = "sel_btn"  type = "submit" value = "Delete" />
 	                 </form>
+	                 --%>
 	                 </div>
 
 	                 
