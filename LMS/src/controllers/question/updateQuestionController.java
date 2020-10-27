@@ -51,17 +51,32 @@ public class updateQuestionController extends HttpServlet {
 		System.out.println("updateQuestionController");
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
-		int id = Integer.parseInt(request.getParameter("id"));
-		int type = Integer.parseInt(request.getParameter("type"));
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
-		String answer = request.getParameter("answer");
-		int mark = Integer.parseInt(request.getParameter("mark"));
+		Boolean success = false;
+		int num =  Integer.parseInt(request.getParameter("num"));
+		System.out.print(num);
+		//int id = Integer.parseInt(request.getParameter("id"));
+		for (int i=1;i<=num;i++) {
+		
+		int flag = Integer.parseInt(request.getParameter(i+"flag"));
+		if (flag == 0) {
+		int id = Integer.parseInt(request.getParameter(i+"id"));
+		int type = Integer.parseInt(request.getParameter(i+"type"));
+		String title = request.getParameter(i+"title");
+		String content = request.getParameter(i+"content");
+		String answer = request.getParameter(i+"answer");
+		int mark = Integer.parseInt(request.getParameter(i+"mark"));
 		int exam_id = Integer.parseInt(request.getParameter("exam_id"));
-		int version = Integer.parseInt(request.getParameter("version"));
+		int version = Integer.parseInt(request.getParameter(i+"version"));
 
-		Boolean success = questionService.updateQuestion(id, type, title, content,  answer,  mark,  exam_id, version);
-		System.out.println("update question doPost success: "+success);
+		Boolean s = questionService.updateQuestion(id, type, title, content,  answer,  mark,  exam_id, version);
+		success = s;
+		System.out.println("update question doPost success: "+s);
+		} else if (flag ==1) {
+			int id = Integer.parseInt(request.getParameter(i+"id"));
+			Boolean sc = questionService.deleteQuestion(id);
+			System.out.println("delete question doPost success: "+sc);
+		}
+		}
 		if (success) {
 			response.sendRedirect("./questions");
 		}else {
