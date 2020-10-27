@@ -75,6 +75,16 @@ session.removeAttribute("errMessageMark");
  <div align="center">
         <%  List<ArrayList<UserQuestion>> studentList = new ArrayList<ArrayList<UserQuestion>>(); 
             studentList = (List<ArrayList<UserQuestion>>)request.getAttribute("answerList");
+            
+            if(studentList.size()==0){
+            	 %>
+            	<h1>No one has submitted the exam yet</h1> 
+            	 <% 
+            }
+            %>
+           
+            
+         <%   
             for (List<UserQuestion> answers: studentList ) {
             	int id = 0;
         %>

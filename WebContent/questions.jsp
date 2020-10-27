@@ -33,18 +33,20 @@
         }
 </style>
  <script type="text/javascript">
-	
-    function showInfo2(id,type,title,content,mark,answer,exam,version) {
-    	document.getElementById("updateId").value = id;
-        document.getElementById("updateType").value = type;
-        document.getElementById("updateTitle").value = title;
-        document.getElementById("updateContent").value = content;
-        document.getElementById("updateMark").value = mark;
-        document.getElementById("updateAnswer").value = answer;
-        document.getElementById("updateExam").value = exam;
-        document.getElementById("updateVersion").value = version;
-    }
- 
+ function Delete(id) {
+ 	 let input = document.getElementById(id+'flag');
+     input.setAttribute('type','hidden');
+     input.setAttribute('value',1);
+ 	 let input1 = document.getElementById(id+'title');
+     input1.setAttribute('type','hidden');
+	 let input2 = document.getElementById(id+'content');
+     input2.setAttribute('type','hidden');
+	 let input3 = document.getElementById(id+'answer');
+     input3.setAttribute('type','hidden');
+	 let input4 = document.getElementById(id+'mark');
+     input4.setAttribute('type','hidden');
+ }
+
 	var num = 1;
 	function addInput() {
 		let br = document.createElement('br');
@@ -155,157 +157,69 @@ session.removeAttribute("errMessageQuestion");
 <input type="hidden" value="<%= (int)request.getAttribute("exam_id") %>"name="exam_id" /> 	
 <input type="hidden" name="num" id="num" />
 <button type="submit" class="btn btn-primary" >Submit</button>
-<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 </form>
 
 
  <div align="center">
+  <form name="update" method=post action="updateQuestion">
         <table  style="width:70%">
             <tr>
-<!--                 <th>Question Id</th> -->
 				<th>#Question</th>
 				<th>Question Type</th>
                 <th>Question Title</th>
                 <th>Question content</th>
                 <th>Question mark</th>
+                <th>Question Answer</th>
                 <th>Operation</th>
                 <th>Version</th>
             </tr>
-            
-                <tr>
+           <tr>
+          
  			<%
  			     List<Question> questions = new ArrayList<>(); 
  			     questions = (List<Question>)request.getAttribute("questions");//获取request中名称为student的值
            		 int i = 0;
+ 			     int flag = 0;
  			     for (Question question : questions) {
        		 %>
-<%--        		        <td><%= question.getId() %></td> --%>
-					<td><%= i=i+1 %>
-					<td><%= (question.getType()==1) ? "Short answer question": "Multiple-choice question" %></td>
-                    <td><%= question.getTitle() %></td>
-                    <td><%= question.getContent() %></td>
-                    <td><%= question.getMark() %></td>
-                    
-                    <td>
-                    <button type="button" class="sel_btn" data-toggle="modal" data-target="#updateModal" id="btn_update" 
-                    onclick="showInfo2('<%= question.getId() %>','<%= question.getType() %>','<%= question.getTitle() %>',
-                    '<%= question.getContent() %>','<%= question.getMark()%>','<%= question.getAnswer()%>','<%= question.getExam() %>','<%= question.getVersion() %>')">
-                    Update</button>
-	                 <%-- <a class="sel_btn" href="./deleteQuestion?exam_id=<%=question.getExam() %>&id=<%=question.getId()%>">Delete</a> --%>
-	                 <form name="delete" method=post action="deleteQuestion">s
-	                 <input name="id" type="hidden" value=<%=question.getId()%>>
+                    <tr>
+					<td><%= i=i+1%></td>
+					<td>
+					<input id="<%=i%>flag" name="<%=i%>flag" type="hidden" value=<%=flag %> >
+					<input id="<%=i%>id" name="<%=i%>id" type="hidden" value=<%=question.getId()%>>
+					<input id="<%=i%>type" name="<%=i%>type" type="hidden" value=<%=question.getType()%>>
+					<%= (question.getType()==1) ? "Short answer question": "Multiple-choice question" %>
+					</td>
+					<td><input id="<%=i%>title"  name="<%=i%>title" type="text" value=<%=question.getTitle()%>></td>
+                    <td><input id="<%=i%>content" name="<%=i%>content" type="text" value=<%=question.getContent()%>></td>
+                    <td><input id="<%=i%>mark" name="<%=i%>mark" type="text" value=<%=question.getMark()%>></td>
+                    <td><input id="<%=i%>answer" name="<%=i%>answer" type="text" value=<%=question.getAnswer()%>></td>
+                    <td><button type="button" class="sel_btn" data-toggle="modal" data-target="#updateModal" id="btn_update" onclick="Delete('<%=i%>')">Delete</button></td>
+	                <td><input id="<%=i%>version" name="<%=i%>version" type="text"  readOnly="true" value=<%=question.getVersion()%>></td> 
+	                </tr>
+	       <%
+          		  } // for loop
+        	%>
+        	    
+        	    <tr>
+        	    <td><input type="hidden" value="<%=i %>" name="num" /></td>
+                <td><input type="hidden" value="<%= (int)request.getAttribute("exam_id") %>" name="exam_id" /></td>
+                <td><button type="submit" class="btn btn-primary">Submit</button></td>
+                </tr>  
+        </table>
+         </form>
+         
+    </div>
+              
+                                  
+<!--     <div align="center">
+   <td> 
+	                 <form name="delete" method=post action="deleteQuestion">
+	                 <input name="id" type="hidden" value=>
 	                 <input type = "submit" value = "Delete" />
 	                 </form>
 	                 </td>
-	                 <td><%= question.getVersion() %></td>
-                </tr>
-            <%
-          		  } // for loop
-        	%>
-        </table>
-         
-    </div>
-                 <form class="form-horizontal" method="post" action="updateQuestion">     
-									<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h4 class="modal-title" id="updateModalLabel">
-														Update question info
-													</h4>
-												</div>
-												<div class="modal-body">
-												
-										<!---------------------form-------------------->
-<!-- 									<div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">id</label>
-												<div class="col-sm-7">
-													<input type="text" class="form-control" id="updateId" name="id"  placeholder="question id">
-												<label class="control-label" for="updateId" style="display: none;"></label>
-												</div>
-										</div> -->
-										
-										<input type = "hidden" id="updateId" name="id" />
-										
-									<div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">Question Type:</label>
-												<div class="col-sm-7">
-													<!-- <input type="text" class="form-control" id="updateType" name="type"  placeholder="question type"> -->
-																<div >
-																<select name="type" id="updateType">
-																<option value="1">Short answer question</option>
-																<option value="2">Multiple-choice question</option>
-																</select> 
-												<label class="control-label" for="updateType" style="display: none;"></label>
-												</div>
-										</div>
-										
-										 <div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">Question Title:</label>
-												<div class="col-sm-7">
-													<input type="text" class="form-control" id="updateTitle" name="title"  placeholder="input new title">
-												<label class="control-label" for="updateTitle" style="display: none;"></label>
-												</div>
-										</div>
-										
-										<div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">Question Content:</label>
-												<div class="col-sm-7">
-													<textarea type="text" class="form-control" id="updateContent" name="content"  placeholder="input new content"></textarea>
-												<label class="control-label" for="updateContent" style="display: none;"></label>
-												</div>
-										</div>
-											
-										<div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">Question Answer:</label>
-												<div class="col-sm-7">
-													<textarea type="text" class="form-control" id="updateAnswer" name="answer"  placeholder="input new answer"></textarea>
-												<label class="control-label" for="updateAnswer" style="display: none;"></label>
-												</div>
-										</div>
-										<div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">Question Mark:</label>
-												<div class="col-sm-7">
-													<input type="number" class="form-control" id="updateMark" name="mark"  placeholder="input new mark" required>
-												<label class="control-label" for="updateMark" style="display: none;"></label>
-												</div>
-										</div>
-<!-- 										<div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">exam_id</label>
-												<div class="col-sm-7">
-													<input type="text" class="form-control" id="updateExam" name="exam_id"  placeholder="exam_id">
-												<label class="control-label" for="updateExam" style="display: none;"></label>
-												</div>
-										</div> -->
-										
-										<input type = "hidden" id="updateExam" name="exam_id" />
-										<input type = "hidden" id="updateVersion" name="version" />
-											
-										</div>
-												<div class="modal-footer">
-				
-													<button type="submit" class="btn btn-primary" >
-														submit
-													</button>
-													<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-												</div>
-											</div><!-- /.modal-content -->
-										</div><!-- /.modal -->
-									</div>
-									</div>
-	
-                                 </form>
-                                 
-                                 
-                                 
-      <hr class="rounded">
-  <hr class="rounded">
-    
-
-    
-<!--     <div align="center"> -->
-
-	
+	 -->
 
 <!-- 	</div> -->
 </body>
