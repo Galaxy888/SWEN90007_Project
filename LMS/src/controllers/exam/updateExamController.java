@@ -55,21 +55,45 @@ public class updateExamController extends HttpServlet {
 		String title = request.getParameter("title");
 		int status = Integer.parseInt(request.getParameter("status"));
 		String subject = request.getParameter("subject");
-		System.out.println("Version0");
+		System.out.println(id+title+status+subject);
 		int version = Integer.parseInt(request.getParameter("version"));
 		System.out.println("Version");
 		System.out.println(version);
+		
+		
+		int oldStatus = examService.getExamStatus(id);
+		
+		if(status==0&&oldStatus==0) {
+			
+			Boolean success = examService.updateExam(id, title, 0, subject,version);
+			System.out.println("update exam doPost success: " + success);
+			if (success) {
+				response.sendRedirect("./exams");
+			} else {
+				HttpSession session = request.getSession();
+				session.setAttribute("errMessageExam", "Someone has already updated the exam. Please view the latsest version ");
+				response.sendRedirect("./exams");
 
-		Boolean success = examService.updateExam(id, title, status, subject,version);
-		System.out.println("update exam doPost success: " + success);
-		if (success) {
-			response.sendRedirect("./exams");
-		} else {
-			HttpSession session = request.getSession();
-			session.setAttribute("errMessageExam", "Someone has already updated the exam. Please view the latsest version ");
-			response.sendRedirect("./exams");
+			}
+			
+		}else if(status==1) {
+			
+			Boolean success = examService.updateExam(id, title, 1, subject,version);
+			System.out.println("update exam doPost success: " + success);
+			if (success) {
+				response.sendRedirect("./exams");
+			} else {
+				HttpSession session = request.getSession();
+				session.setAttribute("errMessageExam", "Someone has already updated the exam. Please view the latsest version ");
+				response.sendRedirect("./exams");
 
+			}
+		}else {
+			response.sendRedirect("./exams");
+			
 		}
+
+		
 	}
 
 }

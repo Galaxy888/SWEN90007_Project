@@ -131,5 +131,26 @@ public class ExamMapper extends DataMapper {
 		Collections.sort(exams);
 		return exams;
 	}
+	
+	
+	public int getExamStatus(DomainObject obj) {
+		Exam exam = (Exam) obj;
+		int status=1;
+
+		try {
+			String stm = "select status from exams where id='" + exam.getId() + "'";
+			PreparedStatement stmt = DBConnection.prepare(stm);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				 status = Integer.parseInt(rs.getString(1));
+
+			}
+
+		} catch (SQLException e) {
+
+		}
+
+		return status;
+	}
 
 }
