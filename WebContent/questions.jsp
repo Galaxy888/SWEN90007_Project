@@ -33,6 +33,7 @@
         }
 </style>
  <script type="text/javascript">
+	
     function showInfo2(id,type,title,content,mark,answer,exam,version) {
     	document.getElementById("updateId").value = id;
         document.getElementById("updateType").value = type;
@@ -43,22 +44,86 @@
         document.getElementById("updateExam").value = exam;
         document.getElementById("updateVersion").value = version;
     }
-    function addForm(){
-		var form = document.createElement("form");
-		var str= "  <input type = 'text' value = 'Delete' />";//这里放bai你想在duform里放的标签zhi。
-		form.innerHTML = str;
-		document.body.appendChild(form);
-		}
+ 
+	var num = 1;
+	function addInput() {
+		let br = document.createElement('br');
+		let div = document.getElementById('div');
+		div.appendChild(br);
+
+		let span1 = document.createElement('span');
+		span1.innerHTML = 'Question Type'
+		div.appendChild(span1);
+		let select = document.createElement('select');
+		select.setAttribute('name',num+'type');
+		let option1 = document.createElement('option');
+		let option2 = document.createElement('option');
+		option1.setAttribute('value','1');
+		option1.appendChild(document.createTextNode("Short answer question")); 
+		select.appendChild(option1);
+		option2.setAttribute('value','2');
+		option2.appendChild(document.createTextNode("Multiple-choice question")); 
+		select.appendChild(option2);
+		div.appendChild(select);
+		div.appendChild(br);
+		
+		let span2 = document.createElement('span');
+		span2.innerHTML = 'Question Title'
+		div.appendChild(span2);
+		let input = document.createElement('input');
+		input.setAttribute('class','form-control');
+		input.setAttribute('type','text');
+		input.setAttribute('name',num+'title');
+		input.setAttribute('palceholder','input question title')
+		//input.setAttribute('value',code);
+		div.appendChild(input);
+		div.appendChild(br);
+		
+		let span3 = document.createElement('span');
+		span3.innerHTML = 'Question Content'
+		div.appendChild(span3);
+		let input1 = document.createElement('input');
+		input1.setAttribute('class','form-control');
+		input1.setAttribute('type','text');
+		input1.setAttribute('name',num+'content');
+		input1.setAttribute('palceholder','input question content')
+		//input.setAttribute('value',code);
+		div.appendChild(input1);
+		
+		let span4 = document.createElement('span');
+		span4.innerHTML = 'Question Answer'
+		div.appendChild(span4);
+		let input2 = document.createElement('input');
+		input2.setAttribute('class','form-control');
+		input2.setAttribute('type','text');
+		input2.setAttribute('name',num+'answer');
+		input2.setAttribute('palceholder','input question answer')
+		//input.setAttribute('value',code);
+		div.appendChild(input2);
+		div.appendChild(br);
+		
+		let span5 = document.createElement('span');
+		span5.innerHTML = 'Question Mark'
+		div.appendChild(span5);
+		let input3 = document.createElement('input');
+		input3.setAttribute('class','form-control');
+		input3.setAttribute('type','text');
+		input3.setAttribute('name',num+'mark');
+		input3.setAttribute('palceholder','input question mark')
+		//input.setAttribute('value',code);
+		div.appendChild(input3);
+		div.appendChild(br);
+		
+	    
+		document.getElementById("num").value = num;
+		
+		num += 1;
+		
+	}
     </script>
     
 </head>
 <body>
-
-
-<input type="button" onclick="addForm()" value="addForm"/>
-
-
-
 
 
 <a class="sel_btn" href="/dashboard">Dashboard</a> 
@@ -82,9 +147,18 @@ if (strError!=null){
 <%
 session.removeAttribute("errMessageQuestion");
 %>  
- <button type="button" class="btn btn-primary col-md-4 offset-md-4" data-toggle="modal" data-target="#addQuestionModal">
- Add new question
-</button>
+
+<form class="form-horizontal" name="AddQuestionController" action="addQuestion" method="post">
+    <div id="div">
+		<input type="button" name="add_question" value="Add a new question" onclick="addInput();">
+	</div>
+<input type="hidden" value="<%= (int)request.getAttribute("exam_id") %>"name="exam_id" /> 	
+<input type="hidden" name="num" id="num" />
+<button type="submit" class="btn btn-primary" >Submit</button>
+<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+</form>
+
+
  <div align="center">
         <table  style="width:70%">
             <tr>
@@ -231,99 +305,7 @@ session.removeAttribute("errMessageQuestion");
     
 <!--     <div align="center"> -->
 
-		<form class="form-horizontal" name="AddQuestionController" action="addQuestion" method="post">
-		
-			<div class="modal fade" id="addQuestionModal" tabindex="-1" role="dialog"
-				aria-labelledby="addQuestionModalLabel" aria-hidden="true">
-				
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h4 class="modal-title" id="addQuestionModal">Add new
-								question</h4>
-						</div>
-					<div class="modal-body">
-						<div class="form-group">
-							<label for="firstname" class="col-sm-3 control-label">Question Type:</label>
-							<div class="col-sm-7">
-							<div >
-								<select name="type" id="type">
-									<option value="1">Short answer question</option>
-									<option value="2">Multiple-choice question</option>
-								</select>
-							<label class="control-label" for="type" style="display: none;"></label>
-							</div>
-							</div>
-										 <div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">Question Title:</label>
-												<div class="col-sm-7">
-													<input type="text" class="form-control" id="title" name="title"  placeholder="input new title">
-												<label class="control-label" for="updateTitle" style="display: none;"></label>
-												</div>
-										</div>
-										
-										<div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">Question Content:</label>
-												<div class="col-sm-7">
-													<textarea type="text" class="form-control" id="content" name="content"  placeholder="input new content"></textarea>
-												<label class="control-label" for="content" style="display: none;"></label>
-												</div>
-										</div>
-											
-										<div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">Question Answer:</label>
-												<div class="col-sm-7">
-													<textarea type="text" class="form-control" id="answer" name="answer"  placeholder="input new answer"></textarea>
-												<label class="control-label" for="answer" style="display: none;"></label>
-												</div>
-										</div>
-										<div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">Question Mark:</label>
-												<div class="col-sm-7">
-													<input type="number" class="form-control" id="mark" name="mark"  placeholder="input new mark" required>
-												<label class="control-label" for="mark" style="display: none;"></label>
-												</div>
-										</div>
-																		<input type="hidden"
-									value="<%= (int)request.getAttribute("exam_id") %>"
-									name="exam_id" /> 	
-									
-								<button type="submit" class="btn btn-primary" >
-														Add New Question
-								</button>
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>			
-				</div>
-				</div>
-				</div>
-				</div>
-				</div>
-
-
-
-
-
-
-<%-- 							<div class="form-group row">
-								<label class="col-md-4">Question Type:</label>
-								<div>
-									<select name="type" id="type">
-										<option value="1">Short answer question</option>
-										<option value="2">Multiple-choice question</option>
-									</select>
-								</div>
-
-								<!--          Question Type:<input type = "text" name = "type"> -->
-								<br /> Question Title: <input type="text" name="title" required>
-								<br /> Question Content:<input type="text" name="content">
-								<br /> Question Answer:<input type="text" name="answer">
-								<br /> Question Mark:<input type="number" name="mark" required>
-								<br />
-								<!--          exam_id:  -->
-								<input type="hidden"
-									value="<%= (int)request.getAttribute("exam_id") %>"
-									name="exam_id" /> <br /> <input type="submit"
-									value="Add New Question" /> --%>
-		</form>
+	
 
 <!-- 	</div> -->
 </body>
