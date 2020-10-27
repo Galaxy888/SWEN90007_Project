@@ -78,7 +78,7 @@ session.removeAttribute("errMessageExam");
  Add new Exam
 </button>
  <div align="center">
-        <table  style="width:70%">
+        <table class="table table-bordered" style="width:70%">
             <tr>
 <!--                 <th>Exam Id</th> -->
 				<th>#Exam</th>
@@ -100,9 +100,21 @@ session.removeAttribute("errMessageExam");
                     <td><%= exam.getTitle() %></td>
                     <td><%= exam.getStatus()==0 ? "unpublished":"published" %>
                     <td>
+                    <div>
                     <button type="button" class="sel_btn" data-toggle="modal" data-target="#updateModal" id="btn_update" 
                     onclick="showInfo2('<%= exam.getId() %>','<%= exam.getTitle() %>','<%= exam.getStatus() %>', '<%= exam.getVersion() %>')">
-                    Update</button>
+                    Update Title</button>
+                
+                     <form  style="display: inline"  name="publish" method="post" action="updateExam">
+	                 <input class = "sel_btn"  name="id" type="hidden" value=<%=exam.getId()%>>
+	                 <input class = "sel_btn"  name="title" type="hidden" value=<%=exam.getTitle()%>>
+	                  <input class = "sel_btn"  name="status" type="hidden" value="1">
+	                  <input type = "hidden" value="<%= (String)request.getAttribute("subject_code")%>" name = "subject" />
+	                  <input class = "sel_btn"  name="version" type="hidden" value=<%=exam.getVersion()%>>
+	                 <input class = "sel_btn""  type = "submit" value = "Publish" />
+	                 </form>
+                    
+            
 	                 <%-- <a class="sel_btn" href="./updateExam?id=<%=exam.getId()%>&title=<%=exam.getTitle()%>&status=<%=exam.getStatus()%>&subject_code=<%=exam.getSubject()%>">Edit</a> --%>
 	                 <%-- <a class="sel_btn" href="./questions?exam_id=<%=exam.getId()%>">Edit Questions</a> --%>
 	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/questions">Edit Questions</a>
@@ -111,10 +123,11 @@ session.removeAttribute("errMessageExam");
 	                 <%--<a class="sel_btn" href="./deleteExam?subject_code=<%=exam.getSubject() %>&id=<%=exam.getId()%>">Delete</a>--%>
 	                 <%-- <a class="sel_btn" href="./deleteExam/<%=exam.getId()%>/<%= exam.getStatus() %>">Delete</a> --%>
 	                <%--  <button type="button" onclick="deleteExam('<%=exam.getId()%>')">Delete</button> --%>
-	                 <form class = "sel_btn" name="delete" method="post" action="deleteExam">
+	                 <form  style="display: inline" name="delete" method="post" action="deleteExam">
 	                 <input class = "sel_btn"  name="id" type="hidden" value=<%=exam.getId()%>>
 	                 <input class = "sel_btn"  type = "submit" value = "Delete" />
 	                 </form>
+	                 </div>
 
 	                 
 	                 </td>
@@ -135,7 +148,7 @@ session.removeAttribute("errMessageExam");
 											<div class="modal-content">
 												<div class="modal-header">
 													<h4 class="modal-title" id="updateModalLabel">
-														Update exam info
+														Update Exam Title
 													</h4>
 												</div>
 												<div class="modal-body">
@@ -160,21 +173,21 @@ session.removeAttribute("errMessageExam");
 												</div>
 										</div>
 										
-										<div class="form-group">
+										<!-- <div class="form-group">
 											<label for="firstname" class="col-sm-3 control-label">Exam Status:</label>
 												<div class="col-sm-7">
 														<select name="status" id="status">
-														<!-- <option value="0">unpublished</option> -->
+														<option value="0">unpublished</option>
 														<option value="1">published</option>
 														</select>
-													<!-- <input type="text" class="form-control" id="updateStatus" name="status"  placeholder="input new status"> -->
+													<input type="text" class="form-control" id="updateStatus" name="status"  placeholder="input new status">
 												<label class="control-label" for="updateStatus" style="display: none;"></label>
 												</div>
-										</div>
+										</div> -->
 										
 										<input type = "hidden" value="<%= (String)request.getAttribute("subject_code")%>" name = "subject" />
 										<input type = "hidden" id="updateVersion" name="version" />	
-										<input type = "hidden" id="updateStatus" name="status" />	
+										<input type = "hidden" id="updateStatus" name="status" value="0"/>	
 										</div>
 												<div class="modal-footer">
 				

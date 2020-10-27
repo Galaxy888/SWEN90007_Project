@@ -89,4 +89,12 @@ public class ExamService {
 		return exam.getAllMarks();
 	}
 
+	public int getExamStatus(int id) {
+		Exam exam = new Exam();
+		exam.setId(id);
+		ExamMapper examMapper = new ExamMapper();
+		
+		return examMapper.getExamStatus(exam);
+	}
+
 }
