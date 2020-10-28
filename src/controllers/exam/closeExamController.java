@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import datasource.DBConnection;
+import service.ExamService;
 
 /**
  * Servlet implementation class CloseExamController
@@ -20,14 +21,16 @@ import datasource.DBConnection;
 //@WebServlet("/CloseExamController")
 public class closeExamController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public closeExamController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	private ExamService examService;
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public closeExamController() {
+		super();
+		examService = new ExamService();
+	}
+
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -64,16 +67,23 @@ public class closeExamController extends HttpServlet {
 		    
 		}else {
 			
-			String sql2 = "update exams set status=2 where id=?";
+			
+			String deleteQuestionStatement = "delete from questions where exam_id=?";
 			try {
-				PreparedStatement stmt = DBConnection.prepare(sql2);
-				stmt.setInt(1, id);
-				stmt.executeUpdate();
-				success = true;
+				
+				PreparedStatement st = DBConnection.prepare(deleteQuestionStatement);
+			
+				st.setInt(1, id);
+			
+				System.out.println("Delete Questions table");
+				st.executeUpdate();
+				st.close();
 			} catch (SQLException e) {
-				    success = false;
-					e.printStackTrace();
-					}
+				e.printStackTrace();
+			}
+			
+			  success = examService.deleteExam(id);
+			  System.out.println("delete exam doPost success: "+success);
 			
 		}
 		

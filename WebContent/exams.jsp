@@ -93,8 +93,8 @@ session.removeAttribute("errMessageExam");
  			     List<Exam> exams = new ArrayList<>(); 
  			     exams = (List<Exam>)request.getAttribute("exams");//获取request中名称为student的值
  			     int i=0;
- 			     int flag=0;
            		 for (Exam exam : exams) {
+           		    int flag=0;
            			String sql = "select * from users_exams where exam_id='"+exam.getId()+"'";
     				try {
     					PreparedStatement stmt = DBConnection.prepare(sql);
