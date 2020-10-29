@@ -44,6 +44,13 @@
   z-index: 9;
 }
 </style>
+<script type="text/javascript">
+ function editInput(uid,qid) {
+ 	 var input = document.getElementById(uid+qid+'inputMark');
+ 	 input.readOnly = false;
+ }
+    </script>
+    
 </head>
 <body>
 <script type="text/javascript">
@@ -88,7 +95,7 @@ session.removeAttribute("errMessageMark");
             for (List<UserQuestion> answers: studentList ) {
             	int id = 0;
         %>
- 
+   <form name="mark" method="post" action="markAnswer">
         <table  class="table table-bordered"style="width:70%">
             <tr>
                 <th>User Id</th>
@@ -100,7 +107,6 @@ session.removeAttribute("errMessageMark");
                 <th>Current Mark</th>
                 <th>Version</th>
             </tr>
-            <form name="mark" method="post" action="markAnswer">
             <input name="exam_id" type="hidden" value=<%=(int)request.getAttribute("exam_id") %>>
             
                 <tr>
@@ -146,7 +152,7 @@ session.removeAttribute("errMessageMark");
                      <input name="user_id" type="hidden" value=<%=answer.getUser_id() %>>
 	                 <input name="id<%=answer.getUser_id() %>" type="hidden" value=<%=answer.getUser_id()%>>
 	                 <input name="qid<%=answer.getQuestion_id() %>" type="hidden" value=<%=answer.getQuestion_id()%>>
-	                 <input id='inputMark' type = "number" style="width:65px"
+	                 <input id="<%=answer.getUser_id() %><%=answer.getQuestion_id() %>inputMark" readonly=true type = "number" style="width:65px"
 	                 maxlength="4" 
 	                 oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
 	                 
@@ -154,7 +160,8 @@ session.removeAttribute("errMessageMark");
 	                </td>
 	                <td><%= answer.getMark() %>/<%= question.getMark() %></td>
 	                <td><input type = "hidden" id="version" name="version" value=<%= markVersion%>><%= markVersion%></td>
-	                
+	                <td><input type="button" name="Edit" value="Edit" onclick="editInput('<%= answer.getUser_id()%>','<%= answer.getQuestion_id()%>')"></td>
+	                	
                 </tr>
             <%
           		  } // for loop

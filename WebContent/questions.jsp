@@ -54,6 +54,7 @@
 		div.appendChild(br);
 
 		let span1 = document.createElement('span');
+		span1.setAttribute('id',num+'span1');
 		span1.innerHTML = 'Question Type'
 		div.appendChild(span1);
 		let select = document.createElement('select');
@@ -66,13 +67,16 @@
 		option2.setAttribute('value','2');
 		option2.appendChild(document.createTextNode("Multiple-choice question")); 
 		select.appendChild(option2);
+		select.setAttribute('id',num+'type');
 		div.appendChild(select);
 		div.appendChild(br);
 		
 		let span2 = document.createElement('span');
+		span2.setAttribute('id',num+'span2');
 		span2.innerHTML = 'Question Title'
 		div.appendChild(span2);
 		let input = document.createElement('input');
+		input.setAttribute('id',num+'title');
 		input.setAttribute('class','form-control');
 		input.setAttribute('type','text');
 		input.setAttribute('name',num+'title');
@@ -82,10 +86,12 @@
 		div.appendChild(br);
 		
 		let span3 = document.createElement('span');
+		span3.setAttribute('id',num+'span3');
 		span3.innerHTML = 'Question Content'
 		div.appendChild(span3);
 		let input1 = document.createElement('input');
 		input1.setAttribute('class','form-control');
+		input1.setAttribute('id',num+'content');
 		input1.setAttribute('type','text');
 		input1.setAttribute('name',num+'content');
 		input1.setAttribute('palceholder','input question content')
@@ -93,11 +99,13 @@
 		div.appendChild(input1);
 		
 		let span4 = document.createElement('span');
+		span4.setAttribute('id',num+'span4');
 		span4.innerHTML = 'Question Answer'
 		div.appendChild(span4);
 		let input2 = document.createElement('input');
 		input2.setAttribute('class','form-control');
 		input2.setAttribute('type','text');
+		input2.setAttribute('id',num+'answer');
 		input2.setAttribute('name',num+'answer');
 		input2.setAttribute('palceholder','input question answer')
 		//input.setAttribute('value',code);
@@ -105,12 +113,14 @@
 		div.appendChild(br);
 		
 		let span5 = document.createElement('span');
+		span5.setAttribute('id',num+'span5');
 		span5.innerHTML = 'Question Mark'
 		div.appendChild(span5);
 		let input3 = document.createElement('input');
 		input3.setAttribute('class','form-control');
 		input3.setAttribute('type','text');
 		input3.setAttribute('name',num+'mark');
+		input3.setAttribute('id',num+'mark');
 		input3.setAttribute('palceholder','input question mark')
 		//input.setAttribute('value',code);
 		div.appendChild(input3);
@@ -121,6 +131,31 @@
 		
 		num += 1;
 		
+	}
+	
+	function deleteInput() {
+		num = num-1;
+		var div = document.getElementById('div');
+		var select = document.getElementById(num+'type');
+		var span1 = document.getElementById(num+'span1');
+		div.removeChild(select);
+		div.removeChild(span1);
+		var input = document.getElementById(num+'title');
+		var span2 = document.getElementById(num+'span2');
+		div.removeChild(input);
+		div.removeChild(span2);
+		var input1 = document.getElementById(num+'content');
+		var span3 = document.getElementById(num+'span3');
+		div.removeChild(input1);
+		div.removeChild(span3);
+		var input2 = document.getElementById(num+'answer');
+		var span4 = document.getElementById(num+'span4');
+		div.removeChild(input2);
+		div.removeChild(span4);
+		var input3 = document.getElementById(num+'mark');
+		var span5 = document.getElementById(num+'span5');
+		div.removeChild(input3);
+		div.removeChild(span5);
 	}
     </script>
     
@@ -153,6 +188,7 @@ session.removeAttribute("errMessageQuestion");
 <form class="form-horizontal" name="AddQuestionController" action="addQuestion" method="post">
     <div id="div">
 		<input type="button" name="add_question" value="Add a new question" onclick="addInput();">
+		<input type="button" name="delete_question" value="delete one question" onclick="deleteInput();">
 	</div>
 <input type="hidden" value="<%= (int)request.getAttribute("exam_id") %>"name="exam_id" /> 	
 <input type="hidden" name="num" id="num" />
@@ -204,7 +240,7 @@ session.removeAttribute("errMessageQuestion");
         	    <tr>
         	    <td><input type="hidden" value="<%=i %>" name="num" /></td>
                 <td><input type="hidden" value="<%= (int)request.getAttribute("exam_id") %>" name="exam_id" /></td>
-                <td><button type="submit" class="btn btn-primary">Submit</button></td>
+                <td><button type="submit" class="btn btn-primary">Update exam</button></td>
                 </tr>  
         </table>
          </form>

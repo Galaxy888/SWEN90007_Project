@@ -34,7 +34,7 @@ public class ExamService {
 		exam.setTitle(title);
 		exam.setStatus(status);
 		exam.setSubject(subject_code);
-//		exam.setVersion(0);
+        //exam.setVersion(0);
 		UnitOfWork.getCurrent().registerNew(exam);
 		
 		return UnitOfWork.getCurrent().commit();
