@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import domain.Exam;
+import pessimistic.LockManager;
+import pessimistic.LockManagerEX;
 import service.ExamService;
 
 /**
@@ -56,16 +58,21 @@ public class updateExamController extends HttpServlet {
 		int status = Integer.parseInt(request.getParameter("status"));
 		String subject = request.getParameter("subject");
 		System.out.println(id+title+status+subject);
-		int version = Integer.parseInt(request.getParameter("version"));
-		System.out.println("Version");
-		System.out.println(version);
+//		int version = Integer.parseInt(request.getParameter("version"));
+//		System.out.println("Version");
+//		System.out.println(version);
 		
 		
 		int oldStatus = examService.getExamStatus(id);
+		HttpSession httpSession = request.getSession(true);
+		
 		
 		if(status==0&&oldStatus==0) {
+			System.out.println("httpSession.getId() 1: "+httpSession.getId());
+//			LockManagerEX.getInstance().acquireLock(id, httpSession.getId());
 			
-			Boolean success = examService.updateExam(id, title, 0, subject,version);
+			
+			Boolean success = examService.updateExam(id, title, 0, subject);
 			System.out.println("update exam doPost success: " + success);
 			if (success) {
 				response.sendRedirect("./exams");
@@ -75,10 +82,12 @@ public class updateExamController extends HttpServlet {
 				response.sendRedirect("./exams");
 
 			}
-			
+			System.out.println("httpSession.getId() 2: "+httpSession.getId());
+			LockManager lockManager=new LockManager();
+			lockManager.releaseLock(id, httpSession.getId());
 		}else if(status==1) {
 			
-			Boolean success = examService.updateExam(id, title, 1, subject,version);
+			Boolean success = examService.updateExam(id, title, 1, subject);
 			System.out.println("update exam doPost success: " + success);
 			if (success) {
 				response.sendRedirect("./exams");
@@ -88,6 +97,9 @@ public class updateExamController extends HttpServlet {
 				response.sendRedirect("./exams");
 
 			}
+			
+			LockManager lockManager=new LockManager();
+			lockManager.releaseLock(id, httpSession.getId());
 		}else {
 			response.sendRedirect("./exams");
 			

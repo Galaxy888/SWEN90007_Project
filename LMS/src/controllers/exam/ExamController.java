@@ -81,7 +81,9 @@ public class ExamController extends HttpServlet {
 
 				else if (operation.equals("addExam")) {
 					request.getRequestDispatcher("/addExam").forward(request, response);
-				} else if (operation.equals("updateExam")) {
+				} else if (operation.equals("updateEditExam")) {
+					request.getRequestDispatcher("/updateEditExam").forward(request, response);
+				}else if (operation.equals("updateExam")) {
 					System.out.println("VVVVVVVVVVVV");
 					System.out.println(request.getParameter("title"));
 					System.out.println(request.getParameter("version"));

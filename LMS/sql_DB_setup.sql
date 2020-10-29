@@ -32,7 +32,7 @@ CREATE TABLE exams(
    title VARCHAR(50),
    status INT,
    subject_code VARCHAR(20) REFERENCES subjects(code),
-   version INT,   
+--   version INT,   
    PRIMARY KEY (id)
 );
 CREATE SEQUENCE public.exams_seq
@@ -92,6 +92,14 @@ CREATE TABLE users_questions (
   status     INT, 
   version INT,
   CONSTRAINT user_question_pkey PRIMARY KEY (user_id, question_id)  -- explicit pk
+);
+
+
+CREATE TABLE locks(
+--  id INT,
+  lockable INT,
+  owner VARCHAR(100),
+  PRIMARY KEY(lockable)
 );
 
 
