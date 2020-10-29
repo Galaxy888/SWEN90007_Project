@@ -40,13 +40,78 @@
   z-index: 9;
 }
 </style>
- <script type="text/javascript">
-    function showInfo2(id,title,status,version) {
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script type="text/javascript">
+
+	$( '#btn_test' ).click(function(){
+		alert('test');
+	}); 
+
+/* 	 $.ajax({
+		  method: "POST",
+		  url: "/updateEditExam",
+		  data: { username: "username", password: "password" }
+		})
+		.success(function(){
+		  //do success stuff
+		})
+		.error(function(){
+		  //do error handling stuff
+		}); */
+
+	  /* var thebuttonclicked =$(this).attr("value"); */
+	  var id_global;
+	  
+	  function test(id){
+		  id_global=id;
+	        $.ajax({
+	            url: 'updateEditExam',
+	            type: 'post',
+	            data:  'id='+id+'&option='+"edit",
+	            /* data: { username: "username", password: "password" } */
+	            success: function(conn, response, options){
+	                /* alert(response); */
+      /*       	if(response.status==422){
+	                    window.location.reload();
+	            	} */
+	            },
+	        error:function(response){
+	        	window.location.reload();
+	        }
+	            
+	        }); // end ajax call
+	  }
+	  
+	  function btn_cancel(){
+		  $.ajax({
+	            url: 'updateEditExam',
+	            type: 'post',
+	            data:  'id='+id_global+'&option='+"cancel",
+	            /* data: { username: "username", password: "password" } */
+	            success: function(conn, response, options){
+	                /* alert(response); */
+    /*       	if(response.status==422){
+	                    window.location.reload();
+	            	} */
+	            },
+	/*         error:function(response){
+	        	window.location.reload();
+	        } */
+	            
+	        }); // end ajax call
+	  }
+
+
+	  
+	  
+    function showInfo2(id,title,status) {
         document.getElementById("updateId").value = id;
         document.getElementById("updateTitle").value = title;
         document.getElementById("updateStatus").value = status;
        /*  document.getElementById("updateSubject").value = subject; */
-        document.getElementById("updateVersion").value = version;
+        /* document.getElementById("updateVersion").value = version; */
+        test(id)
+       
     }
     
     function openForm() {
@@ -85,7 +150,7 @@ session.removeAttribute("errMessageExam");
                 <th>Exam Title</th>
                 <th>Exam Status</th>
                 <th>Operation</th>
-                <th>Version</th>
+                <!-- <th>Version</th> -->
             </tr>
             
                 <tr>
@@ -112,16 +177,19 @@ session.removeAttribute("errMessageExam");
                     <td>
                     <div>
                     <button type="button" class="sel_btn" data-toggle="modal" data-target="#updateModal" id="btn_update" 
-                    onclick="showInfo2('<%= exam.getId() %>','<%= exam.getTitle() %>','<%= exam.getStatus() %>', '<%= exam.getVersion() %>')">
+                    onclick="showInfo2('<%= exam.getId() %>','<%= exam.getTitle() %>','<%= exam.getStatus() %>')">
                     Update Title</button>
+                    
+                    <button onclick="test('<%= exam.getId() %>')" type="button" class="sel_btn" id="btn_test" >test</button>
+                   <a class="sel_btn" href="./updateEditExam">test2</a>
                 
                      <form  style="display: inline"  name="publish" method="post" action="updateExam">
 	                 <input class = "sel_btn"  name="id" type="hidden" value=<%=exam.getId()%>>
 	                 <input class = "sel_btn"  name="title" type="hidden" value=<%=exam.getTitle()%>>
 	                  <input class = "sel_btn"  name="status" type="hidden" value="1">
 	                  <input type = "hidden" value="<%= (String)request.getAttribute("subject_code")%>" name = "subject" />
-	                  <input class = "sel_btn"  name="version" type="hidden" value=<%=exam.getVersion()%>>
-	                 <input class = "sel_btn""  type = "submit" value = "Publish" />
+	                  <%-- <input class = "sel_btn"  name="version" type="hidden" value=<%=exam.getVersion()%>> --%>
+	                 <input class = "sel_btn"  type = "submit" value = "Publish" />
 	                 </form>
                     
             
@@ -152,7 +220,7 @@ session.removeAttribute("errMessageExam");
 	                 
 	                 </td>
 	                 
-	                 <td><%= exam.getVersion() %></td>
+	                 
                 </tr>
             <%
           		  } // for loop
@@ -163,7 +231,7 @@ session.removeAttribute("errMessageExam");
     
     <div>
                  <form class="form-horizontal" method="post" action="updateExam">     
-									<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+									<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" data-backdrop="static" aria-hidden="true">
 										<div class="modal-dialog">
 											<div class="modal-content">
 												<div class="modal-header">
@@ -214,7 +282,7 @@ session.removeAttribute("errMessageExam");
 													<button type="submit" class="btn btn-primary" >
 														submit
 													</button>
-													<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+													<button onClick="btn_cancel()" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 												</div>
 											</div><!-- /.modal-content -->
 										</div><!-- /.modal -->

@@ -133,6 +133,15 @@
 		<servlet-name>updateExamController</servlet-name>
 		<url-pattern>/updateExam</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>updateEditExamController</servlet-name>
+		<servlet-class>controllers.exam.updateEditExamController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>updateEditExamController</servlet-name>
+		<url-pattern>/updateEditExam</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>deleteExamController</servlet-name>
