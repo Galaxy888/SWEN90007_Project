@@ -144,7 +144,6 @@ public class ExamController extends HttpServlet {
 							PreparedStatement search = DBConnection.prepare(sql);
 							ResultSet rs1 = search.executeQuery();
 							while (rs1.next()) {
-								
 								flag = 0;
 								mark = Integer.parseInt(rs1.getString(3));
 							}
@@ -155,7 +154,7 @@ public class ExamController extends HttpServlet {
 							String title = rs.getString(2);
 							int status = Integer.parseInt(rs.getString(3));
 							String code = rs.getString(4);
-							int version = Integer.parseInt(rs.getString(5));
+							//int version = Integer.parseInt(rs.getString(5));
 							
 							// TODO
 //							Exam exam = new Exam(id, title, status, code, version);
