@@ -32,9 +32,10 @@ public class updateEditExamController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("updateEditExamController");
+		
 		int id = Integer.parseInt(request.getParameter("id"));
 		String option = request.getParameter("option");
-		System.out.println(request.getParameter("id"));
+//		System.out.println(request.getParameter("id"));
 		HttpSession httpSession = request.getSession(true);
 		System.out.println("httpSession.getId() 0: "+httpSession.getId());
 		LockManager lockManager=new LockManager();

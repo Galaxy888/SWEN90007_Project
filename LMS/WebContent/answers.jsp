@@ -155,7 +155,7 @@ session.removeAttribute("errMessageMark");
 	                 <input id="<%=answer.getUser_id() %><%=answer.getQuestion_id() %>inputMark" readonly=true type = "number" style="width:65px"
 	                 maxlength="4" 
 	                 oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-	                 
+	                  min="0" max=<%= question.getMark()%>
 	                 name="mark<%=answer.getUser_id() %><%=answer.getQuestion_id() %>" required>/<%= question.getMark() %>
 	                </td>
 	                <td><%= answer.getMark() %>/<%= question.getMark() %></td>

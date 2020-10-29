@@ -100,7 +100,35 @@
 	            
 	        }); // end ajax call
 	  }
-
+	  
+	  $(window).bind('unload', function(){
+		    $.ajax({
+		    	url: 'updateEditExam',
+		        async: false,
+		        type: 'post',
+	            data:  'id='+id_global+'&option='+"cancel",
+		    });
+		});
+	  
+/* 	  var unloaded = false;
+	  $(window).on('beforeunload', unload);
+	  $(window).on('unload', unload);  
+	  function unload(){      
+	      if(!unloaded){
+	          $.ajax({
+	              type: 'post',
+	              url: 'updateEditExam',
+	              async: false,
+	              data:  'id='+id_global+'&option='+"cancel",
+	              success:function(){ 
+	                  unloaded = true; 
+	                 
+	              },
+	              timeout: 5000
+	          });
+	      }
+	  }
+ */
 
 	  
 	  
