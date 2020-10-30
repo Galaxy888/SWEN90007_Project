@@ -96,7 +96,7 @@ public class dashboardController extends HttpServlet {
 		         	            String passwordDB = rs2.getString("password");
 		         	            int userTypeDB = rs2.getInt("user_type");
 		         	            int id = rs2.getInt("id");
-		         	            String email = rs2.getString("email");
+//		         	            String email = rs2.getString("email");
 		         	            User user =new User(id,userNameDB,passwordDB,userTypeDB);
 		         	            students.add(user);
 		                	
@@ -108,7 +108,7 @@ public class dashboardController extends HttpServlet {
 			         	            String passwordDB = rs1.getString("password");
 			         	            int userTypeDB = rs1.getInt("user_type");
 			         	            int id = rs1.getInt("id");
-			         	            String email = rs1.getString("email");
+//			         	            String email = rs1.getString("email");
 			         	            User user =new User(id,userNameDB,passwordDB,userTypeDB);
 			         	            tutors.add(user);
 			  
