@@ -69,7 +69,7 @@ session.removeAttribute("errMessageResult");
 <a class="sel_btn" href="/login.jsp">DashBoard</a>
 <h1 style="text-align:center"><%=request.getAttribute("subject_code") %> Exam Mark</h1> 
  <div align="center" class="col-auto">
-        <table  style="width:70%">
+        <table class="table table-bordered" style="width:70%">
             <tr>
                 <th>Student Id</th>
                 <th>Final Mark</th>

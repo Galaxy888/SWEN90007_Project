@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -59,6 +60,7 @@ public class ViewExamResultController extends HttpServlet {
 //		request.getRequestDispatcher("./exam_result.jsp").forward(request, response);
 		
 		List<Mark> marks = examService.getAllMarks(exam_id);
+		Collections.sort(marks);
 		System.out.println("View Exam Result doPost success: "+marks);
 		if (marks!=null) {
 			request.setAttribute("marks",marks);

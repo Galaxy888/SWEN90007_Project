@@ -8,7 +8,7 @@ import java.util.List;
 
 import datasource.DBConnection;
 
-public class UserQuestion extends DomainObject {
+public class UserQuestion extends DomainObject implements Comparable<UserQuestion>{
 	private int user_id;
 	private int question_id;
 	private int exam_id;
@@ -94,6 +94,11 @@ public class UserQuestion extends DomainObject {
 
 		}
 		return questions;
+	}
+	
+	@Override
+	public int compareTo(UserQuestion o) {
+		return this.user_id-o.user_id;
 	}
 
 

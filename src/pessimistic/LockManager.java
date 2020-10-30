@@ -41,6 +41,21 @@ public class LockManager {
 
 		String deleteLockStmt = "DELETE FROM locks WHERE lockable = ? and owner = ?";
 		
+		if(lockable==00000) {
+			String deleteLockStmt2 = "DELETE FROM locks WHERE owner = ?";
+			try {
+				PreparedStatement stmt = DBConnection.prepare(deleteLockStmt2);
+				System.out.println("LockManager releaseLock delete0");
+				stmt.setString(1, owner);
+				stmt.executeUpdate();
+				stmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+//				return false;
+			}
+			
+		}
+		
 		try {
 			PreparedStatement stmt = DBConnection.prepare(deleteLockStmt);
 			System.out.println("LockManager releaseLock delete");

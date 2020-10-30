@@ -43,18 +43,20 @@
   border: 3px solid #f1f1f1; */
   z-index: 9;
 }
+
+input[type=number]:disabled {
+   color: #444;
+   background:#cccccc;
+}
 </style>
-<script type="text/javascript">
- function editInput(uid,qid) {
- 	 var input = document.getElementById(uid+qid+'inputMark');
- 	 input.readOnly = false;
- }
+<script src="https://code.jquery.com/jquery-3.1.1.min.js">
+
     </script>
     
 </head>
 <body>
 <script type="text/javascript">
-var value = $('#inputMark').val();
+/* var value = $('#inputMark').val();
   
 
 $( ".inputMark" ).on('input', function() {
@@ -62,6 +64,88 @@ $( ".inputMark" ).on('input', function() {
         alert('you have reached a limit of 3');       
     }
 });
+
+
+function test(json){
+	alert(json);
+} */
+
+
+function editInput(uid,eid) {
+	 var input = document.getElementsByClassName(''+uid+eid+'inputMark');
+	for (i = 0; i < input.length; i++) {
+		input[i].readOnly=false
+		input[i].disabled=false
+	}
+	
+	var uid_eid=''+uid+eid
+   $.ajax({
+       url: 'markAnswerEdit',
+       type: 'post',
+       data:  'uid_eid='+uid_eid+'&option='+"edit",
+       success: function(conn, response, options){
+          /*  alert(response); */
+/*       	if(response.status==422){
+               window.location.reload();
+       	} */
+       },
+   error:function(response){
+   /* 	window.location.reload(); */
+   alert("Someone is updating Exam Mark. Please try again later")
+   }
+       
+   }); // end ajax call
+}
+
+
+function btn_cancel(uid,eid){
+	 var input = document.getElementsByClassName(''+uid+eid+'inputMark');
+		for (i = 0; i < input.length; i++) {
+			input[i].readOnly=true
+			input[i].disabled=true
+		}
+	var uid_eid=''+uid+eid
+	  $.ajax({
+          url: 'markAnswerEdit',
+          type: 'post',
+          data:  'uid_eid='+uid_eid+'&option='+"cancel",
+          /* data: { username: "username", password: "password" } */
+          success: function(conn, response, options){
+        	  window.location.reload();
+              /* alert(response); */
+/*       	if(response.status==422){
+                  window.location.reload();
+          	} */
+          },
+/*         error:function(response){
+      	window.location.reload();
+      } */
+          
+      }); // end ajax call
+}
+
+
+$(window).bind('unload', function(){
+	  
+	    $.ajax({
+	    	url: 'markAnswerEdit',
+	        async: false,
+	        type: 'post',
+          data:  'uid_eid='+"00000"+'&option='+"cancel",
+	    });
+	  
+	});
+	
+/* $(window).bind('beforeunload', function(){
+	  
+	    $.ajax({
+	    	url: 'markAnswerEdit',
+	        async: false,
+	        type: 'post',
+            data:  'uid_eid='+"00000"+'&option='+"cancel",
+	    });
+	  
+	}); */
 
 </script>
 
@@ -77,6 +161,9 @@ if (strError!=null){
 <%
 session.removeAttribute("errMessageMark");
 %>  
+
+<%@ page import="com.google.gson.Gson" %>
+
 
 <a class="sel_btn" href="/login.jsp">DashBoard</a> 
  <div align="center">
@@ -94,7 +181,13 @@ session.removeAttribute("errMessageMark");
          <%   
             for (List<UserQuestion> answers: studentList ) {
             	int id = 0;
+            	int uid=0;
+            	int eid=0;
+
+            	
         %>
+        
+        
    <form name="mark" method="post" action="markAnswer">
         <table  class="table table-bordered"style="width:70%">
             <tr>
@@ -103,16 +196,21 @@ session.removeAttribute("errMessageMark");
                 <th>Question Content</th>
                 <th>Question Correct Answer</th>
                 <th>Student Answer</th>
-                <th>Input Mark</th>
-                <th>Current Mark</th>
-                <th>Version</th>
+                <th>Mark</th>
+                <!-- <th>Current Mark</th> -->
+                <!-- <th>Version</th> -->
             </tr>
             <input name="exam_id" type="hidden" value=<%=(int)request.getAttribute("exam_id") %>>
             
                 <tr>
  			<%   
+ 			
  		
            		 for (UserQuestion answer : answers) {
+           			 
+           			uid=answer.getUser_id();
+           			eid=answer.getExam_id();
+           			
            			 Question question = new Question();
            			 id = answer.getQuestion_id();
            			 String sql = "select * from questions where id = '"+ id+"' limit 1";
@@ -152,25 +250,38 @@ session.removeAttribute("errMessageMark");
                      <input name="user_id" type="hidden" value=<%=answer.getUser_id() %>>
 	                 <input name="id<%=answer.getUser_id() %>" type="hidden" value=<%=answer.getUser_id()%>>
 	                 <input name="qid<%=answer.getQuestion_id() %>" type="hidden" value=<%=answer.getQuestion_id()%>>
-	                 <input id="<%=answer.getUser_id() %><%=answer.getQuestion_id() %>inputMark" readonly=true type = "number" style="width:65px"
+	                 <input class="<%= answer.getUser_id() %><%= answer.getExam_id() %>inputMark" disabled="disabled" readonly=true type = "number" style="width:65px"
 	                 maxlength="4" 
+	                 value="<%= answer.getMark() %>"
+	                 autocomplete="off"
 	                 oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
 	                  min="0" max=<%= question.getMark()%>
 	                 name="mark<%=answer.getUser_id() %><%=answer.getQuestion_id() %>" required>/<%= question.getMark() %>
 	                </td>
-	                <td><%= answer.getMark() %>/<%= question.getMark() %></td>
-	                <td><input type = "hidden" id="version" name="version" value=<%= markVersion%>><%= markVersion%></td>
-	                <td><input type="button" name="Edit" value="Edit" onclick="editInput('<%= answer.getUser_id()%>','<%= answer.getQuestion_id()%>')"></td>
+	                <%-- <td><input value="<%= answer.getMark() %>">/<%= question.getMark() %></td> --%>
+	                <%-- <td><input type = "hidden" id="version" name="version" value=<%= markVersion%>><%= markVersion%></td> --%>
+	        
 	                	
                 </tr>
-            <%
-          		  } // for loop
-        	%>
+                <%
+                } // for loop 
+                %>
+
+          		  
+      
         </table>
-           
-             <input type = "submit" value = "Mark" />
+        <%-- <button onclick="test(<%= uid %>,<%= eid %>)" type="button" class="sel_btn" id="btn_test" >test</button> --%>
+        <!-- <a class="sel_btn" href="./markAnswerEdit">test2</a> -->
+           <input type="button" class="btn btn-primary" name="Edit" value="Edit Mark" onclick="editInput(<%= uid %>,<%= eid %>)">
+           <input type="button" class="btn btn-danger" name="Edit" value="Cancel Edit" onclick="btn_cancel(<%= uid %>,<%= eid %>)">
+
+             <input type = "submit" class="btn btn-success" value = "Submit Mark" />
+             
+   
           
          </form>
+             <hr class="rounded">
+  <hr class="rounded">
          <% } %>
          
     </div>
