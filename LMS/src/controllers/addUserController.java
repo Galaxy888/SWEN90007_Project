@@ -43,11 +43,10 @@ public class addUserController extends HttpServlet {
 		System.out.println("addUser doPost");
 		//int id = Integer.parseInt(request.getParameter("id"));
 		String name = request.getParameter("name");
-		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		int type = Integer.parseInt(request.getParameter("type"));
 		
-		Boolean success = userService.createNewUser(name, email, password,type);
+		Boolean success = userService.createNewUser(name, password,type);
 		System.out.println("add user doPost success: "+success);
 		if (success) {
 			response.sendRedirect("./dashboard");

@@ -62,14 +62,7 @@ public class dashboardController extends HttpServlet {
 					while (rs.next()) {
 						String code = rs.getString(1); 
 						String name = rs.getString(2);
-						int id = Integer.parseInt(rs.getString(3));
-						String sql = "select * from users where id='"+id+"' limit 1"; 
-		                PreparedStatement sqlt = DBConnection.prepare(sql);
-		                 ResultSet rs1 = sqlt.executeQuery();
-		                	if(rs1.next()){
-		                		request.setAttribute("name"+id, rs1.getString(2));
-		                		}
-						Subject subject = new Subject(code, name, id);
+						Subject subject = new Subject(code, name);
 						subjects.add(subject);
 						System.out.print("result:"+subject+"11111");
 			          } 	
@@ -104,9 +97,9 @@ public class dashboardController extends HttpServlet {
 		         	            int userTypeDB = rs2.getInt("user_type");
 		         	            int id = rs2.getInt("id");
 		         	            String email = rs2.getString("email");
-		         	            User user =new User(id,userNameDB,email,passwordDB,userTypeDB);
+		         	            User user =new User(id,userNameDB,passwordDB,userTypeDB);
 		         	            students.add(user);
-		                		request.setAttribute("name"+subject2.getCoordinator(), rs2.getString(2));
+		                	
 		                		}
 		                	 PreparedStatement stmt1 = DBConnection.prepare(stm1);
 			                 ResultSet rs1 = stmt1.executeQuery();
@@ -116,9 +109,9 @@ public class dashboardController extends HttpServlet {
 			         	            int userTypeDB = rs1.getInt("user_type");
 			         	            int id = rs1.getInt("id");
 			         	            String email = rs1.getString("email");
-			         	            User user =new User(id,userNameDB,email,passwordDB,userTypeDB);
+			         	            User user =new User(id,userNameDB,passwordDB,userTypeDB);
 			         	            tutors.add(user);
-			                		request.setAttribute("name"+subject2.getCoordinator(), rs1.getString(2));
+			  
 			                		}
 			                	request.setAttribute("students"+subject2.getSubjectCode(), students);
 			                	request.setAttribute("tutors"+subject2.getSubjectCode(), tutors);

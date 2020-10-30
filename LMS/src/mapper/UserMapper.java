@@ -34,15 +34,14 @@ public class UserMapper  extends DataMapper {
 	public Boolean insert(DomainObject obj) {
 		User user = (User) obj;
 
-		String insertExamStatement = "INSERT INTO users (name,email,password,user_type) VALUES (?, ?,?,?)";
+		String insertExamStatement = "INSERT INTO users (name,email,password,user_type) VALUES (?,?,?)";
 
 		try {
 			PreparedStatement stmt = DBConnection.prepare(insertExamStatement);
 			
 			stmt.setString(1, user.getName());
-			stmt.setString(2, user.getEmail());
-			stmt.setString(3, user.getPassword());
-			stmt.setInt(4, user.getType());
+			stmt.setString(2, user.getPassword());
+			stmt.setInt(3, user.getType());
 			stmt.execute();
 
 			stmt.close();
@@ -82,8 +81,7 @@ public class UserMapper  extends DataMapper {
  	            passwordDB = resultSet.getString("password");
  	            userTypeDB = resultSet.getInt("user_type");
  	            int id = resultSet.getInt("id");
- 	            String email = resultSet.getString("email");
- 	            User user =new User(id,userNameDB,email,passwordDB,userTypeDB);
+ 	            User user =new User(id,userNameDB,passwordDB,userTypeDB);
 // 	            System.out.println(userName+password);
 // 	            System.out.println(userNameDB+passwordDB+userTypeDB);
  	            return user;

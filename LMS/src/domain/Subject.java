@@ -10,17 +10,15 @@ public class Subject extends DomainObject {
 
 	private String subjectCode;
 	private String name;
-	private int coordinator_id;
 	
 	private List<Exam> allExams;
 	private List<Exam> allStudentExams;
 
 	private static final String findAllSubjectsStatement = "SELECT * from subjects";
-	private static final String insertSubjectStatement = "INSERT INTO subjects VALUES (?, ?, ?)";
+	private static final String insertSubjectStatement = "INSERT INTO subjects VALUES (?, ?)";
 
-	public Subject(String subjectCode, String name, int coordinator_id) {
+	public Subject(String subjectCode, String name) {
 		this.subjectCode = subjectCode;
-		this.coordinator_id = coordinator_id;
 		this.name = name;
 		this.allExams = null;
 		this.allStudentExams = null;
@@ -47,13 +45,7 @@ public class Subject extends DomainObject {
 		this.name = name;
 	}
 
-	public int getCoordinator() {
-		return coordinator_id;
-	}
 
-	public void setCoordinator(int coordinator_id) {
-		this.coordinator_id = coordinator_id;
-	}
 	
 	//lazy load
 	public List<Exam> getAllExams() {
@@ -96,8 +88,7 @@ public class Subject extends DomainObject {
 		while (rs.next()) {
 			String code = rs.getString(1);
 			String name = rs.getString(2);
-			int coordinator = Integer.parseInt(rs.getString(3));
-			subjects.add(new Subject(code, name, coordinator));
+			subjects.add(new Subject(code, name));
 		}
 
 	} catch (SQLException e) {
@@ -107,32 +98,13 @@ public class Subject extends DomainObject {
 	}
 	
 
-	public static List<Subject> getAllSubjectsById(int id) {
-		List<Subject> subjects = new ArrayList<>();
-		try {
-			String stm = "Select * from subjects where coordinator_id ='" + id + "'";
-			PreparedStatement stmt = DBConnection.prepare(stm);
-
-			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
-				String code = rs.getString(1);
-				String name = rs.getString(2);
-				int coordinator = Integer.parseInt(rs.getString(3));
-				subjects.add(new Subject(code, name, coordinator));
-			}
-
-		} catch (SQLException e) {
-
-		}
-		return subjects;
-	}
+	
 
 	public String insert() {
 		try {
 			PreparedStatement insertStatement = DBConnection.prepare(insertSubjectStatement);
 			insertStatement.setString(1, subjectCode);
 			insertStatement.setString(2, name);
-			insertStatement.setInt(3, coordinator_id);
 			insertStatement.execute();
 		} catch (SQLException e) {
 		}
