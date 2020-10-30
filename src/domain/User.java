@@ -18,21 +18,19 @@ public class User extends DomainObject {
 
 	private List<Subject> allSubjects;
 	private static final String findAllUsersStatement = "SELECT * from users";
-	private static final String insertUsersStatement = "INSERT INTO users VALUES (?, ?, ?, ?, ?)";
+	private static final String insertUsersStatement = "INSERT INTO users VALUES (?, ?, ?, ?)";
 
-	public User(int id, String name, String email, String password, int type) {
+	public User(int id, String name, String password, int type) {
 		this.id = id;
 		this.name = name;
-		this.email = email;
 		this.password = password;
 		this.type = type;
 		this.allSubjects = null;
 	}
 	
-	public User(String name, String email, String password, int type) {
+	public User(String name,String password, int type) {
 		this.id = id;
 		this.name = name;
-		this.email = email;
 		this.password = password;
 		this.type = type;
 		this.allSubjects = null;
@@ -56,14 +54,6 @@ public class User extends DomainObject {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public String getPassword() {
@@ -109,10 +99,9 @@ public class User extends DomainObject {
 			while (rs.next()) {
 				int user_id = Integer.parseInt(rs.getString(1));
 				String name = rs.getString(2);
-				String email = rs.getString(3);
-				String password = rs.getString(4);
-				int type = Integer.parseInt(rs.getString(5));
-				user = new User(user_id, name, email, password, type);
+				String password = rs.getString(3);
+				int type = Integer.parseInt(rs.getString(4));
+				user = new User(user_id, name,password, type);
 			}
 
 		} catch (SQLException e) {
@@ -131,10 +120,9 @@ public class User extends DomainObject {
 					while (rs.next()) {
 						int user_id = Integer.parseInt(rs.getString(1));
 						String name = rs.getString(2);
-						String email = rs.getString(3);
-						String password = rs.getString(4);
-						int type = Integer.parseInt(rs.getString(5));
-						user = new User(user_id, name, email, password, type);
+						String password = rs.getString(3);
+						int type = Integer.parseInt(rs.getString(4));
+						user = new User(user_id, name,password, type);
 						users.add(user);
 					}
 
@@ -154,10 +142,9 @@ public class User extends DomainObject {
 				while (rs.next()) {
 					int user_id = Integer.parseInt(rs.getString(1));
 					String name = rs.getString(2);
-					String email = rs.getString(3);
-					String password = rs.getString(4);
-					int type = Integer.parseInt(rs.getString(5));
-					user = new User(user_id, name, email, password, type);
+					String password = rs.getString(3);
+					int type = Integer.parseInt(rs.getString(4));
+					user = new User(user_id, name, password, type);
 					users.add(user);
 				}
 

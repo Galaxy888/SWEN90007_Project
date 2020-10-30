@@ -22,8 +22,7 @@ public class SubjectMapper extends DataMapper {
 			while (rs.next()) {
 				String code = rs.getString(1);
 				String name = rs.getString(2);
-				int coordinator = Integer.parseInt(rs.getString(3));
-				subjects.add(new Subject(code, name, coordinator));
+				subjects.add(new Subject(code, name));
 			}
 
 		} catch (SQLException e) {
@@ -43,8 +42,7 @@ public class SubjectMapper extends DataMapper {
 			while (rs.next()) {
 				String code = rs.getString(1);
 				String name = rs.getString(2);
-				int coordinator = Integer.parseInt(rs.getString(3));
-				subjects.add(new Subject(code, name, coordinator));
+				subjects.add(new Subject(code, name));
 			}
 
 		} catch (SQLException e) {
@@ -64,8 +62,7 @@ public class SubjectMapper extends DataMapper {
 			while (rs.next()) {
 				String code = rs.getString(1);
 				String name = rs.getString(2);
-				int coordinator = Integer.parseInt(rs.getString(3));
-				subjects.add(new Subject(code, name, coordinator));
+				subjects.add(new Subject(code, name));
 			}
 
 		} catch (SQLException e) {

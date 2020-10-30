@@ -4,7 +4,6 @@ CREATE SCHEMA public;
 CREATE TABLE users(
   id       INT,
   name     VARCHAR(50),
-  email    VARCHAR(100),
   password VARCHAR(50),
   user_type INT,
   PRIMARY  KEY(id)
@@ -22,7 +21,6 @@ alter table users alter column id set default nextval('public.users_seq');
 CREATE TABLE subjects(
    code  VARCHAR(20),
    name  VARCHAR(50),
-   coordinator_id INT REFERENCES users(id) ,
    version INT,
    PRIMARY KEY (code)
 );

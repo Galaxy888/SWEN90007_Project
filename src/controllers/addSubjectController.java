@@ -47,9 +47,7 @@ public class addSubjectController extends HttpServlet {
 		
 		String code = request.getParameter("code");
 		String name = request.getParameter("name");
-		int id = Integer.parseInt(request.getParameter("id"));
-	
-		Subject subject = new Subject(code, name, id);
+		Subject subject = new Subject(code, name);
 		subject.insert();
 		
 		response.sendRedirect("/dashboard");

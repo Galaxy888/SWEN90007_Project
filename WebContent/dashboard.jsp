@@ -196,10 +196,6 @@ tr:nth-child(even) {
 			<label> Subject Name: </label> 
 			<input type="text" name="name">
 		</div>
-		    		<div class="form-group">
-			<label> Instructor id:</label> 
-			<input type="hidden" name="id">
-		</div>
 		 <div align="center">
          <input type = "submit" value = "Add New Subject" />
          </div>
@@ -212,10 +208,6 @@ tr:nth-child(even) {
           		<div class="form-group">
 			<label>User name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> 
 			<input type="text" name="name">
-		</div>
-		    		<div class="form-group">
-			<label>Email:</label> 
-			<input type="hidden" name="email">
 		</div>
 		    		<div class="form-group">
 			<label>User Password:</label> 
@@ -323,7 +315,6 @@ tr:nth-child(even) {
             <tr>
                 <th>User Id</th>
                 <th>User Name</th>
-                <th>User Email</th>
                 <th>User Password</th>
                 <th>User Type</th>
             </tr>
@@ -336,7 +327,6 @@ tr:nth-child(even) {
        		 %>
        		        <td><%= user.getId() %></td>
                     <td><%= user.getName() %></td>
-                    <td><%= user.getEmail() %>
                     <td><%= user.getPassword()  %></td>
                     <% if(user.getType()==2){ %>
                     <td> Instructor</td>

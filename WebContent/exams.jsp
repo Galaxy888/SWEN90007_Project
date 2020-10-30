@@ -234,19 +234,12 @@ session.removeAttribute("errMessageExam");
 	                 <%} %>
 	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/ViewAnswer">View answers</a>
 	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/ViewMark">View exam results</a>
-	                 <%--<a class="sel_btn" href="./deleteExam?subject_code=<%=exam.getSubject() %>&id=<%=exam.getId()%>">Delete</a>--%>
-	                 <%-- <a class="sel_btn" href="./deleteExam/<%=exam.getId()%>/<%= exam.getStatus() %>">Delete</a> --%>
-	                <%--  <button type="button" onclick="deleteExam('<%=exam.getId()%>')">Delete</button> --%>
+	                
 	                  <form  style="display: inline" name="close" method="post" action="closeExam">
 	                 <input class = "sel_btn"  name="id" type="hidden" value=<%=exam.getId()%>>
 	                 <input class = "sel_btn"  type = "submit" value = "Delete" />
 	                 </form>
-	                <%-- >
-	                 <form  style="display: inline" name="delete" method="post" action="deleteExam">
-	                 <input class = "sel_btn"  name="id" type="hidden" value=<%=exam.getId()%>>
-	                 <input class = "sel_btn"  type = "submit" value = "Delete" />
-	                 </form>
-	                 --%>
+	               
 	                 </div>
 
 	                 
