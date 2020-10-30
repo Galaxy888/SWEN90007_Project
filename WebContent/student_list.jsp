@@ -53,12 +53,11 @@
            		 for (User user: users) {
        		 %>
        		        <td><%= user.getId() %></td>
-                    <td><%= user.getName() %></td>
-                    <td><%= user.getEmail() %>
+                    <td><%= user.getName() %></td>z
                     <td><%= user.getPassword()  %></td>
                     <td>
                     <button type="button" class="sel_btn" data-toggle="modal" data-target="#updateModal" id="btn_update" 
-                    onclick="showInfo2('<%= user.getId() %>','<%= user.getName() %>','<%= user.getEmail() %>','<%= user.getPassword() %>','<%= user.getType() %>')">
+                    onclick="showInfo2('<%= user.getId() %>','<%= user.getName() %>','<%= user.getPassword() %>','<%= user.getType() %>')">
                     Update</button>
 	                 <%-- <a class="sel_btn" href="./updateExam?id=<%=exam.getId()%>&title=<%=exam.getTitle()%>&status=<%=exam.getStatus()%>&subject_code=<%=exam.getSubject()%>">Edit</a> --%>
 	                 <%-- <a class="sel_btn" href="./questions?exam_id=<%=exam.getId()%>">Edit Questions</a> --%>

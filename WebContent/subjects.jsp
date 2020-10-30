@@ -31,7 +31,6 @@ tr:nth-child(even) {
             <tr>
                 <th>Subject Code</th>
                 <th>Subject Name</th>
-                <th>Coordinator</th>
             </tr>
             
                 <tr>
@@ -40,7 +39,6 @@ tr:nth-child(even) {
        		 %>
        		        <td><%= subject.getSubjectCode() %></td>
                     <td><%= subject.getName() %></td>
-                    <td><%= subject.getCoordinator() %></td>
                 </tr>
             <%
           		  } // for loop

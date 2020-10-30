@@ -238,11 +238,15 @@ session.removeAttribute("errMessageExam");
 	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/ViewAnswer">View submission detail </a>
 	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/ViewMark">View submission total mark</a>
 	                
-	                  <form  style="display: inline" name="close" method="post" action="closeExam">
+	                  <form  style="display: inline" name="delete" method="post" action="closeExam">
 	                 <input class = "sel_btn"  name="id" type="hidden" value=<%=exam.getId()%>>
 	                 <input class = "sel_btn"  type = "submit" value = "Delete" />
 	                 </form>
-	                <a class="sel_btn" href="">Close</a>
+	          
+	                 <form  style="display: inline" name="close" method="post" action="deleteExam">
+	                 <input class = "sel_btn"  name="id" type="hidden" value=<%=exam.getId()%>>
+	                 <input class = "sel_btn"  type = "submit" value = "Close" />
+	                 </form>
 	                 </div>
 
 	                 
