@@ -34,7 +34,7 @@ public class UserMapper  extends DataMapper {
 	public Boolean insert(DomainObject obj) {
 		User user = (User) obj;
 
-		String insertExamStatement = "INSERT INTO users (name,email,password,user_type) VALUES (?,?,?)";
+		String insertExamStatement = "INSERT INTO users (name,password,user_type) VALUES (?,?,?)";
 
 		try {
 			PreparedStatement stmt = DBConnection.prepare(insertExamStatement);
