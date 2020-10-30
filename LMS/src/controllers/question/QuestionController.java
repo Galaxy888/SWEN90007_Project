@@ -182,6 +182,10 @@ public class QuestionController extends HttpServlet {
 			request.getRequestDispatcher("/ViewMark").forward(request, response);
 		} else if (operation.equals("updateResult")) {
 			request.getRequestDispatcher("/updateResult").forward(request, response);
+		} else if (operation.equals("addQuestions")) {
+			request.getRequestDispatcher("/addQuestionController2").forward(request, response);
+		} else if (operation.equals("updateQuestions")) {
+			request.getRequestDispatcher("/updateQuestionController2").forward(request, response);
 		}
 		System.out.println();
 	}
