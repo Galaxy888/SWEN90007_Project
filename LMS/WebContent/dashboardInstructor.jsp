@@ -51,16 +51,6 @@ tr:nth-child(even) {
        		 %>
        		        <td><%= subject.getSubjectCode() %></td>
                     <td><%= subject.getName() %></td>
-                    <%  
-                    
-                    int user_id =subject.getCoordinator();
-                    String stm = "select * from users where id='"+user_id+"' limit 1"; 
-                    PreparedStatement stmt = DBConnection.prepare(stm);
-                	ResultSet rs = stmt.executeQuery();
-                	if(rs.next()){
-                		out.print("<td>"+ rs.getString(2)+"</td>");
-                		}
-                     %>
 	                 <td>
 	                 	<%-- <a href="./exams?subject_code=<%=subject.getSubjectCode()%>">Check</a> --%>
 	                 <%-- <a href="<%=request.getContextPath()%>/exams">Check</a> --%>

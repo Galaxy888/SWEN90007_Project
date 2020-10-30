@@ -59,6 +59,23 @@ public class TakeQuestionController extends HttpServlet {
 		int exam_id = Integer.parseInt(request.getParameter("exam_id"));
 		HttpSession session = request.getSession(false);
 		int user_id = (int) session.getAttribute("user_id");
+		int flag = 0;
+		String sql3 = "select * from users_exams where user_id='"+user_id+"' and exam_id='"+exam_id+"' limit 1";
+		try {
+			PreparedStatement stmt3 = DBConnection.prepare(sql3);
+			ResultSet rs = stmt3.executeQuery();
+			if (rs.next()) {
+			 flag = 1 ;
+			 System.out.println("The exam is closed!!!!");
+			}
+			
+		}catch (SQLException e) {
+
+			System.out.println(e.getMessage());
+		}
+		
+		if (flag == 0) {
+		
 		String sql2 = "update users_exams set status=1,version=0 where user_id='"+user_id+"' and "
 				+ "exam_id='"+exam_id+"'";
 		try {
@@ -95,6 +112,7 @@ public class TakeQuestionController extends HttpServlet {
 
 			System.out.print("Success!: "+success);
 
+		}
 		}
 
 //		  request.setAttribute("questions", questions);
