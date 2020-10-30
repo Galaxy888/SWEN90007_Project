@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -67,6 +68,7 @@ public class AnswerListController extends HttpServlet {
 		 List<Mark> users = new ArrayList<>();
 		 users = examService.getAllMarks(exam_id);
 		 System.out.print(users);
+		 Collections.sort(users);
 		 
 		 List<ArrayList<UserQuestion>> StudentList = new ArrayList<ArrayList<UserQuestion>>();
 		 for(Mark user:users) {

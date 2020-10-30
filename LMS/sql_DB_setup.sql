@@ -102,20 +102,20 @@ CREATE TABLE locks(
 
 
 INSERT INTO users
-VALUES (1, 'Admin', '','123',1);
+VALUES (1, 'Admin','123',1);
 --INSERT INTO users
 --VALUES (001, 'Instructor', '','Instructor',1);
 INSERT INTO users
-VALUES (2, 'Tutor', 'Tutor@gmail.com','123',2);
+VALUES (2, 'Tutor', '123',2);
 
 INSERT INTO users
-VALUES (3, 'Instructor2', 'Tutor@gmail.com','123',2);
+VALUES (3, 'Instructor2', '123',2);
 
 INSERT INTO users
-VALUES (4, 'Student', '','123',3);
+VALUES (4, 'Student', '123',3);
 
 INSERT INTO users
-VALUES (5, 'Student2', '','123',3);
+VALUES (5, 'Student2', '123',3);
 
 --INSERT INTO subjects
 --VALUES ('SWEN90007','SDA',002);

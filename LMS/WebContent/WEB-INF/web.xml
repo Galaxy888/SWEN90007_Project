@@ -1,251 +1,212 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
-	id="WebApp_ID" version="4.0">
-	<display-name>LMS</display-name>
-	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
-	</welcome-file-list>
-
-
-	<!-- <filter> <filter-name>SessionFilter</filter-name> <filter-class> SessionFilter 
-		</filter-class> <init-param> <param-name>avoid-urls</param-name> <param-value>/login</param-value> 
-		</init-param> </filter> -->
-	<!-- <filter-mapping> <filter-name>SessionFilter</filter-name> <url-pattern>/*</url-pattern> 
-		</filter-mapping> -->
-
-	<!--#################### Login/Logout #################### -->
-	<servlet>
-		<servlet-name>LoginServlet</servlet-name>
-		<servlet-class>controllers.auth.LoginServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>LoginServlet</servlet-name>
-		<url-pattern>/login</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<description></description>
-		<display-name>LogoutServlet</display-name>
-		<servlet-name>LogoutServlet</servlet-name>
-		<servlet-class>controllers.auth.LogoutServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>LogoutServlet</servlet-name>
-		<url-pattern>/logout</url-pattern>
-	</servlet-mapping>
-
-
-	<!--#################### Dashboard (courses) #################### -->
-	<servlet>
-		<description></description>
-		<display-name>dashboardController</display-name>
-		<servlet-name>dashboardController</servlet-name>
-		<servlet-class>controllers.dashboardController</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>dashboardController</servlet-name>
-		<url-pattern>/dashboard</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>dashboardController</servlet-name>
-		<url-pattern>/courses</url-pattern>
-	</servlet-mapping>
-	
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>LMS</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>controllers.auth.LoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/login</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LogoutServlet</display-name>
+    <servlet-name>LogoutServlet</servlet-name>
+    <servlet-class>controllers.auth.LogoutServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LogoutServlet</servlet-name>
+    <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>dashboardController</display-name>
+    <servlet-name>dashboardController</servlet-name>
+    <servlet-class>controllers.dashboardController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>dashboardController</servlet-name>
+    <url-pattern>/dashboard</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>dashboardController</servlet-name>
+    <url-pattern>/courses</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>addUserController</servlet-name>
+    <servlet-class>controllers.addUserController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>addUserController</servlet-name>
+    <url-pattern>/addUser</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>SubjectServlet</servlet-name>
+    <servlet-class>controllers.SubjectServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SubjectServlet</servlet-name>
+    <url-pattern>/Subject</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>addSubjectController</servlet-name>
+    <servlet-class>controllers.addSubjectController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>addSubjectController</servlet-name>
+    <url-pattern>/addSubject</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>StudentController</servlet-name>
+    <servlet-class>controllers.StudentController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StudentController</servlet-name>
+    <url-pattern>/Student</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>assignUserController</servlet-name>
+    <servlet-class>controllers.assignUserController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>assignUserController</servlet-name>
+    <url-pattern>/assignUser</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ExamController</servlet-name>
+    <servlet-class>controllers.exam.ExamController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ExamController</servlet-name>
+    <url-pattern>/courses/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>addExamController</servlet-name>
+    <servlet-class>controllers.exam.addExamController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>addExamController</servlet-name>
+    <url-pattern>/addExam</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>updateExamController</servlet-name>
+    <servlet-class>controllers.exam.updateExamController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>updateExamController</servlet-name>
+    <url-pattern>/updateExam</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>updateEditExamController</servlet-name>
+    <servlet-class>controllers.exam.updateEditExamController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>updateEditExamController</servlet-name>
+    <url-pattern>/updateEditExam</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>deleteExamController</servlet-name>
+    <servlet-class>controllers.exam.deleteExamController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>deleteExamController</servlet-name>
+    <url-pattern>/deleteExam</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>closeExamController</servlet-name>
+    <servlet-class>controllers.exam.closeExamController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>closeExamController</servlet-name>
+    <url-pattern>/closeExam</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ViewExamResultController</servlet-name>
+    <servlet-class>controllers.exam.ViewExamResultController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ViewExamResultController</servlet-name>
+    <url-pattern>/ViewMark</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>updateResultController</servlet-name>
+    <servlet-class>controllers.exam.updateResultController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>updateResultController</servlet-name>
+    <url-pattern>/updateResult</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>TakeQuestionController</servlet-name>
+    <servlet-class>controllers.question.TakeQuestionController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TakeQuestionController</servlet-name>
+    <url-pattern>/TakeQuestion</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>MarkAnswerController</servlet-name>
+    <servlet-class>controllers.question.MarkAnswerController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MarkAnswerController</servlet-name>
+    <url-pattern>/markAnswer</url-pattern>
+  </servlet-mapping>
     <servlet>
-		<servlet-name>addUserController</servlet-name>
-		<servlet-class>controllers.addUserController</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>addUserController</servlet-name>
-		<url-pattern>/addUser</url-pattern>
-	</servlet-mapping>
-    
-	<!--#################### Subject #################### -->
-	<servlet>
-		<servlet-name>SubjectServlet</servlet-name>
-		<servlet-class>controllers.SubjectServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>SubjectServlet</servlet-name>
-		<url-pattern>/Subject</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>addSubjectController</servlet-name>
-		<servlet-class>controllers.addSubjectController</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>addSubjectController</servlet-name>
-		<url-pattern>/addSubject</url-pattern>
-	</servlet-mapping>
-
-	
-	
-	<servlet>
-		<servlet-name>StudentController</servlet-name>
-		<servlet-class>controllers.StudentController</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>StudentController</servlet-name>
-		<url-pattern>/Student</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>assignUserController</servlet-name>
-		<servlet-class>controllers.assignUserController</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>assignUserController</servlet-name>
-		<url-pattern>/assignUser</url-pattern>
-	</servlet-mapping>
-
-	<!--#################### Exam #################### -->
-	<servlet>
-		<servlet-name>ExamController</servlet-name>
-		<servlet-class>controllers.exam.ExamController</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ExamController</servlet-name>
-		<url-pattern>/courses/*</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>addExamController</servlet-name>
-		<servlet-class>controllers.exam.addExamController</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>addExamController</servlet-name>
-		<url-pattern>/addExam</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>updateExamController</servlet-name>
-		<servlet-class>controllers.exam.updateExamController</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>updateExamController</servlet-name>
-		<url-pattern>/updateExam</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>updateEditExamController</servlet-name>
-		<servlet-class>controllers.exam.updateEditExamController</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>updateEditExamController</servlet-name>
-		<url-pattern>/updateEditExam</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>deleteExamController</servlet-name>
-		<servlet-class>controllers.exam.deleteExamController</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>deleteExamController</servlet-name>
-		<url-pattern>/deleteExam</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>closeExamController</servlet-name>
-		<servlet-class>controllers.exam.closeExamController</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>closeExamController</servlet-name>
-		<url-pattern>/closeExam</url-pattern>
-	</servlet-mapping>
-    
-    <servlet>
-		<servlet-name>ViewExamResultController</servlet-name>
-		<servlet-class>controllers.exam.ViewExamResultController</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ViewExamResultController</servlet-name>
-		<url-pattern>/ViewMark</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>updateResultController</servlet-name>
-		<servlet-class>controllers.exam.updateResultController</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>updateResultController</servlet-name>
-		<url-pattern>/updateResult</url-pattern>
-	</servlet-mapping>
-
-	<!--#################### Question #################### -->
-	<servlet>
-		<servlet-name>TakeQuestionController</servlet-name>
-		<servlet-class>controllers.question.TakeQuestionController</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>TakeQuestionController</servlet-name>
-		<url-pattern>/TakeQuestion</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>MarkAnswerController</servlet-name>
-		<servlet-class>controllers.question.MarkAnswerController</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>MarkAnswerController</servlet-name>
-		<url-pattern>/markAnswer</url-pattern>
-	</servlet-mapping>
-	
-		<servlet>
-		<servlet-name>AnswerListController</servlet-name>
-		<servlet-class>controllers.question.AnswerListController</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>AnswerListController</servlet-name>
-		<url-pattern>/ViewAnswer</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>QuestionController</servlet-name>
-		<servlet-class>controllers.question.QuestionController</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>QuestionController</servlet-name>
-		<url-pattern>/question</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>addQuestionController</servlet-name>
-		<servlet-class>controllers.question.addQuestionController</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>addQuestionController</servlet-name>
-		<url-pattern>/addQuestion</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>updateQuestionController</servlet-name>
-		<servlet-class>controllers.question.updateQuestionController</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>updateQuestionController</servlet-name>
-		<url-pattern>/updateQuestion</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>deleteQuestionController</servlet-name>
-		<servlet-class>controllers.question.deleteQuestionController</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>deleteQuestionController</servlet-name>
-		<url-pattern>/deleteQuestion</url-pattern>
-	</servlet-mapping>
-
-	<!-- <servlet> <servlet-name>QuestionController</servlet-name> <servlet-class>controllers.question.QuestionController</servlet-class> 
-		</servlet> <servlet-mapping> <servlet-name>QuestionController</servlet-name> 
-		<url-pattern>/exams/*</url-pattern> </servlet-mapping> -->
-
-
+    <servlet-name>MarkAnswerEditController</servlet-name>
+    <servlet-class>controllers.question.MarkAnswerEditController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MarkAnswerEditController</servlet-name>
+    <url-pattern>/markAnswerEdit</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>AnswerListController</servlet-name>
+    <servlet-class>controllers.question.AnswerListController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AnswerListController</servlet-name>
+    <url-pattern>/ViewAnswer</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>QuestionController</servlet-name>
+    <servlet-class>controllers.question.QuestionController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>QuestionController</servlet-name>
+    <url-pattern>/question</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>addQuestionController</servlet-name>
+    <servlet-class>controllers.question.addQuestionController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>addQuestionController</servlet-name>
+    <url-pattern>/addQuestion</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>updateQuestionController</servlet-name>
+    <servlet-class>controllers.question.updateQuestionController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>updateQuestionController</servlet-name>
+    <url-pattern>/updateQuestion</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>deleteQuestionController</servlet-name>
+    <servlet-class>controllers.question.deleteQuestionController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>deleteQuestionController</servlet-name>
+    <url-pattern>/deleteQuestion</url-pattern>
+  </servlet-mapping>
 </web-app>

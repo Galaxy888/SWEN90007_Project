@@ -5,7 +5,7 @@ import java.util.*;
 
 import datasource.DBConnection;
 
-public class Mark extends DomainObject {
+public class Mark extends DomainObject implements Comparable<Mark> {
 	private int user_id;
 	private int exam_id;
 	private int mark;
@@ -62,6 +62,11 @@ public class Mark extends DomainObject {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+	
+	@Override
+	public int compareTo(Mark o) {
+		return this.user_id-o.user_id;
 	}
 
 	// Get mark

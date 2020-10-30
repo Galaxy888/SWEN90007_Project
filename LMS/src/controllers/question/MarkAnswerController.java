@@ -18,6 +18,7 @@ import datasource.DBConnection;
 import domain.Answer;
 import domain.Question;
 import mapper.AnswerMapper;
+import pessimistic.LockManager;
 import service.QuestionService;
 
 /**
@@ -54,6 +55,9 @@ public class MarkAnswerController extends HttpServlet {
 		int user_id = Integer.parseInt(request.getParameter("user_id"));
 		System.out.print(exam_id);
 		System.out.print(user_id);
+		int uid_eid=Integer.parseInt(""+user_id+exam_id);
+		HttpSession httpSession = request.getSession(true);
+		
 		Question question2 = new Question();
 		 List<Answer> answers = new ArrayList<>();
 		 List<Question> questions = new ArrayList<>();
@@ -66,9 +70,9 @@ public class MarkAnswerController extends HttpServlet {
 		 }
 		 System.out.print("answers"+answers);
 		 
-	    	int version = Integer.parseInt(request.getParameter("version"));
-	    	
-	    	System.out.println("VVVVVVVVVVV: "+version);
+//	    	int version = Integer.parseInt(request.getParameter("version"));
+//	    	
+//	    	System.out.println("VVVVVVVVVVV: "+version);
 	    	boolean updateSuccess=true;
 		 int total_mark = 0;
 		 for (Answer answer : answers) {
@@ -84,17 +88,17 @@ public class MarkAnswerController extends HttpServlet {
 		    	
 
 		    	try {
-		    	String stm = "update users_questions set answer=?,mark=?,status=?,version=? where user_id=? and question_id=? and version=?";
+		    	String stm = "update users_questions set answer=?,mark=?,status=?where user_id=? and question_id=?";
 		    	
 		    	
 		    	PreparedStatement insertStatement = DBConnection.prepare(stm);
 		    	insertStatement.setString(1,Answer);
 				insertStatement.setInt(2,mark);
 				insertStatement.setInt(3, 1);
-				insertStatement.setInt(4, version+1);
-				insertStatement.setInt(5, id);
-				insertStatement.setInt(6, qid);
-				insertStatement.setInt(7,version);
+				
+				insertStatement.setInt(4, id);
+				insertStatement.setInt(5, qid);
+//				insertStatement.setInt(7,version);
 				
 				int rowCount = insertStatement.executeUpdate();
 				if (rowCount==0) {
@@ -119,9 +123,11 @@ public class MarkAnswerController extends HttpServlet {
 	    } 
 		 
 		 if(!updateSuccess) {
-				HttpSession session = request.getSession(); 
-				session.setAttribute("errMessageMark", "Someone has already updated the mark. Please view the latsest version");
+//				HttpSession session = request.getSession(); 
+//				session.setAttribute("errMessageMark", "Someone has already updated the mark. Please view the latsest version");
 				response.sendRedirect("./ViewAnswer");
+				LockManager lockManager=new LockManager();
+				lockManager.releaseLock(uid_eid, httpSession.getId());
 		 }else {
 		 
 		     try {
@@ -137,6 +143,9 @@ public class MarkAnswerController extends HttpServlet {
 		     }
 		     
 		     response.sendRedirect("./ViewAnswer");
+		     
+		     LockManager lockManager=new LockManager();
+			 lockManager.releaseLock(uid_eid, httpSession.getId());
 		 }
 		    	
 		    	

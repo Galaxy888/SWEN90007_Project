@@ -174,6 +174,8 @@ public class QuestionController extends HttpServlet {
 			request.getRequestDispatcher("/exams").forward(request, response);
 		} else if (operation.equals("ViewAnswer")) {
 			request.getRequestDispatcher("/ViewAnswer").forward(request, response);
+		} else if (operation.equals("markAnswerEdit")) {
+			request.getRequestDispatcher("/markAnswerEdit").forward(request, response);
 		} else if (operation.equals("markAnswer")) {
 			request.getRequestDispatcher("/markAnswer").forward(request, response);
 		} else if (operation.equals("ViewMark")) {

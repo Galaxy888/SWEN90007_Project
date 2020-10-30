@@ -212,8 +212,8 @@ session.removeAttribute("errMessageExam");
                     onclick="showInfo2('<%= exam.getId() %>','<%= exam.getTitle() %>','<%= exam.getStatus() %>')">
                     Update Title</button>
                     
-                    <button onclick="test('<%= exam.getId() %>')" type="button" class="sel_btn" id="btn_test" >test</button>
-                   <a class="sel_btn" href="./updateEditExam">test2</a>
+                <%--     <button onclick="test('<%= exam.getId() %>')" type="button" class="sel_btn" id="btn_test" >test</button>
+                   <a class="sel_btn" href="./updateEditExam">test2</a> --%>
                 
                      <form  style="display: inline"  name="publish" method="post" action="updateExam">
 	                 <input class = "sel_btn"  name="id" type="hidden" value=<%=exam.getId()%>>
