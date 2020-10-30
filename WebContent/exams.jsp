@@ -210,7 +210,7 @@ session.removeAttribute("errMessageExam");
                     <div>
                     <button type="button" class="sel_btn" data-toggle="modal" data-target="#updateModal" id="btn_update" 
                     onclick="showInfo2('<%= exam.getId() %>','<%= exam.getTitle() %>','<%= exam.getStatus() %>')">
-                    Update Title</button>
+                    Update Exam Title</button>
                     
                 <%--     <button onclick="test('<%= exam.getId() %>')" type="button" class="sel_btn" id="btn_test" >test</button>
                    <a class="sel_btn" href="./updateEditExam">test2</a> --%>
@@ -223,23 +223,26 @@ session.removeAttribute("errMessageExam");
 	                  <%-- <input class = "sel_btn"  name="version" type="hidden" value=<%=exam.getVersion()%>> --%>
 	                 <input class = "sel_btn"  type = "submit" value = "Publish" />
 	                 </form>
+	                 
+	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/addQuestions">Add Questions</a>
+	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/updateQuestions">Update Questions</a>
                     
             
 	                 <%-- <a class="sel_btn" href="./updateExam?id=<%=exam.getId()%>&title=<%=exam.getTitle()%>&status=<%=exam.getStatus()%>&subject_code=<%=exam.getSubject()%>">Edit</a> --%>
 	                 <%-- <a class="sel_btn" href="./questions?exam_id=<%=exam.getId()%>">Edit Questions</a> --%>
 	                 <% if (flag!=1){ %>
-	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/questions">Edit Questions</a>
+	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/questions">View Questions</a>
 	                 <% } else{ %>
 	                 <a class="sel_btn" >Cannot be updated</a>
 	                 <%} %>
-	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/ViewAnswer">View answers</a>
-	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/ViewMark">View exam results</a>
+	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/ViewAnswer">View submission detail </a>
+	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/ViewMark">View submission total mark</a>
 	                
 	                  <form  style="display: inline" name="close" method="post" action="closeExam">
 	                 <input class = "sel_btn"  name="id" type="hidden" value=<%=exam.getId()%>>
 	                 <input class = "sel_btn"  type = "submit" value = "Delete" />
 	                 </form>
-	               
+	                <a class="sel_btn" href="">Close</a>
 	                 </div>
 
 	                 
