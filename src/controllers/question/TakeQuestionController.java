@@ -88,10 +88,6 @@ public class TakeQuestionController extends HttpServlet {
 
 			System.out.println(e.getMessage());
 		}
-		
-//		Question question2 = new Question();
-//		List<Question> questions = new ArrayList<>();
-//	    questions = question2.getAllQuestions(exam_id);
 
 		List<Question> questions = examService.getAllQuestions(exam_id);
 

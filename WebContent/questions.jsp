@@ -254,21 +254,21 @@ textarea:disabled {
 	      }); // end ajax call
 	}
 	
-/* 	$(window).bind('unload', function(){
+	$(window).bind('unload', function(){
 		
-		 var input = document.getElementsByClassName('editable');
+	/* 	 var input = document.getElementsByClassName('editable');
 			for (i = 0; i < input.length; i++) {
 				input[i].readOnly=true
 				input[i].disabled=true
-			}
+			} */
 	    $.ajax({
-	    	url: 'markAnswerEdit',
+	    	url: 'editQuestion',
 	        async: false,
 	        type: 'post',
-          data:  'uid_eid='+"00000"+'&option='+"cancel",
+          data:  'id='+"00000"+'&option='+"cancel",
 	    });
 	  
-	}); */
+	}); 
 	
 	
 	
