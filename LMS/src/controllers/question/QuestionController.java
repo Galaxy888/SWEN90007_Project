@@ -59,7 +59,7 @@ public class QuestionController extends HttpServlet {
 	
 		String operation = (String) request.getAttribute("operation");
 		String subject_code = (String) request.getAttribute("subject_code");
-		System.out.println("Question Controller_0: " + exam_id + " operation: " + operation);
+		System.out.println("Question Controller_0: " + exam_id +" "+subject_code+ " operation: " + operation);
 		HttpSession session = request.getSession(false);
 		String userType = (String) session.getAttribute("userType");
 		if (operation.equals("questions")) {
@@ -186,6 +186,9 @@ public class QuestionController extends HttpServlet {
 			request.getRequestDispatcher("/addQuestionController2").forward(request, response);
 		} else if (operation.equals("updateQuestions")) {
 			request.getRequestDispatcher("/updateQuestionController2").forward(request, response);
+		} else if (operation.equals("examSubmit")) {
+			response.sendRedirect("/courses/"+subject_code+"/exams");
+	
 		}
 		System.out.println();
 	}

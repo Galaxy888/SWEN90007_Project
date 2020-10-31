@@ -163,7 +163,8 @@
 <body>
 
 
-<a class="sel_btn" href="/dashboard">Dashboard</a> 
+<a class="sel_btn" href="/dashboard">Dashboard</a>
+<a class="sel_btn" href="/courses/<%=request.getAttribute("subject_code")%>/exams">Previous page</a>
 <div>
 <h1 style="text-align:center"><%=request.getAttribute("subject_code") %> Exam</h1> 
 </div>

@@ -162,10 +162,11 @@ if (strError!=null){
 session.removeAttribute("errMessageMark");
 %>  
 
-<%@ page import="com.google.gson.Gson" %>
+<%-- <%@ page import="com.google.gson.Gson" %> --%>
 
 
-<a class="sel_btn" href="/login.jsp">DashBoard</a> 
+<a class="sel_btn" href="/login.jsp">DashBoard</a>
+<a class="sel_btn" href="/courses/<%=request.getAttribute("subject_code")%>/exams">Previous page</a>
  <div align="center">
         <%  List<ArrayList<UserQuestion>> studentList = new ArrayList<ArrayList<UserQuestion>>(); 
             studentList = (List<ArrayList<UserQuestion>>)request.getAttribute("answerList");
