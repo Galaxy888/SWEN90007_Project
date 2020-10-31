@@ -145,6 +145,7 @@ public class ExamController extends HttpServlet {
 							int id = Integer.parseInt(rs.getString(1));
 							int mark = 0;
 							int flag = 1;
+							int close_flag = 0;
 							String sql = "select * from users_exams where status=1 and user_id ='" + user_id + "' and exam_id='" + id
 									+ "' limit 1";
 							PreparedStatement search = DBConnection.prepare(sql);
@@ -159,6 +160,10 @@ public class ExamController extends HttpServlet {
 							System.out.print("flag is:"+flag);
 							String title = rs.getString(2);
 							int status = Integer.parseInt(rs.getString(3));
+							if (status==2) {
+								close_flag = 1;
+							}
+							request.setAttribute("close_flag" + id, close_flag);
 							String code = rs.getString(4);
 							//int version = Integer.parseInt(rs.getString(5));
 							
