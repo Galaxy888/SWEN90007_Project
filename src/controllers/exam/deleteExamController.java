@@ -56,7 +56,12 @@ public class deleteExamController extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		int id = Integer.parseInt(request.getParameter("id"));
 		String sql = "select * from users_exams where exam_id='"+id+"' and status = 0";
+		String sql2 = "update exams set status = 2 where id= ?";
 		try {
+			PreparedStatement stmt2 = DBConnection.prepare(sql2);
+			stmt2.setInt(1, id);
+			System.out.print("Change status");
+			stmt2.executeUpdate();
 			PreparedStatement stmt = DBConnection.prepare(sql);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
