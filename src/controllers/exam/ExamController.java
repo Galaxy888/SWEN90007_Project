@@ -51,6 +51,12 @@ public class ExamController extends HttpServlet {
 		String subjectCode = ""; // {subject}
 		String user_type = "";
 		String route = ""; // exams
+		
+		if(request.getSession(false)==null) {
+			response.sendRedirect("/login.jsp");
+		}
+		
+		else {
 
 		System.out.println("Type: " + request.getSession(false).getAttribute("userType"));
 
@@ -233,6 +239,8 @@ public class ExamController extends HttpServlet {
 
 		else {
 			response.sendRedirect("/login.jsp");
+		}
+		
 		}
 	}
 
