@@ -17,11 +17,11 @@ public class Question extends DomainObject implements Comparable<Question>{
 	private int exam_id;
 	private Timestamp modifiedTime;
 	private String modifiedBy;
-	private int version;
+//	private int version;
 	
 	private List<Answer> allAnswers;
 
-	public Question(int id, int type, String title, String content, String answer, int mark, int exam_id, int version) {
+	public Question(int id, int type, String title, String content, String answer, int mark, int exam_id) {
 		this.id = id;
 		this.question_type = type;
 		this.title = title;
@@ -29,7 +29,7 @@ public class Question extends DomainObject implements Comparable<Question>{
 		this.answer = answer;
 		this.mark = mark;
 		this.exam_id = exam_id;
-		this.version = version;
+//		this.version = version;
 		this.allAnswers = null;
 	}
 
@@ -53,13 +53,13 @@ public class Question extends DomainObject implements Comparable<Question>{
 		this.modifiedBy = modifiedBy;
 	}
 
-	public int getVersion() {
-		return version;
-	}
-
-	public void setVersion(int version) {
-		this.version = version;
-	}
+//	public int getVersion() {
+//		return version;
+//	}
+//
+//	public void setVersion(int version) {
+//		this.version = version;
+//	}
 
 	public int getId() {
 		return id;
@@ -169,8 +169,8 @@ public class Question extends DomainObject implements Comparable<Question>{
 				String answer = rs.getString(5);
 				int mark = Integer.parseInt(rs.getString(6));
 				int examId = Integer.parseInt(rs.getString(7));
-				int version = Integer.parseInt(rs.getString(10));
-				questions.add(new Question(id, type, title, content, answer, mark, examId,version));
+//				int version = Integer.parseInt(rs.getString(10));
+				questions.add(new Question(id, type, title, content, answer, mark, examId));
 			}
 
 		} catch (SQLException e) {

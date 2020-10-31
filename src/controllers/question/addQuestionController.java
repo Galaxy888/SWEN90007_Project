@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 
 import datasource.DBConnection;
 import domain.Question;
+import pessimistic.LockManager;
 import service.QuestionService;
 
 /**
@@ -55,28 +56,53 @@ public class addQuestionController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Boolean success = false;
+//		Boolean success = false;
+//		System.out.println("addQuestioonController");
+//		int num =  Integer.parseInt(request.getParameter("num"));
+//		System.out.print(num);
+//		//int id = Integer.parseInt(request.getParameter("id"));
+//		for (int i=1;i<=num;i++) {
+//		int type = Integer.parseInt(request.getParameter(i+"type"));
+//		String title = request.getParameter(i+"title");
+//		String content = request.getParameter(i+"content");
+//		String answer = request.getParameter(i+"answer");
+//		int mark = Integer.parseInt(request.getParameter(i+"mark"));
+//		int exam_id = Integer.parseInt(request.getParameter("exam_id"));
+//		
+//		Boolean flag = questionService.createNewQuestion(type, title, content, answer, mark, exam_id);
+//		System.out.println("add question doPost success: "+flag);
+//		success = flag;
+//		}
+//		if (success) {
+//			response.sendRedirect("./questions");
+//		}else {
+//			HttpSession session = request.getSession(); 
+//			session.setAttribute("errMessageQuestion", "Something went wrong. The question is already exist");
+//			response.sendRedirect("./questions");
+//		}
+		
 		System.out.println("addQuestioonController");
-		int num =  Integer.parseInt(request.getParameter("num"));
-		System.out.print(num);
 		//int id = Integer.parseInt(request.getParameter("id"));
-		for (int i=1;i<=num;i++) {
-		int type = Integer.parseInt(request.getParameter(i+"type"));
-		String title = request.getParameter(i+"title");
-		String content = request.getParameter(i+"content");
-		String answer = request.getParameter(i+"answer");
-		int mark = Integer.parseInt(request.getParameter(i+"mark"));
+		int type = Integer.parseInt(request.getParameter("type"));
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		String answer = request.getParameter("answer");
+		int mark = Integer.parseInt(request.getParameter("mark"));
 		int exam_id = Integer.parseInt(request.getParameter("exam_id"));
 		
-		Boolean flag = questionService.createNewQuestion(type, title, content, answer, mark, exam_id);
-		System.out.println("add question doPost success: "+flag);
-		success = flag;
-		}
+		HttpSession httpSession = request.getSession(true);
+		
+		Boolean success = questionService.createNewQuestion(type, title, content, answer, mark, exam_id);
+		System.out.println("add question doPost success: "+success);
 		if (success) {
+			LockManager lockManager=new LockManager();
+			lockManager.releaseLock(Integer.parseInt(request.getParameter("exam_id")), httpSession.getId());
 			response.sendRedirect("./questions");
 		}else {
-			HttpSession session = request.getSession(); 
-			session.setAttribute("errMessageQuestion", "Something went wrong. The question is already exist");
+//			HttpSession session = request.getSession(); 
+//			session.setAttribute("errMessageQuestion", "Something went wrong. The question is already exist");
+			LockManager lockManager=new LockManager();
+			lockManager.releaseLock(Integer.parseInt(request.getParameter("exam_id")), httpSession.getId());
 			response.sendRedirect("./questions");
 		}
 	}

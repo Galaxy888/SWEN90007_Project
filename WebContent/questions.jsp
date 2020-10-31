@@ -31,7 +31,31 @@
             font-size: 12px;
             outline: none;
         }
+        
+.no-outline{
+  outline: none;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: hidden;
+  
+/*   background-color: #eee; */
+}
+
+input[type=number]:disabled {
+   color: #444;
+   background:#cccccc;
+}
+input[type=text]:disabled {
+   color: #444;
+   background:#cccccc;
+}
+textarea:disabled {
+   color: #444;
+   background:#cccccc;
+}
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
  <script type="text/javascript">
  function Delete(id) {
  	 let input = document.getElementById(id+'flag');
@@ -41,10 +65,20 @@
      input1.setAttribute('type','hidden');
 	 let input2 = document.getElementById(id+'content');
      input2.setAttribute('type','hidden');
+     input2.setAttribute('hidden','hidden');
+
 	 let input3 = document.getElementById(id+'answer');
      input3.setAttribute('type','hidden');
+     input3.setAttribute('hidden','hidden');
 	 let input4 = document.getElementById(id+'mark');
      input4.setAttribute('type','hidden');
+     let input5 = document.getElementById(id+'index');
+     input5.setAttribute('type','hidden');
+     let input6 = document.getElementById(id+'type2');
+     input6.setAttribute('type','hidden');
+	 let input7 = document.getElementById(id+'btn_update');
+     input7.setAttribute('hidden','hidden');
+     
  }
 
 	var num = 1;
@@ -157,6 +191,89 @@
 		div.removeChild(input3);
 		div.removeChild(span5);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	function editInput(eid) {
+		var input = document.getElementsByClassName('editable');
+		
+	
+	   $.ajax({
+	       url: 'editQuestion',
+	       type: 'post',
+	       data:  'id='+eid+'&option='+"edit",
+	       success: function(conn, response, options){
+	          /*  alert(response); */
+	/*       	if(response.status==422){
+	               window.location.reload();
+	       	} */
+
+			for (i = 0; i < input.length; i++) {
+				input[i].readOnly=false;
+				input[i].disabled=false;
+			}
+	       },
+	   error:function(response){
+	   /* 	window.location.reload(); */
+	   alert("Someone is updating Exam questions. Please try again later")
+	   }
+	       
+	   }); // end ajax call
+	}
+	
+	
+	function btn_cancel(eid){
+		window.location.reload();
+		 var input = document.getElementsByClassName('editable');
+			for (i = 0; i < input.length; i++) {
+				input[i].readOnly=true
+				input[i].disabled=true
+			}
+		
+		  $.ajax({
+	          url: 'editQuestion',
+	          type: 'post',
+	          data:  'id='+eid+'&option='+"cancel",
+	          /* data: { username: "username", password: "password" } */
+	          success: function(conn, response, options){
+	        	  window.location.reload();
+	              /* alert(response); */
+	/*       	if(response.status==422){
+	                  window.location.reload();
+	          	} */
+	          },
+	/*         error:function(response){
+	      	window.location.reload();
+	      } */
+	          
+	      }); // end ajax call
+	}
+	
+/* 	$(window).bind('unload', function(){
+		
+		 var input = document.getElementsByClassName('editable');
+			for (i = 0; i < input.length; i++) {
+				input[i].readOnly=true
+				input[i].disabled=true
+			}
+	    $.ajax({
+	    	url: 'markAnswerEdit',
+	        async: false,
+	        type: 'post',
+          data:  'uid_eid='+"00000"+'&option='+"cancel",
+	    });
+	  
+	}); */
+	
+	
+	
+	
+	
     </script>
     
 </head>
@@ -166,7 +283,7 @@
 <a class="sel_btn" href="/dashboard">Dashboard</a>
 <a class="sel_btn" href="/courses/<%=request.getAttribute("subject_code")%>/exams">Previous page</a>
 <div>
-<h1 style="text-align:center"><%=request.getAttribute("subject_code") %> Exam</h1> 
+<h1 style="text-align:center"><%=request.getAttribute("subject_code") %> Exam</h1>
 </div>
 
 <%-- <span style="color:red"><%=(request.getSession(false).getAttribute("errMessageQuestion") == null) ? "" : request.getSession(false).getAttribute("errMessageQuestion")%></span>
@@ -184,9 +301,18 @@ if (strError!=null){
 %>
 <%
 session.removeAttribute("errMessageQuestion");
-%>  
+%> 
+<button type="button" class="btn btn-primary" id="btn_edit" onclick="editInput(<%=request.getAttribute("exam_id") %>)">Edit Exam</button>
+<button type="button" class="btn btn-primary editable" disabled id="btn_cancel" onclick="btn_cancel(<%=request.getAttribute("exam_id") %>)">Cancel Edit</button>  
+<br>
+<br>
+<!--  <button type="button" class="btn btn-primary col-md-4 offset-md-4" data-toggle="modal" data-target="#addQuestionModal">
+ Add new question
+</button> -->
 
-<form class="form-horizontal" name="AddQuestionController" action="addQuestion" method="post">
+
+
+<%-- <form class="form-horizontal" name="AddQuestionController" action="addQuestion" method="post">
     <div id="div">
 		<input type="button" name="add_question" value="Add a new question" onclick="addInput();">
 		<input type="button" name="delete_question" value="delete one question" onclick="deleteInput();">
@@ -194,21 +320,22 @@ session.removeAttribute("errMessageQuestion");
 <input type="hidden" value="<%= (int)request.getAttribute("exam_id") %>"name="exam_id" /> 	
 <input type="hidden" name="num" id="num" />
 <button type="submit" class="btn btn-primary" >Submit</button>
-</form>
+</form> --%>
 
 
  <div align="center">
   <form name="update" method=post action="updateQuestion">
-        <table  style="width:70%">
+        <table  class="table table-bordered" style="width:70%">
             <tr>
 				<th>#Question</th>
 				<th>Question Type</th>
                 <th>Question Title</th>
                 <th>Question content</th>
-                <th>Question mark</th>
                 <th>Question Answer</th>
+                <th>Question mark</th>
+                
                 <th>Operation</th>
-                <th>Version</th>
+                <!-- <th>Version</th> -->
             </tr>
            <tr>
           
@@ -220,19 +347,23 @@ session.removeAttribute("errMessageQuestion");
  			     for (Question question : questions) {
        		 %>
                     <tr>
-					<td><%= i=i+1%></td>
+					<td>
+					<input id="<%=i+1%>index" name="<%=i%>type" readOnly="true" class="no-outline" style="width:65px" value=<%= i=i+1%>>
+					</td>
 					<td>
 					<input id="<%=i%>flag" name="<%=i%>flag" type="hidden" value=<%=flag %> >
 					<input id="<%=i%>id" name="<%=i%>id" type="hidden" value=<%=question.getId()%>>
-					<input id="<%=i%>type" name="<%=i%>type" type="hidden" value=<%=question.getType()%>>
-					<%= (question.getType()==1) ? "Short answer question": "Multiple-choice question" %>
+					 <input id="<%=i%>type" name="<%=i%>type" type="hidden" value=<%=question.getType()%>>
+					<input id="<%=i%>type2" name="<%=i%>type" readOnly="true" class="no-outline" style="width:130px" value=<%= (question.getType()==1) ? "Short-answer question": "Multiple-choice question" %>>
+					
 					</td>
-					<td><input id="<%=i%>title"  name="<%=i%>title" type="text" value=<%=question.getTitle()%>></td>
-                    <td><input id="<%=i%>content" name="<%=i%>content" type="text" value=<%=question.getContent()%>></td>
-                    <td><input id="<%=i%>mark" name="<%=i%>mark" type="text" value=<%=question.getMark()%>></td>
-                    <td><input id="<%=i%>answer" name="<%=i%>answer" type="text" value=<%=question.getAnswer()%>></td>
-                    <td><button type="button" class="sel_btn" data-toggle="modal" data-target="#updateModal" id="btn_update" onclick="Delete('<%=i%>')">Delete</button></td>
-	                <td><input id="<%=i%>version" name="<%=i%>version" type="text"  readOnly="true" value=<%=question.getVersion()%>></td> 
+					<td><input id="<%=i%>title"  name="<%=i%>title" type="text" class="editable" disabled="disabled"readonly=true  value=<%=question.getTitle()%>></td>
+                    <td><textarea id="<%=i%>content" name="<%=i%>content" type="text" class="editable" disabled="disabled"readonly=true value=<%=question.getContent()%>><%=question.getContent()%></textarea></td>
+                    
+                    <td><textarea id="<%=i%>answer" name="<%=i%>answer" type="text" class="editable" disabled="disabled"readonly=true  value=<%=question.getAnswer()%>><%=question.getAnswer()%></textarea></td>
+                    <td><input id="<%=i%>mark" name="<%=i%>mark" type="number"  style="width:65px" class="editable" disabled="disabled"readonly=true  required value=<%=question.getMark()%>></td>
+                    <td><button type="button" class="btn btn-danger editable" data-toggle="modal" data-target="#updateModal" id="<%=i%>btn_update" disabled onclick="Delete('<%=i%>')">Delete</button></td>
+<%-- 	                <td><input id="<%=i%>version" name="<%=i%>version" type="text" style="width:65px" readOnly="true" value=<%=question.getVersion()%>></td>  --%>
 	                </tr>
 	       <%
           		  } // for loop
@@ -241,12 +372,96 @@ session.removeAttribute("errMessageQuestion");
         	    <tr>
         	    <td><input type="hidden" value="<%=i %>" name="num" /></td>
                 <td><input type="hidden" value="<%= (int)request.getAttribute("exam_id") %>" name="exam_id" /></td>
-                <td><button type="submit" class="btn btn-primary">Update exam</button></td>
+               
                 </tr>  
         </table>
+         <button type="button" class="btn btn-primary editable" disabled data-toggle="modal" data-target="#addQuestionModal">
+         Add new question
+         </button>
+        <button type="submit" class="btn btn-primary editable" disabled>Submit</button>
+
          </form>
          
     </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <form  id="contactForm1" class="form-horizontal" name="AddQuestionController" action="addQuestion" method="post">
+		
+			<div class="modal fade" id="addQuestionModal" tabindex="-1" role="dialog"
+				aria-labelledby="addQuestionModalLabel" aria-hidden="true">
+				
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="addQuestionModal">Add new
+								question</h4>
+						</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="firstname" class="col-sm-3 control-label">Question Type:</label>
+							<div class="col-sm-7">
+							<div >
+								<select name="type" id="type">
+									<option value="1">Short answer question</option>
+									<option value="2">Multiple-choice question</option>
+								</select>
+							<label class="control-label" for="type" style="display: none;"></label>
+							</div>
+							</div>
+										 <div class="form-group">
+											<label for="firstname" class="col-sm-3 control-label">Question Title:</label>
+												<div class="col-sm-7">
+													<input type="text" class="form-control" id="title" name="title"  placeholder="input new title">
+												<label class="control-label" for="updateTitle" style="display: none;"></label>
+												</div>
+										</div>
+										
+										<div class="form-group">
+											<label for="firstname" class="col-sm-3 control-label">Question Content:</label>
+												<div class="col-sm-7">
+													<textarea type="text" class="form-control" id="content" name="content"  placeholder="input new content"></textarea>
+												<label class="control-label" for="content" style="display: none;"></label>
+												</div>
+										</div>
+											
+										<div class="form-group">
+											<label for="firstname" class="col-sm-3 control-label">Question Answer:</label>
+												<div class="col-sm-7">
+													<textarea type="text" class="form-control" id="answer" name="answer"  placeholder="input new answer"></textarea>
+												<label class="control-label" for="answer" style="display: none;"></label>
+												</div>
+										</div>
+										<div class="form-group">
+											<label for="firstname" class="col-sm-3 control-label">Question Mark:</label>
+												<div class="col-sm-7">
+													<input type="number" class="form-control" id="mark" name="mark"  placeholder="input new mark" required>
+												<label class="control-label" for="mark" style="display: none;"></label>
+												</div>
+										</div>
+																		<input type="hidden"
+									value="<%= (int)request.getAttribute("exam_id") %>"
+									name="exam_id" /> 	
+									
+								<button type="submit" class="btn btn-primary" >
+														Add New Question
+								</button>
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>			
+				</div>
+				</div>
+				</div>
+				</div>
+				</div>
+		</form>
               
                                   
 <!--     <div align="center">

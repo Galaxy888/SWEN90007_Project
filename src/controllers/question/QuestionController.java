@@ -184,7 +184,13 @@ public class QuestionController extends HttpServlet {
 			request.getRequestDispatcher("/updateResult").forward(request, response);
 		} else if (operation.equals("addQuestions")) {
 			request.getRequestDispatcher("/addQuestionController2").forward(request, response);
-		} else if (operation.equals("updateQuestions")) {
+		} else if (operation.equals("editQuestion")) {
+			request.getRequestDispatcher("/editQuestionController").forward(request, response);
+		}
+		
+		
+		
+		else if (operation.equals("updateQuestions")) {
 			request.getRequestDispatcher("/updateQuestionController2").forward(request, response);
 		} else if (operation.equals("examSubmit")) {
 			response.sendRedirect("/courses/"+subject_code+"/exams");

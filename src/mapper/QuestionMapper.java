@@ -22,7 +22,7 @@ public class QuestionMapper extends DataMapper{
 	 */
 	@Override
 	public Boolean insert(DomainObject obj) {
-	    String insertQuestionStatement = "INSERT INTO questions(question_type,title,content,answer,mark,exam_id,modifiedTime,version) VALUES (?,?,?,?,?,?,?,?)";
+	    String insertQuestionStatement = "INSERT INTO questions(question_type,title,content,answer,mark,exam_id,modifiedTime) VALUES (?,?,?,?,?,?,?)";
 	    Question question = (Question) obj;
 		try {
 			PreparedStatement stmt = DBConnection.prepare(insertQuestionStatement);
@@ -33,7 +33,7 @@ public class QuestionMapper extends DataMapper{
 			stmt.setInt(5,question.getMark());
 			stmt.setInt(6, question.getExam());
 			stmt.setTimestamp(7, question.getModifiedTime());
-			stmt.setInt(8,question.getVersion());
+//			stmt.setInt(8,question.getVersion());
 			stmt.execute();
 			stmt.close();
 			return true;
@@ -59,27 +59,36 @@ public class QuestionMapper extends DataMapper{
 		
 		Question question = (Question) obj;
 		
-		String updateQuestionStatement = "update questions set question_type=?,title=?,content=?,answer=?,mark=?,exam_id=?,version=? where id=? and version=?";
-		
+//		String updateQuestionStatement = "update questions set question_type=?,title=?,content=?,answer=?,mark=?,exam_id=?,version=? where id=? and version=?";
+		String updateQuestionStatement = "update questions set question_type=?,title=?,content=?,answer=?,mark=?,exam_id=? where id=?";
 		PreparedStatement stmt = DBConnection.prepare(updateQuestionStatement);
 		try {			
+//			stmt.setInt(1, question.getType());
+//			stmt.setString(2,question.getTitle());
+//			stmt.setString(3, question.getContent());
+//			stmt.setString(4, question.getAnswer());
+//			stmt.setInt(5, question.getMark());
+//			stmt.setInt(6, question.getExam());
+//			stmt.setInt(7,question.getVersion()+1);
+//			stmt.setInt(8,question.getId());
+//			stmt.setInt(9,question.getVersion());
+//			int rowCount = stmt.executeUpdate();
+//			if (rowCount==0) {
+////				throwConcurrencyException(question);
+//				System.out.println("throwConcurrencyException");
+//				return false;
+//			}
 			stmt.setInt(1, question.getType());
 			stmt.setString(2,question.getTitle());
 			stmt.setString(3, question.getContent());
 			stmt.setString(4, question.getAnswer());
 			stmt.setInt(5, question.getMark());
 			stmt.setInt(6, question.getExam());
-			stmt.setInt(7,question.getVersion()+1);
-			stmt.setInt(8,question.getId());
-			stmt.setInt(9,question.getVersion());
-			int rowCount = stmt.executeUpdate();
-			if (rowCount==0) {
-//				throwConcurrencyException(question);
-				System.out.println("throwConcurrencyException");
-				return false;
-			}
+			stmt.setInt(7,question.getId());
+			stmt.executeUpdate();
 			stmt.close();
 			return true;
+//			stmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -135,8 +144,8 @@ public class QuestionMapper extends DataMapper{
 				String answer = rs.getString(5);
 				int mark = Integer.parseInt(rs.getString(6));
 				int examId = Integer.parseInt(rs.getString(7));
-				int version = Integer.parseInt(rs.getString(10));
-				questions.add(new Question(id,type,title,content,answer,mark,examId,version));
+//				int version = Integer.parseInt(rs.getString(10));
+				questions.add(new Question(id,type,title,content,answer,mark,examId));
 			}
 	
 		} catch (SQLException e) {
