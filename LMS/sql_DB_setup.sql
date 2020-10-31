@@ -53,7 +53,7 @@ CREATE TABLE questions(
     
     modifiedTime timestamp,
     modifiedBy VARCHAR(100),
-    version INT,
+--    version INT,
     
     PRIMARY KEY(id)
 );

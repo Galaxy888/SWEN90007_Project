@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import domain.Question;
+import pessimistic.LockManager;
 import service.QuestionService;
 
 /**
@@ -52,36 +53,44 @@ public class updateQuestionController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		Boolean success = false;
-		int num =  Integer.parseInt(request.getParameter("num"));
+		int num = Integer.parseInt(request.getParameter("num"));
 		System.out.print(num);
-		//int id = Integer.parseInt(request.getParameter("id"));
-		for (int i=1;i<=num;i++) {
-		
-		int flag = Integer.parseInt(request.getParameter(i+"flag"));
-		if (flag == 0) {
-		int id = Integer.parseInt(request.getParameter(i+"id"));
-		int type = Integer.parseInt(request.getParameter(i+"type"));
-		String title = request.getParameter(i+"title");
-		String content = request.getParameter(i+"content");
-		String answer = request.getParameter(i+"answer");
-		int mark = Integer.parseInt(request.getParameter(i+"mark"));
-		int exam_id = Integer.parseInt(request.getParameter("exam_id"));
-		int version = Integer.parseInt(request.getParameter(i+"version"));
+		// int id = Integer.parseInt(request.getParameter("id"));
+		HttpSession httpSession = request.getSession(true);
+		for (int i = 1; i <= num; i++) {
 
-		Boolean s = questionService.updateQuestion(id, type, title, content,  answer,  mark,  exam_id, version);
-		success = s;
-		System.out.println("update question doPost success: "+s);
-		} else if (flag ==1) {
-			int id = Integer.parseInt(request.getParameter(i+"id"));
-			Boolean sc = questionService.deleteQuestion(id);
-			System.out.println("delete question doPost success: "+sc);
-		}
+			int flag = Integer.parseInt(request.getParameter(i + "flag"));
+			if (flag == 0) {
+				int id = Integer.parseInt(request.getParameter(i + "id"));
+				int type = Integer.parseInt(request.getParameter(i + "type"));
+				String title = request.getParameter(i + "title");
+				String content = request.getParameter(i + "content");
+				String answer = request.getParameter(i + "answer");
+				int mark = Integer.parseInt(request.getParameter(i + "mark"));
+				int exam_id = Integer.parseInt(request.getParameter("exam_id"));
+//				int version = Integer.parseInt(request.getParameter(i + "version"));
+
+				Boolean s = questionService.updateQuestion(id, type, title, content, answer, mark, exam_id);
+				success = s;
+				System.out.println("update question doPost success: " + s);
+			} else if (flag == 1) {
+				int id = Integer.parseInt(request.getParameter(i + "id"));
+				Boolean sc = questionService.deleteQuestion(id);
+				System.out.println("delete question doPost success: " + sc);
+			}
 		}
 		if (success) {
+			LockManager lockManager=new LockManager();
+			lockManager.releaseLock(Integer.parseInt(request.getParameter("exam_id")), httpSession.getId());
 			response.sendRedirect("./questions");
-		}else {
-			HttpSession session = request.getSession(); 
-			session.setAttribute("errMessageQuestion", "Someone has already updated the question. Please view the latsest version");
+		} else {
+			HttpSession session = request.getSession();
+			LockManager lockManager=new LockManager();
+			lockManager.releaseLock(Integer.parseInt(request.getParameter("exam_id")), httpSession.getId());
+//			session.setAttribute("errMessageQuestion",
+//					"Someone has already updated the question. Please view the latsest version");
+//			session.setAttribute("errMessageQuestion",
+//					"Someone is updaing the exam questions. Please try again later");
 			response.sendRedirect("./questions");
 		}
 	}

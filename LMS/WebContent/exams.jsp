@@ -224,14 +224,14 @@ session.removeAttribute("errMessageExam");
 	                 <input class = "sel_btn"  type = "submit" value = "Publish" />
 	                 </form>
 	                 
-	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/addQuestions">Add Questions</a>
-	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/updateQuestions">Update Questions</a>
+	                <%--  <a class="sel_btn" href="exams/<%=exam.getId()%>/addQuestions">Add Questions</a>
+	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/updateQuestions">Update Questions</a> --%>
                     
             
 	                 <%-- <a class="sel_btn" href="./updateExam?id=<%=exam.getId()%>&title=<%=exam.getTitle()%>&status=<%=exam.getStatus()%>&subject_code=<%=exam.getSubject()%>">Edit</a> --%>
 	                 <%-- <a class="sel_btn" href="./questions?exam_id=<%=exam.getId()%>">Edit Questions</a> --%>
 	                 <% if (flag!=1){ %>
-	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/questions">View Questions</a>
+	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/questions">Exam Questions</a>
 	                 <% } else{ %>
 	                 <a class="sel_btn" >Cannot be updated</a>
 	                 <%} %>

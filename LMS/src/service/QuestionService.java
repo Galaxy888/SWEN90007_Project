@@ -37,7 +37,7 @@ public class QuestionService {
 		question.setMark(mark);
 		question.setExam(exam_id);
 		question.setModifiedTime(modifiedTime);
-		question.setVersion(0);
+//		question.setVersion(0);
 		UnitOfWork.getCurrent().registerNew(question);
 		
 		
@@ -46,7 +46,7 @@ public class QuestionService {
 	
 
 	public Boolean updateQuestion(int id, int type, String title, String content, String answer, int mark,
-			int exam_id, int version) {
+			int exam_id) {
 		
 		UnitOfWork.newCurrent();
 		
@@ -58,7 +58,7 @@ public class QuestionService {
 		question.setAnswer(answer);
 		question.setMark(mark);
 		question.setExam(exam_id);
-		question.setVersion(version);
+//		question.setVersion(version);
 		UnitOfWork.getCurrent().registerDiry(question);
 		
 		
