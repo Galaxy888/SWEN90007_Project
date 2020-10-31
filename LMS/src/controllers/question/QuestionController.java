@@ -65,24 +65,6 @@ public class QuestionController extends HttpServlet {
 		if (operation.equals("questions")) {
 			if (userType.equals("Instructor")) {
 				List<Question> questions = examService.getAllQuestions(exam_id);
-//			String stm = "select * from questions where exam_id='" + exam_id + "'";
-//			try {
-//				PreparedStatement stmt = DBConnection.prepare(stm);
-//				ResultSet rs = stmt.executeQuery();
-//				while (rs.next()) {
-//					int id2 = Integer.parseInt(rs.getString(1));
-//					int type2 = Integer.parseInt(rs.getString(2));
-//					String title2 = rs.getString(3);
-//					String content2 = rs.getString(4);
-//					String answer2 = rs.getString(5);
-//					int mark2 = Integer.parseInt(rs.getString(6));
-//					int examId2 = Integer.parseInt(rs.getString(7));
-//					questions.add(new Question(id2, type2, title2, content2, answer2, mark2, examId2));
-//				}
-//			} catch (SQLException e) {
-//
-//				System.out.println(e.getMessage());
-//			}
 				if (questions != null) {
 					request.setAttribute("exam_id", exam_id);
 					request.setAttribute("questions", questions);
@@ -96,9 +78,11 @@ public class QuestionController extends HttpServlet {
 					response.sendRedirect("./questions");
 				}
 
-			} else if (userType.equals("Student")) { // show all questions and if the user take the exam before,flag =1, else flag=0
-				System.out.print("Student");
+			} 
+			
+			else if (userType.equals("Student")) { // show all questions and if the user take the exam before,flag =1, else flag=0
 				int flag = 0;
+				int status = 0;
 				int user_id = (int) session.getAttribute("user_id");								
 				String sql1 = "select * from users_exams where user_id='" + user_id + "'and exam_id='" + exam_id + "'";
 				String sql2 = "INSERT INTO users_exams VALUES (?, ?,0,0,0)";
@@ -106,6 +90,7 @@ public class QuestionController extends HttpServlet {
 				try {
 					PreparedStatement stmt = DBConnection.prepare(sql1);
 					ResultSet rs = stmt.executeQuery();
+					System.out.print("Student");
 					if (!rs.next()) {
 						flag = 1;
 						PreparedStatement insertStatement = DBConnection.prepare(sql2);
@@ -114,45 +99,24 @@ public class QuestionController extends HttpServlet {
 						insertStatement.execute();
 					}
 					else {
-						flag = 0;
+						int status2= Integer.parseInt(rs.getString(4));
+						if (status2==1) {
+							flag = 0;
+						} else if(status2==0)  {
+						flag = 1;}
 					}
-					int status = 0;
 					PreparedStatement stm = DBConnection.prepare(sql3);
 					ResultSet result = stm.executeQuery();
 					if(result.next()) {
-						status = Integer.parseInt(rs.getString(3));
-					}
-					if (status==3) {
-						flag = 0;
+						status = Integer.parseInt(result.getString(3));
 					}
 				} catch (SQLException e) {
 
 					System.out.println(e.getMessage());
 				} 
-				    
-				
-				
-				
-				
-//					List<Question> questions = new ArrayList<>();
-//					String stm = "select * from questions where exam_id='" + exam_id + "'";
-//					try {
-//						PreparedStatement stmt = DBConnection.prepare(stm);
-//						ResultSet rs = stmt.executeQuery();
-//						while (rs.next()) {
-//							int id2 = Integer.parseInt(rs.getString(1));
-//							int type2 = Integer.parseInt(rs.getString(2));
-//							String title2 = rs.getString(3);
-//							String content2 = rs.getString(4);
-//							String answer2 = rs.getString(5);
-//							int mark2 = Integer.parseInt(rs.getString(6));
-//							int examId2 = Integer.parseInt(rs.getString(7));
-//							questions.add(new Question(id2, type2, title2, content2, answer2, mark2, examId2));
-//						}
-//					} catch (SQLException e) {
-//
-//						System.out.println(e.getMessage());
-//					}
+				if (status==3) {
+					flag = 0;
+				}
 					request.setAttribute("flag", flag);
 					List<Question> questions = examService.getAllQuestions(exam_id);
 					request.setAttribute("exam_id", exam_id);

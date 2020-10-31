@@ -230,6 +230,7 @@ session.removeAttribute("errMessageExam");
             
 	                 <%-- <a class="sel_btn" href="./updateExam?id=<%=exam.getId()%>&title=<%=exam.getTitle()%>&status=<%=exam.getStatus()%>&subject_code=<%=exam.getSubject()%>">Edit</a> --%>
 	                 <%-- <a class="sel_btn" href="./questions?exam_id=<%=exam.getId()%>">Edit Questions</a> --%>
+
 	                 <% if (flag!=1){ %>
 	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/questions">Exam Questions</a>
 	                 <% } else{ %>
@@ -237,15 +238,14 @@ session.removeAttribute("errMessageExam");
 	                 <%} %>
 	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/ViewAnswer">View submission detail </a>
 	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/ViewMark">View submission total mark</a>
-	                
-	                  <form  style="display: inline" name="delete" method="post" action="closeExam">
-	                 <input class = "sel_btn"  name="id" type="hidden" value=<%=exam.getId()%>>
-	                 <input class = "sel_btn"  type = "submit" value = "Delete" />
-	                 </form>
-	          
-	                 <form  style="display: inline" name="close" method="post" action="deleteExam">
+	                    <form  style="display: inline" name="close" method="post" action="deleteExam">
 	                 <input class = "sel_btn"  name="id" type="hidden" value=<%=exam.getId()%>>
 	                 <input class = "sel_btn"  type = "submit" value = "Close" />
+	                 </form>
+	                 
+	                   <form  style="display: inline" name="delete" method="post" action="closeExam">
+	                 <input class = "sel_btn"  name="id" type="hidden" value=<%=exam.getId()%>>
+	                 <input class = "sel_btn"  type = "submit" value = "Delete" />
 	                 </form>
 	                 </div>
 
