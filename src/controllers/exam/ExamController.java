@@ -145,7 +145,7 @@ public class ExamController extends HttpServlet {
 							int id = Integer.parseInt(rs.getString(1));
 							int mark = 0;
 							int flag = 1;
-							String sql = "select * from users_exams where user_id ='" + user_id + "' and exam_id='" + id
+							String sql = "select * from users_exams where status=1 and user_id ='" + user_id + "' and exam_id='" + id
 									+ "' limit 1";
 							PreparedStatement search = DBConnection.prepare(sql);
 							ResultSet rs1 = search.executeQuery();
@@ -202,6 +202,7 @@ public class ExamController extends HttpServlet {
 					String operation = pathParts[4];
 					request.setAttribute("exam_id", exam_id);
 					request.setAttribute("operation", operation);
+					request.setAttribute("subject_code", subjectCode);
 					request.getRequestDispatcher("/question").forward(request, response);
 				} else {
 					response.sendRedirect("/dashboard");

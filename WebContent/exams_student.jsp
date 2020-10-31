@@ -51,9 +51,21 @@
 session.removeAttribute("errMessageStudentTakeExam");
 
 %>
+
+<%
+String strError = (String)request.getSession(false).getAttribute("errMessageStudentTakeExamClosed");
+if (strError!=null){
+	out.println("<script type=\"text/javascript\">");  
+	out.println("alert('"+strError+"');");
+	out.println("</script>");
+}      
+%>
+<%
+session.removeAttribute("errMessageStudentTakeExamClosed");
+%>  
 </div>
  <div align="center">
-        <table  style="width:70%">
+        <table class="table table-bordered" style="width:70%">
             <tr>
                 <th>#Exam</th>
                 <th>Exam Title</th>

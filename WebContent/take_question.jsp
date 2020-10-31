@@ -44,7 +44,7 @@
 </head>
 <body>
 <div align="center">
-        <table  style="width:70%">
+        <table class="table table-bordered" style="width:70%">
             <tr>
                 <th>#Question</th>
                 <th>Question Title</th>

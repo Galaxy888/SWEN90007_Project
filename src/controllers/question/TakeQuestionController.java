@@ -67,6 +67,9 @@ public class TakeQuestionController extends HttpServlet {
 			if (rs.next()) {
 			 flag = 1 ;
 			 System.out.println("The exam is closed!!!!");
+//			 HttpSession session = request.getSession();
+				session.setAttribute("errMessageStudentTakeExamClosed", "The exam is closed!");
+				
 			}
 			
 		}catch (SQLException e) {
@@ -117,7 +120,8 @@ public class TakeQuestionController extends HttpServlet {
 
 //		  request.setAttribute("questions", questions);
 //	      request.getRequestDispatcher("./questions.jsp").forward(request, response);
-		response.sendRedirect("/dashboard");
+//		response.sendRedirect("/dashboard");
+		response.sendRedirect("./examSubmit");
 
 	}
 
