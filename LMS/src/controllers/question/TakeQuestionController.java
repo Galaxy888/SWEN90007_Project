@@ -60,15 +60,19 @@ public class TakeQuestionController extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		int user_id = (int) session.getAttribute("user_id");
 		int flag = 0;
-		String sql3 = "select * from users_exams where user_id='"+user_id+"' and exam_id='"+exam_id+"' limit 1";
+		int status = 0;
+		String sql3 = "select * from users_exams where user_id='"+user_id+"' and exam_id='"+exam_id+"'limit 1";
 		try {
 			PreparedStatement stmt3 = DBConnection.prepare(sql3);
 			ResultSet rs = stmt3.executeQuery();
 			if (rs.next()) {
+			 status = Integer.parseInt(rs.getString(4));
+			 if (status ==3) {
 			 flag = 1 ;
 			 System.out.println("The exam is closed!!!!");
 //			 HttpSession session = request.getSession();
 				session.setAttribute("errMessageStudentTakeExamClosed", "The exam is closed!");
+			 }
 				
 			}
 			
