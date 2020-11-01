@@ -271,6 +271,22 @@ textarea:disabled {
 	}); 
 	
 	
+	 function changeFunc($i) {
+		 var input = document.getElementsByClassName('note');
+		 if($i==1){
+			 
+			 input[0].type="hidden"
+			 input[1].type="hidden"
+			 
+		 }else if($i==2){
+			 input[0].type="text"
+			 input[1].type="text"
+			 
+		 }
+		    
+	 }
+	
+	
 	
 	
 	
@@ -408,10 +424,10 @@ session.removeAttribute("errMessageQuestion");
 						</div>
 					<div class="modal-body">
 						<div class="form-group">
-							<label for="firstname" class="col-sm-3 control-label">Question Type:</label>
+							<label for="firstname" class="col-sm-6 control-label">Question Type:</label>
 							<div class="col-sm-7">
 							<div >
-								<select name="type" id="type">
+								<select onchange="changeFunc(value);" name="type" id="type">
 									<option value="1">Short answer question</option>
 									<option value="2">Multiple-choice question</option>
 								</select>
@@ -419,15 +435,20 @@ session.removeAttribute("errMessageQuestion");
 							</div>
 							</div>
 										 <div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">Question Title:</label>
+											<label for="firstname" class="col-sm-6 control-label">Question Title:</label>
 												<div class="col-sm-7">
 													<input type="text" class="form-control" id="title" name="title"  placeholder="input new title">
 												<label class="control-label" for="updateTitle" style="display: none;"></label>
 												</div>
 										</div>
 										
+										<div>
+										<input  readOnly="true" class="note no-outline col-sm-10" type="hidden" style="color:red" value="Note: Please use # to separate each option.">
+										<input  readOnly="true" class="note no-outline col-sm-10" type="hidden" style="color:red" value="For example: Choice A # Choice B # Choice C"/>
+										</div>
 										<div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">Question Content:</label>
+										
+											<label for="firstname" class="col-sm-6 control-label">Question Content:</label>
 												<div class="col-sm-7">
 													<textarea type="text" class="form-control" id="content" name="content"  placeholder="input new content"></textarea>
 												<label class="control-label" for="content" style="display: none;"></label>
@@ -435,14 +456,14 @@ session.removeAttribute("errMessageQuestion");
 										</div>
 											
 										<div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">Question Answer:</label>
+											<label for="firstname" class="col-sm-8 control-label">Question Answer:</label>
 												<div class="col-sm-7">
 													<textarea type="text" class="form-control" id="answer" name="answer"  placeholder="input new answer"></textarea>
 												<label class="control-label" for="answer" style="display: none;"></label>
 												</div>
 										</div>
 										<div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">Question Mark:</label>
+											<label for="firstname" class="col-sm-6 control-label">Question Mark:</label>
 												<div class="col-sm-7">
 													<input type="number" class="form-control" id="mark" name="mark"  placeholder="input new mark" required>
 												<label class="control-label" for="mark" style="display: none;"></label>
