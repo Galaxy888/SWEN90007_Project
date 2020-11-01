@@ -16,7 +16,7 @@ if((request.getSession(false).getAttribute("userName")== null) )
 }
 
 %>
-
+<meta charset="ISO-8859-1">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
 	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
@@ -28,7 +28,7 @@ if((request.getSession(false).getAttribute("userName")== null) )
 </head>
 
 <style>
-table {
+/* table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
   width: 100%;
@@ -42,13 +42,27 @@ td, th {
 
 tr:nth-child(even) {
   background-color: #dddddd;
-}
+} */
 
-.row > div {
-  flex: 1;
+ .row > div {
+  flex: 1; 
 /*   background: lightgrey; */
   border-right: 1px solid black;
-}
+} 
+
+ .sel_btn{
+            height: 21px;
+            line-height: 21px;
+            padding: 0 11px;
+            background: #02bafa;
+            border: 1px #26bbdb solid;
+            border-radius: 3px;
+            color: #fff;
+            display: inline-block;
+            text-decoration: none;
+            font-size: 12px;
+            outline: none;
+        }
 </style>
   
 <meta charset="UTF-8">
@@ -58,7 +72,7 @@ tr:nth-child(even) {
 <div>Name: <%= request.getSession(false).getAttribute("userName")%></div>
 <div>Type: <%= request.getSession(false).getAttribute("userType")%></div>
     <div align="center">
-        <table  style="width:70%">
+        <table class="table table-bordered"  style="width:70%">
             <tr>
                 <th>Subject Code</th>
                 <th>Subject Name</th>
@@ -91,9 +105,9 @@ tr:nth-child(even) {
 	                 <%-- <a href="courses/<%=subject.getSubjectCode()%>/exams/<%= (String)request.getAttribute("user_type")%>">Check</a> --%>
 	                 <%if (Type.equals("Admin")){ 
 	                %>
-	                 <button type="button" class="btn btn-primary col-md-4 offset-md-4" data-toggle="modal" data-target="#studentListModal">
+<!-- 	                 <button type="button" class="btn btn-primary col-md-4 offset-md-4" data-toggle="modal" data-target="#studentListModal">
  Check Students 
-</button>
+</button> -->
 
     <div>
                  <form class="form-horizontal" method="post" action="">     
@@ -150,16 +164,28 @@ tr:nth-child(even) {
 	                 
 	                 
 	                 <%if (Type.equals("Admin")){ 
+	                	 
+	                %>
+	                <td>
+	                <% 
 	                	 for (User user:students){
 	                 %>
-	                    <td><%= user.getName() %></td>
+	                    <%= user.getName() %><br>
 	                 <% } 
+	                %>
+	                </td>
+	                <td>
+	                <% 
 	                   for(User user2: tutors){ %>
-	                     <td><%= user2.getName() %></td>
-	                     <% }
+	                     <%= user2.getName() %><br>
+	                     <% }%>
+	                
+	                </td>
+	                
+	                <%
 	                 }
 	                	 else { %>
-	                 <td><a href="courses/<%=subject.getSubjectCode()%>/exams">Check</a></td>
+	                 <td><a class="sel_btn" href="courses/<%=subject.getSubjectCode()%>/exams">Check</a></td>
 	                 <% } %>
 	                 
                 </tr>
@@ -174,7 +200,7 @@ tr:nth-child(even) {
 
     
     <div style="text-align: mid">
-<a href="<%=request.getContextPath()%>/logout">Logout</a></div>
+<a class="btn btn-dark" href="<%=request.getContextPath()%>/logout">Logout</a></div>
 
      <hr class="rounded">
   <hr class="rounded">
@@ -256,7 +282,7 @@ tr:nth-child(even) {
     
     
      <div align="center">
-      <table  style="width:70%">
+      <table class="table table-bordered"  style="width:70%">
             <tr>
                 <th>User Id</th>
                 <th>User Name</th>
