@@ -16,3 +16,15 @@ We include the following patterns in our design and implementation.\
   • Association table mapping\
   • Embedded value\
   • One of the inheritance patterns
+
+## Part 3
+SWEN90007 Part3 is the report for Part 3.\
+Concurrency: There are multiple scenarios that will give place to concurrency issues (some easier to manage that others):\
+• Multiple instructors can create exams for the same subject simultaneously.\
+• Multiple instructors can update the same exam simultaneously.\
+• Multiple instructors can enter marks for the same student cohort simultaneously (in the
+table view).\
+• Multiple instructors can enter marks for the same exam and the same student (in the
+detailed view) simultaneously.\
+
+Security: We implement the following security patterns: Authentication, Authorization, and Secure Pipe. 
