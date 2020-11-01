@@ -79,8 +79,10 @@
                     <%
                     String [] arr = question.getContent().split("#");
                     for(String ss : arr){
+                    	String s =ss;
+                    	s.replaceAll(" ", "");
                      %>
-                    <input type="radio" name="answer<%=question.getId() %>" value=<%=ss %>><%=ss %>
+                    <input maxlength=-1 type="radio" name="answer<%=question.getId() %>" value=<%=s %>><%=ss %>
                     <%
                     }
                     %>
@@ -97,7 +99,7 @@
         	     <tr>
         	     <% int flag = (int)request.getAttribute("flag");
         	     if(flag==1){ %>
-        	     <input class="sel_btn" type = "submit" value = "Submit" />
+        	    <td> <input class="sel_btn" type = "submit" value = "Submit" /> </td>
         	     <%} else{
         	    	 response.sendRedirect("./exams/done");
         	     }%>
