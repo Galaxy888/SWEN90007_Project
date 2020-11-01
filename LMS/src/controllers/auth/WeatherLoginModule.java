@@ -1,122 +1,122 @@
-package controllers.auth;
-
-
-import java.util.Map;
-import java.util.Set;
- 
-import javax.security.auth.Subject;
-import javax.security.auth.callback.Callback;
-import javax.security.auth.callback.CallbackHandler;
-import javax.security.auth.callback.NameCallback;
-import javax.security.auth.callback.UnsupportedCallbackException;
-import javax.security.auth.login.LoginException;
-import javax.security.auth.spi.LoginModule;
- 
-// ÒÔÏÂ´úÂëÕ¹Ê¾ÁËÒ»¸öLoginModule¼òµ¥µÄÊµÏÖ. Õâ¸öÀý×ÓÊÇ·Ç³£¼òµ¥µÄ£¬
-// ÒòÎªËû½ö½öÓÐÒ»¸öÈÏÖ¤×Ö·û´®ºÍÒ»¸öPrincipal£¨ÌØÕ÷£© "SunnyDay", Á½¸ö¶¼ÊÇÓ²±àÂë¡£
-// Èç¹ûÈ¥login£¬ÏµÍ³½«ÏÔÊ¾"What is the weather like today?", Èç¹û´ð°¸ÊÇ"Sunny", ÓÃ»§¾ÍÄÜÍ¨¹ý¡£
-public class WeatherLoginModule implements LoginModule
-{
-	private Subject subject;
-	private ExamplePrincipal entity;
-	private CallbackHandler callbackhandler;
-	private static final int NOT = 0;
-	private static final int OK = 1;
-	private static final int COMMIT = 2;
-	private int status;
- 
-	// initialize: Õâ¸ö·½·¨µÄÄ¿µÄ¾ÍÊÇÓÃÓÐ¹ØµÄÐÅÏ¢È¥ÊµÀý»¯Õâ¸öLoginModule¡£
-	// Èç¹ûlogin³É¹¦£¬ÔÚÕâ¸ö·½·¨ÀïµÄSubject¾Í±»ÓÃÔÚ´æ´¢PrincipalsºÍCredentials.  
-	// ×¢ÒâÕâ¸ö·½·¨ÓÐÒ»¸öÄÜ±»ÓÃ×÷ÊäÈëÈÏÖ¤ÐÅÏ¢µÄCallbackHandler¡£ÔÚÕâ¸öÀý×ÓÀï£¬ÎÒÃ»ÓÐÓÃCallbackHandler. 
-	// CallbackHandlerÊÇÓÐÓÃµÄ£¬ÒòÎªËü´Ó±»ÓÃ×÷ÌØ¶¨ÊäÈëÉè±¸Àï·ÖÀëÁË·þÎñÌá¹©Õß¡£
-	public void initialize(Subject subject, CallbackHandler
-			callbackhandler, Map state, Map options)
-	{
-		status = NOT;
-		entity = null;
-		this.subject = subject;
-		this.callbackhandler = callbackhandler;
-	}
- 
-	// login: ÇëÇóLoginModuleÈ¥ÈÏÖ¤Subject. ×¢Òâ´ËÊ±Principal»¹Ã»ÓÐ±»Ö¸¶¨¡£
-	public boolean login() throws LoginException
-	{
- 
-		if (callbackhandler == null)
-		{
-			throw new LoginException("No callback handler is available");
-		}
-		Callback callbacks[] = new Callback[1];
-		callbacks[0] = new NameCallback("What is the weather like today?");
-		String name = null;
-		try
-		{
-			// µ÷ÓÃ MyCallbackHandler.java ÖÐµÄ handle ·½·¨½øÐÐ´¦Àí
-			// ÒÔ¶ÁÈëÓÃ»§ÊäÈëµÄÈÏÖ¤ÐÅÏ¢£¨Èç username£©
-			callbackhandler.handle(callbacks); 
-			name = ((NameCallback) callbacks[0]).getName();
-		} catch (java.io.IOException ioe)
-		{
-			throw new LoginException(ioe.toString());
-		} catch (UnsupportedCallbackException ce)
-		{
-			throw new LoginException("Error: " + ce.getCallback().toString());
-		}
-		if (name.equals("Sunny"))
-		{
-			entity = new ExamplePrincipal("SunnyDay");
-			status = OK;
-			return true;
-		} else
-		{
-			return false;
-		}
-	}
- 
-	// commit: Èç¹ûLoginContextµÄÈÏÖ¤È«²¿³É¹¦¾Íµ÷ÓÃÕâ¸ö·½·¨¡£
-	public boolean commit() throws LoginException
-	{
-		if (status == NOT)
-		{
-			return false;
-		}
-		if (subject == null)
-		{
-			return false;
-		}
-		Set entities = subject.getPrincipals();
-		if (!entities.contains(entity))
-		{
-			entities.add(entity);
-		}
-		status = COMMIT;
-		return true;
-	}
-	
-	// abort: Í¨ÖªÆäËûLoginModule¹©Ó¦Õß»òLoginModuleÄ£ÐÍÈÏÖ¤ÒÑ¾­Ê§°ÜÁË¡£Õû¸ölogin½«Ê§°Ü¡£
-	public boolean abort() throws LoginException
-	{
-		if ((subject != null) && (entity != null))
-		{
-			Set entities = subject.getPrincipals();
-			if (entities.contains(entity))
-			{
-				entities.remove(entity);
-			}
-		}
-		subject = null;
-		entity = null;
-		status = NOT;
-		return true;
-	}
- 
-	// logout: Í¨¹ý´ÓSubjectÀïÒÆ³ýPrincipalsºÍCredentials×¢ÏúSubject¡£
-	public boolean logout() throws LoginException
-	{
-		subject.getPrincipals().remove(entity);
-		status = NOT;
-		subject = null;
-		return true;
-	}
- 
-}
+//package controllers.auth;
+//
+//
+//import java.util.Map;
+//import java.util.Set;
+// 
+//import javax.security.auth.Subject;
+//import javax.security.auth.callback.Callback;
+//import javax.security.auth.callback.CallbackHandler;
+//import javax.security.auth.callback.NameCallback;
+//import javax.security.auth.callback.UnsupportedCallbackException;
+//import javax.security.auth.login.LoginException;
+//import javax.security.auth.spi.LoginModule;
+// 
+//// ï¿½ï¿½ï¿½Â´ï¿½ï¿½ï¿½Õ¹Ê¾ï¿½ï¿½Ò»ï¿½ï¿½LoginModuleï¿½òµ¥µï¿½Êµï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·Ç³ï¿½ï¿½òµ¥µÄ£ï¿½
+//// ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Principalï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ "SunnyDay", ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó²ï¿½ï¿½ï¿½ë¡£
+//// ï¿½ï¿½ï¿½È¥loginï¿½ï¿½ÏµÍ³ï¿½ï¿½ï¿½ï¿½Ê¾"What is the weather like today?", ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"Sunny", ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½
+//public class WeatherLoginModule implements LoginModule
+//{
+//	private Subject subject;
+//	private ExamplePrincipal entity;
+//	private CallbackHandler callbackhandler;
+//	private static final int NOT = 0;
+//	private static final int OK = 1;
+//	private static final int COMMIT = 2;
+//	private int status;
+// 
+//	// initialize: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½Ä¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¹Øµï¿½ï¿½ï¿½Ï¢È¥Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½LoginModuleï¿½ï¿½
+//	// ï¿½ï¿½ï¿½loginï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Subjectï¿½Í±ï¿½ï¿½ï¿½ï¿½Ú´æ´¢Principalsï¿½ï¿½Credentials.  
+//	// ×¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ü±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½Ï¢ï¿½ï¿½CallbackHandlerï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï£¬ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½CallbackHandler. 
+//	// CallbackHandlerï¿½ï¿½ï¿½ï¿½ï¿½ÃµÄ£ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½Ó±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è±¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë·ï¿½ï¿½ï¿½ï¿½á¹©ï¿½ß¡ï¿½
+//	public void initialize(Subject subject, CallbackHandler
+//			callbackhandler, Map state, Map options)
+//	{
+//		status = NOT;
+//		entity = null;
+//		this.subject = subject;
+//		this.callbackhandler = callbackhandler;
+//	}
+// 
+//	// login: ï¿½ï¿½ï¿½ï¿½LoginModuleÈ¥ï¿½ï¿½Ö¤Subject. ×¢ï¿½ï¿½ï¿½Ê±Principalï¿½ï¿½Ã»ï¿½Ð±ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½
+//	public boolean login() throws LoginException
+//	{
+// 
+//		if (callbackhandler == null)
+//		{
+//			throw new LoginException("No callback handler is available");
+//		}
+//		Callback callbacks[] = new Callback[1];
+//		callbacks[0] = new NameCallback("What is the weather like today?");
+//		String name = null;
+//		try
+//		{
+//			// ï¿½ï¿½ï¿½ï¿½ MyCallbackHandler.java ï¿½Ðµï¿½ handle ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½
+//			// ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ usernameï¿½ï¿½
+//			callbackhandler.handle(callbacks); 
+//			name = ((NameCallback) callbacks[0]).getName();
+//		} catch (java.io.IOException ioe)
+//		{
+//			throw new LoginException(ioe.toString());
+//		} catch (UnsupportedCallbackException ce)
+//		{
+//			throw new LoginException("Error: " + ce.getCallback().toString());
+//		}
+//		if (name.equals("Sunny"))
+//		{
+//			entity = new ExamplePrincipal("SunnyDay");
+//			status = OK;
+//			return true;
+//		} else
+//		{
+//			return false;
+//		}
+//	}
+// 
+//	// commit: ï¿½ï¿½ï¿½LoginContextï¿½ï¿½ï¿½ï¿½Ö¤È«ï¿½ï¿½ï¿½É¹ï¿½ï¿½Íµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//	public boolean commit() throws LoginException
+//	{
+//		if (status == NOT)
+//		{
+//			return false;
+//		}
+//		if (subject == null)
+//		{
+//			return false;
+//		}
+//		Set entities = subject.getPrincipals();
+//		if (!entities.contains(entity))
+//		{
+//			entities.add(entity);
+//		}
+//		status = COMMIT;
+//		return true;
+//	}
+//	
+//	// abort: Í¨Öªï¿½ï¿½ï¿½ï¿½LoginModuleï¿½ï¿½Ó¦ï¿½ß»ï¿½LoginModuleÄ£ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½Ñ¾ï¿½Ê§ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½loginï¿½ï¿½Ê§ï¿½Ü¡ï¿½
+//	public boolean abort() throws LoginException
+//	{
+//		if ((subject != null) && (entity != null))
+//		{
+//			Set entities = subject.getPrincipals();
+//			if (entities.contains(entity))
+//			{
+//				entities.remove(entity);
+//			}
+//		}
+//		subject = null;
+//		entity = null;
+//		status = NOT;
+//		return true;
+//	}
+// 
+//	// logout: Í¨ï¿½ï¿½ï¿½ï¿½Subjectï¿½ï¿½ï¿½Æ³ï¿½Principalsï¿½ï¿½Credentials×¢ï¿½ï¿½Subjectï¿½ï¿½
+//	public boolean logout() throws LoginException
+//	{
+//		subject.getPrincipals().remove(entity);
+//		status = NOT;
+//		subject = null;
+//		return true;
+//	}
+// 
+//}
