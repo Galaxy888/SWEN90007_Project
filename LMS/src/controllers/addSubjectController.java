@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import datasource.DBConnection;
 import domain.Exam;
@@ -45,13 +46,44 @@ public class addSubjectController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+//		String code = request.getParameter("code");
+//		String name = request.getParameter("name");
+//		Subject subject = new Subject(code, name);
+//		subject.insert();
+//		
+//		response.sendRedirect("/dashboard");
+		
 		String code = request.getParameter("code");
-		String name = request.getParameter("name");
-		Subject subject = new Subject(code, name);
-		subject.insert();
-		
-		response.sendRedirect("/dashboard");
-		
+		  String name = request.getParameter("name");
+		  boolean success = false;
+		  boolean flag = true;
+		  String sql = "select * from subjects";
+		  try {
+		   PreparedStatement stmt = DBConnection.prepare(sql);
+		   ResultSet rs = stmt.executeQuery();
+		   while (rs.next()) {
+		    String subject_code = rs.getString(1);
+		    if(code.equals(subject_code)) {
+		     flag = false;
+		    }
+		   }
+		   
+		  }catch (SQLException e) {
+		   System.out.println(e);
+		  }
+		  
+		  if (flag) {
+		  Subject subject = new Subject(code, name);
+		  subject.insert();
+		  response.sendRedirect("./dashboard");	
+		  }else {
+			   HttpSession session = request.getSession(); 
+			   session.setAttribute("errMessageExam", "The subject code is already exist");
+			   response.sendRedirect("./dashboard");
+		   
+		  }
+		  
+		 
 
 	}
 
