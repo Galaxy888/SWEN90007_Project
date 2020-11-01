@@ -258,7 +258,7 @@ tr:nth-child(even) {
          
          
          	<div class="text-center">
-			<p class="text-center h1 mb-4">Log in</p>
+			<!-- <p class="text-center h1 mb-4">Log in</p> -->
 			<span class="center-block" style="color: red"><%=(request.getSession(false).getAttribute("errMessageExam") == null) ? ""
 		: request.getSession(false).getAttribute("errMessageExam")%></span>
 			<%

@@ -126,30 +126,74 @@ public class QuestionController extends HttpServlet {
 			}
 
 		} else if (operation.equals("addQuestion")) {
+			if (userType.equals("Instructor")){
 			request.getRequestDispatcher("/addQuestion").forward(request, response);
+			}else {
+				response.sendRedirect("/errorAuth.jsp");
+			}
 
 		} else if (operation.equals("updateQuestion")) {
+			if (userType.equals("Instructor")){
 			request.getRequestDispatcher("/updateQuestion").forward(request, response);
+			}else {
+				response.sendRedirect("/errorAuth.jsp");
+			}
 		} else if (operation.equals("deleteQuestion")) {
+			if (userType.equals("Instructor")){
 			request.getRequestDispatcher("/deleteQuestion").forward(request, response);
+			}else {
+				response.sendRedirect("/errorAuth.jsp");
+			}
 		} else if (operation.equals("TakeQuestion")) {
+			if (userType.equals("Student")){
 			request.getRequestDispatcher("/TakeQuestion").forward(request, response);
+			}else {
+				response.sendRedirect("/errorAuth.jsp");
+			}
 		} else if (operation.equals("exams")) {
 			request.getRequestDispatcher("/exams").forward(request, response);
 		} else if (operation.equals("ViewAnswer")) {
+			if (userType.equals("Instructor")){
 			request.getRequestDispatcher("/ViewAnswer").forward(request, response);
+			}else {
+				response.sendRedirect("/errorAuth.jsp");
+			}
 		} else if (operation.equals("markAnswerEdit")) {
+			if (userType.equals("Instructor")){
 			request.getRequestDispatcher("/markAnswerEdit").forward(request, response);
+			}else {
+				response.sendRedirect("/errorAuth.jsp");
+			}
 		} else if (operation.equals("markAnswer")) {
+			if (userType.equals("Instructor")){
 			request.getRequestDispatcher("/markAnswer").forward(request, response);
+			}else {
+				response.sendRedirect("/errorAuth.jsp");
+			}
 		} else if (operation.equals("ViewMark")) {
+			if (userType.equals("Instructor")){
 			request.getRequestDispatcher("/ViewMark").forward(request, response);
+			}else {
+				response.sendRedirect("/errorAuth.jsp");
+			}
 		} else if (operation.equals("updateResult")) {
+			if (userType.equals("Instructor")){
 			request.getRequestDispatcher("/updateResult").forward(request, response);
+			}else {
+				response.sendRedirect("/errorAuth.jsp");
+			}
 		} else if (operation.equals("addQuestions")) {
+			if (userType.equals("Instructor")){
 			request.getRequestDispatcher("/addQuestionController2").forward(request, response);
+			}else {
+				response.sendRedirect("/errorAuth.jsp");
+			}
 		} else if (operation.equals("editQuestion")) {
+			if (userType.equals("Instructor")){
 			request.getRequestDispatcher("/editQuestionController").forward(request, response);
+			}else {
+				response.sendRedirect("/errorAuth.jsp");
+			}
 		}
 		
 		

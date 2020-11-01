@@ -226,8 +226,8 @@ session.removeAttribute("errMessageExam");
 	                 <% } else{ %>
 	                 <a class="sel_btn" >Cannot be updated</a>
 	                 <%} %>
-	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/ViewAnswer">View submission detail </a>
-	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/ViewMark">View submission total mark</a>
+	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/ViewAnswer">Mark detail view</a>
+	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/ViewMark">Mark table view</a>
 	                    <form  style="display: inline" name="close" method="post" action="deleteExam">
 	                 <input class = "sel_btn"  name="id" type="hidden" value=<%=exam.getId()%>>
 	                 <input class = "sel_btn"  type = "submit" value = "Close" />
