@@ -50,7 +50,7 @@ public class assignUserController extends HttpServlet {
 		}else {
 			System.out.println("11111111");
 			HttpSession session = request.getSession(); 
-			session.setAttribute("errMessageExam", "something went wrong.");
+			session.setAttribute("errMessageExam", "Invalid User id or Subject code.");
 			response.sendRedirect("./dashboard");
 
 		}

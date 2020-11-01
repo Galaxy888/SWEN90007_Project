@@ -106,7 +106,7 @@ session.removeAttribute("errMessageResult");
 											<div class="modal-content">
 												<div class="modal-header">
 													<h4 class="modal-title" id="updateModalLabel">
-														Update result info
+														Update Final Mark
 													</h4>
 												</div>
 												<div class="modal-body">
@@ -115,9 +115,10 @@ session.removeAttribute("errMessageResult");
 										<input type="hidden" class="form-control" id="updateEId" name="exam_id"  placeholder="input new title">
 										
 										<div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">mark</label>
+											<label for="firstname" class="col-sm-3 control-label">Final Mark</label>
 												<div class="col-sm-7">
-													<input type="number" class="form-control" id="updateMark" name="mark"  placeholder="input new status">
+													<input type="number" class="form-control"  maxlength="4" min="0" max=<%=request.getAttribute("total_mark")%> style="width:80px" id="updateMark" name="mark" >/ <%=request.getAttribute("total_mark") %>
+												
 												<label class="control-label" for="updateMark" style="display: none;"></label>
 												</div>
 										</div>

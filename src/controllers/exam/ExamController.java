@@ -131,7 +131,7 @@ public class ExamController extends HttpServlet {
 
 				if (operation.equals("exams")) {
                
-					String stm = "select * from exams where subject_code='" + subjectCode + "' and status != 0";
+					String stm = "select * from exams where subject_code='" + subjectCode + "' and status > 0";
 					List<Exam> exams = new ArrayList<>();
 					try {
 						PreparedStatement stmt = DBConnection.prepare(stm);
