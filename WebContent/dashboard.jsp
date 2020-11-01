@@ -203,19 +203,7 @@ tr:nth-child(even) {
 <a class="btn btn-dark" href="<%=request.getContextPath()%>/logout">Logout</a></div>
 
      <hr class="rounded">
-  <hr class="rounded">
-   <%if (Type.equals("Admin")){ %>
-   
-   
-   
- <div class="container">
-  <div class="row">
-    <div class="col-sm">
-    
-    <form  class="border border-light"
-    name="addSubject" action="addSubject" method="post">
-    
-                   	<div class="text-center">
+                         	<div class="text-center">
 			<!-- <p class="text-center h1 mb-4">Log in</p> -->
 			<span class="center-block" style="color: red"><%=(request.getSession(false).getAttribute("errMessageExam") == null) ? ""
 		: request.getSession(false).getAttribute("errMessageExam")%></span>
@@ -224,6 +212,20 @@ session.removeAttribute("errMessageExam");
 
 %>
 		</div>
+  <hr class="rounded">
+   <%if (Type.equals("Admin")){ %>
+   
+   
+   
+ <div class="container">
+
+  <div class="row">
+    <div class="col-sm">
+    
+    <form  class="border border-light"
+    name="addSubject" action="addSubject" method="post">
+    
+
     		<div class="form-group">
 			<label> Subject code:&nbsp;&nbsp;</label> 
 			<input type="text" name="code" required>
@@ -242,15 +244,6 @@ session.removeAttribute("errMessageExam");
       <form class="border border-light"
       name="addUser" action="addUser" method="post">
       
-               	<div class="text-center">
-			<!-- <p class="text-center h1 mb-4">Log in</p> -->
-			<span class="center-block" style="color: red"><%=(request.getSession(false).getAttribute("errMessageExam") == null) ? ""
-		: request.getSession(false).getAttribute("errMessageExam")%></span>
-			<%
-session.removeAttribute("errMessageExam");
-
-%>
-		</div>
       
       
       
@@ -280,15 +273,7 @@ session.removeAttribute("errMessageExam");
          name="assignUser" action="assignUser" method="post">
          
          
-         	<div class="text-center">
-			<!-- <p class="text-center h1 mb-4">Log in</p> -->
-			<span class="center-block" style="color: red"><%=(request.getSession(false).getAttribute("errMessageExam") == null) ? ""
-		: request.getSession(false).getAttribute("errMessageExam")%></span>
-			<%
-session.removeAttribute("errMessageExam");
 
-%>
-		</div>
 		
                    		<div class="form-group">
 			<label>User id:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> 
