@@ -79,8 +79,10 @@
                     <%
                     String [] arr = question.getContent().split("#");
                     for(String ss : arr){
+                    	String s =ss;
+                    	s.replaceAll(" ", "");
                      %>
-                    <input type="radio" name="answer<%=question.getId() %>" value=<%=ss %>><%=ss %>
+                    <input maxlength=-1 type="radio" name="answer<%=question.getId() %>" value=<%=s %>><%=ss %>
                     <%
                     }
                     %>
