@@ -29,7 +29,6 @@ public class Question extends DomainObject implements Comparable<Question>{
 		this.answer = answer;
 		this.mark = mark;
 		this.exam_id = exam_id;
-//		this.version = version;
 		this.allAnswers = null;
 	}
 
@@ -52,15 +51,6 @@ public class Question extends DomainObject implements Comparable<Question>{
 	public void setModifiedBy(String modifiedBy) {
 		this.modifiedBy = modifiedBy;
 	}
-
-//	public int getVersion() {
-//		return version;
-//	}
-//
-//	public void setVersion(int version) {
-//		this.version = version;
-//	}
-
 	public int getId() {
 		return id;
 	}

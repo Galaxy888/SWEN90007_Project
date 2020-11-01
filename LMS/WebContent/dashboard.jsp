@@ -190,14 +190,14 @@ tr:nth-child(even) {
     name="addSubject" action="addSubject" method="post">
     		<div class="form-group">
 			<label> Subject code:&nbsp;&nbsp;</label> 
-			<input type="text" name="code">
+			<input type="text" name="code" required>
 		</div>
 		    		<div class="form-group">
 			<label> Subject Name: </label> 
-			<input type="text" name="name">
+			<input type="text" name="name" required>
 		</div>
 		 <div align="center">
-         <input type = "submit" value = "Add New Subject" />
+         <input type = "submit" value = "Add New Subject" required>
          </div>
       </form>
   
@@ -207,11 +207,11 @@ tr:nth-child(even) {
       name="addUser" action="addUser" method="post">
           		<div class="form-group">
 			<label>User name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> 
-			<input type="text" name="name">
+			<input type="text" name="name" required>
 		</div>
 		    		<div class="form-group">
 			<label>User Password:</label> 
-			<input type="text" name="password">
+			<input type="text" name="password" required>
 		</div>
 		
 		<div class="form-group">
@@ -220,11 +220,9 @@ tr:nth-child(even) {
 		<option value="2">Instructor</option>
 		<option value="3">Student</option>
 		</select>  
-			</div>
-         <!-- <input type = "text" name="type"> -->
-       
+			</div>       
 		 <div align="center">
-         <input type = "submit" value = "Add New User" />
+         <input type = "submit" value = "Add New User" required>
          </div>
       </form>
     </div>
@@ -233,73 +231,20 @@ tr:nth-child(even) {
          name="assignUser" action="assignUser" method="post">
                    		<div class="form-group">
 			<label>User id:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> 
-			<input type=number name="id">
+			<input type=number name="id" required>
 		</div>
 		          		<div class="form-group">
 			<label>Subject code:</label> 
-			<input type="text" name="code">
+			<input type="text" name="code" required>
 		</div>
 		 <div align="center">
-         <input type = "submit" value = "Assign User" />
+         <input type = "submit" value = "Assign User" required >
          </div>
       </form>
 
   </div>
 </div>
    
-   
-
-   
-   
-   
-   
-   
-<!--     <div align="center">
-    
-    <form name="addSubject" action="addSubject" method="post">
-         code : <input type = "text" name = "code">
-         <br />
-         name: <input type = "text" name = "name">
-         <br />
-         Instructor id:<input type = "text" name="id">
-         <br />
-         <input type = "submit" value = "Add New Subject" />
-      </form>
-    
-    </div>
-    <div align="center">
-     <hr class="rounded">
-  <hr class="rounded">
-    <form name="addUser" action="addUser" method="post">
-         name: <input type = "text" name = "name">
-         <br />
-         email:<input type = "text" name="email">
-         <br />
-         password:<input type = "text" name="password">
-         <br />
-         type:
-         <input type = "text" name="type">
-		<select name="type" id="type">
-		<option value="2">Instructor</option>
-		<option value="3">Student</option>
-		</select>         
-         <br />
-         <input type = "submit" value = "Add New User" />
-      </form>
-     <hr class="rounded">
-  <hr class="rounded">
-
-
-    <form name="assignUser" action="assignUser" method="post">
-         user id: <input type = "text" name = "id">
-         <br />
-         subject code: <input type = "text" name = "code">
-          <br />
-         <input type = "submit" value = "Assign User" />
-      </form>
-     <hr class="rounded">
-  <hr class="rounded">
- -->
     </div>
     
           <hr class="rounded">
