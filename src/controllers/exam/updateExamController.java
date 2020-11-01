@@ -58,9 +58,6 @@ public class updateExamController extends HttpServlet {
 		int status = Integer.parseInt(request.getParameter("status"));
 		String subject = request.getParameter("subject");
 		System.out.println(id+title+status+subject);
-//		int version = Integer.parseInt(request.getParameter("version"));
-//		System.out.println("Version");
-//		System.out.println(version);
 		
 		
 		int oldStatus = examService.getExamStatus(id);
@@ -68,10 +65,7 @@ public class updateExamController extends HttpServlet {
 		
 		
 		if(status==0&&oldStatus==0) {
-			System.out.println("httpSession.getId() 1: "+httpSession.getId());
-//			LockManagerEX.getInstance().acquireLock(id, httpSession.getId());
-			
-			
+			System.out.println("httpSession.getId() 1: "+httpSession.getId());	
 			Boolean success = examService.updateExam(id, title, 0, subject);
 			System.out.println("update exam doPost success: " + success);
 			if (success) {

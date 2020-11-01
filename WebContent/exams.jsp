@@ -202,7 +202,6 @@ session.removeAttribute("errMessageExam");
     					} catch (SQLException e) {
     					}
        		 %>
-<%--        		        <td><%= exam.getId() %></td> --%>
                     <td><%= i=i+1 %>
                     <td><%= exam.getTitle() %></td>
                     <td><%= exam.getStatus()==0 ? "unpublished":"published" %>
@@ -212,24 +211,15 @@ session.removeAttribute("errMessageExam");
                     onclick="showInfo2('<%= exam.getId() %>','<%= exam.getTitle() %>','<%= exam.getStatus() %>')">
                     Update Exam Title</button>
                     
-                <%--     <button onclick="test('<%= exam.getId() %>')" type="button" class="sel_btn" id="btn_test" >test</button>
-                   <a class="sel_btn" href="./updateEditExam">test2</a> --%>
                 
                      <form  style="display: inline"  name="publish" method="post" action="updateExam">
 	                 <input class = "sel_btn"  name="id" type="hidden" value=<%=exam.getId()%>>
 	                 <input class = "sel_btn"  name="title" type="hidden" value=<%=exam.getTitle()%>>
 	                  <input class = "sel_btn"  name="status" type="hidden" value="1">
 	                  <input type = "hidden" value="<%= (String)request.getAttribute("subject_code")%>" name = "subject" />
-	                  <%-- <input class = "sel_btn"  name="version" type="hidden" value=<%=exam.getVersion()%>> --%>
 	                 <input class = "sel_btn"  type = "submit" value = "Publish" />
 	                 </form>
 	                 
-	                <%--  <a class="sel_btn" href="exams/<%=exam.getId()%>/addQuestions">Add Questions</a>
-	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/updateQuestions">Update Questions</a> --%>
-                    
-            
-	                 <%-- <a class="sel_btn" href="./updateExam?id=<%=exam.getId()%>&title=<%=exam.getTitle()%>&status=<%=exam.getStatus()%>&subject_code=<%=exam.getSubject()%>">Edit</a> --%>
-	                 <%-- <a class="sel_btn" href="./questions?exam_id=<%=exam.getId()%>">Edit Questions</a> --%>
 
 	                 <% if (flag!=1){ %>
 	                 <a class="sel_btn" href="exams/<%=exam.getId()%>/questions">Exam Questions</a>
@@ -272,16 +262,6 @@ session.removeAttribute("errMessageExam");
 													</h4>
 												</div>
 												<div class="modal-body">
-												
-										<!---------------------form-------------------->
-										
-<!-- 									<div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">Exam Id:</label>
-												<div class="col-sm-7">
-													<input type="number" class="form-control" id="updateId" name="id"  placeholder="exam id" required>
-												<label class="control-label" for="updateId" style="display: none;"></label>
-												</div>
-										</div> -->
 										
 										<input type = "hidden" id="updateId" name="id" />
 										
@@ -293,17 +273,6 @@ session.removeAttribute("errMessageExam");
 												</div>
 										</div>
 										
-										<!-- <div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">Exam Status:</label>
-												<div class="col-sm-7">
-														<select name="status" id="status">
-														<option value="0">unpublished</option>
-														<option value="1">published</option>
-														</select>
-													<input type="text" class="form-control" id="updateStatus" name="status"  placeholder="input new status">
-												<label class="control-label" for="updateStatus" style="display: none;"></label>
-												</div>
-										</div> -->
 										
 										<input type = "hidden" value="<%= (String)request.getAttribute("subject_code")%>" name = "subject" />
 										<input type = "hidden" id="updateVersion" name="version" />	
@@ -327,15 +296,6 @@ session.removeAttribute("errMessageExam");
       <hr class="rounded">
   <hr class="rounded">
   
-
- <!--    <div align="center"> -->
-<%-- <div class="text-center">
- <span style="color:red"><%=(request.getSession(false).getAttribute("errMessageExam") == null) ? "" : request.getSession(false).getAttribute("errMessageExam")%></span>
- <%
-session.removeAttribute("errMessageExam");
-s
-%>
-</div> --%>
 
 		<form class="border border-light p-5 col-md-4 offset-md-4" name="AddExamController" action="addExam" method="post">
 		
@@ -384,70 +344,7 @@ s
 											</div><!-- /.modal-content -->
 										</div><!-- /.modal -->
 									</div>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-<!-- 			<div class="form-group row">
-				<label class="col-md-4">Exam Title:</label> 
-				<div >
-				<input type="text" name="title" class="form-control" required>
-				</div>
-			</div>
-			
-			<div class="form-group row">
-				<label class="col-md-4">Exam Status:</label> 
-				<div >
-						<select name="status" id="status">
-				<option value="0">0</option>
-				<option value="1">1</option>
-			</select> 
-				</div>
-			</div> -->
-			
-			
-			
-			
-			
-			
-			
-<!-- 			<div class="form-group">
-				<label>Title:</label> <input type="text" name="id" class="form-control">
-			</div> -->
-			
-<!-- 			Exam Id : <input type="text" name="id"> <br /> 
-			Title: <input type="text" name="title"> <br /> 
-			<label for="status">Status:</label>
-			<input type = "text" name="status">
-			<select name="status" id="status">
-				<option value="0">0</option>
-				<option value="1">1</option>
-			</select> <br /> -->
-
-
-			<!--  subject_code:  -->
-<%-- 			<input type="hidden"
-				value="<%=(String) request.getAttribute("subject_code")%>"
-				name="subject_code" /> <br /> 
-				
-			<input class="btn btn-primary col-md-6  offset-md-2" type="submit"
-				value="Add New Exam" /> --%>
 		</form>
 
-<!-- 	</div> -->
 </body>
 </html>
