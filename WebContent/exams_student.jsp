@@ -97,7 +97,11 @@ session.removeAttribute("errMessageStudentTakeExamClosed");
 	               <a class="sel_btn" href="exams/<%=exam.getId()%>/questions">Take Exam</a>
 	                <%--  <td><%=request.getAttribute("mark"+exam.getId())%></td> --%>
 	                 <% 
-	                  } 
+	                  } else{
+	                	  %>
+	                	  Exam is closed
+	                <% 
+	                  }
 	                 if (flag==1){ %>
 	                 <td>Unfinished</td>
 	                 <%  }else { %>
