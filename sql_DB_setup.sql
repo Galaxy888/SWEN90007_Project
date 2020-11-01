@@ -85,7 +85,7 @@ CREATE TABLE users_questions (
   user_id    INT REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE, 
   question_id    INT REFERENCES questions (id) ON UPDATE CASCADE, 
   exam_id INT REFERENCES exams (id) ON UPDATE CASCADE, 
-  answer VARCHAR(20),
+  answer VARCHAR(50),
   mark INT,
   status     INT, 
   version INT,
