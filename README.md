@@ -25,6 +25,6 @@ Concurrency: There are multiple scenarios that will give place to concurrency is
 • Multiple instructors can enter marks for the same student cohort simultaneously (in the
 table view).\
 • Multiple instructors can enter marks for the same exam and the same student (in the
-detailed view) simultaneously.\
+detailed view) simultaneously.
 
 Security: We implement the following security patterns: Authentication, Authorization, and Secure Pipe. 
