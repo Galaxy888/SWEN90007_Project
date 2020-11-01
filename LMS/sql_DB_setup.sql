@@ -106,7 +106,7 @@ VALUES (1, 'Admin','123',1);
 --INSERT INTO users
 --VALUES (001, 'Instructor', '','Instructor',1);
 INSERT INTO users
-VALUES (2, 'Tutor', '123',2);
+VALUES (2, 'Instructor', '123',2);
 
 INSERT INTO users
 VALUES (3, 'Instructor2', '123',2);
