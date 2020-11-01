@@ -97,7 +97,7 @@
         	     <tr>
         	     <% int flag = (int)request.getAttribute("flag");
         	     if(flag==1){ %>
-        	     <input class="sel_btn" type = "submit" value = "Submit" />
+        	    <td> <input class="sel_btn" type = "submit" value = "Submit" /> </td>
         	     <%} else{
         	    	 response.sendRedirect("./exams/done");
         	     }%>
