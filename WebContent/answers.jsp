@@ -214,16 +214,7 @@ session.removeAttribute("errMessageMark");
            			
            			 Question question = new Question();
            			 id = answer.getQuestion_id();
-           			 String sql = "select * from questions where id = '"+ id+"' limit 1";
-       				 String sql2 = "select version from users_questions where user_id = '"+ answer.getUser_id()+"' and question_id = '"+answer.getQuestion_id()+"'";
-           			 
-           			PreparedStatement stmt2 = DBConnection.prepare(sql2);
-       				ResultSet rs2 = stmt2.executeQuery();
-       				int markVersion=0;
-       				if(rs2.next()){
-       					markVersion = Integer.parseInt(rs2.getString(1));
-       				}
-           			 
+           			 String sql = "select * from questions where id = '"+ id+"' limit 1"; 
            			 try{
            				PreparedStatement stmt = DBConnection.prepare(sql);
            				ResultSet rs = stmt.executeQuery();
@@ -235,8 +226,7 @@ session.removeAttribute("errMessageMark");
            					String q_answer = rs.getString(5);
            					int mark = Integer.parseInt(rs.getString(6));
            					int examId = Integer.parseInt(rs.getString(7));
-           					int version = Integer.parseInt(rs.getString(10));
-           					question = new Question(q_id,type,title,content,q_answer,mark,examId,version);
+           					question = new Question(q_id,type,title,content,q_answer,mark,examId);
            				}
            			 } catch (SQLException e) {
            				 
