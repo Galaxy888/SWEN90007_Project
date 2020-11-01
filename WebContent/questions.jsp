@@ -373,7 +373,7 @@ session.removeAttribute("errMessageQuestion");
 					<input id="<%=i%>type2" name="<%=i%>type" readOnly="true" class="no-outline" style="width:130px" value=<%= (question.getType()==1) ? "Short-answer question": "Multiple-choice question" %>>
 					
 					</td>
-					<td><input id="<%=i%>title"  name="<%=i%>title" type="text" class="editable" disabled="disabled"readonly=true  value=<%=question.getTitle()%>></td>
+					<td><textarea id="<%=i%>title"  name="<%=i%>title" type="text" class="editable" disabled="disabled"readonly=true  value=<%=question.getTitle()%>><%=question.getTitle()%></textarea></td>
                     <td><textarea id="<%=i%>content" name="<%=i%>content" type="text" class="editable" disabled="disabled"readonly=true value=<%=question.getContent()%>><%=question.getContent()%></textarea></td>
                     
                     <td><textarea id="<%=i%>answer" name="<%=i%>answer" type="text" class="editable" disabled="disabled"readonly=true  value=<%=question.getAnswer()%>><%=question.getAnswer()%></textarea></td>
