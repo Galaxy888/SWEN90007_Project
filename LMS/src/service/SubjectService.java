@@ -19,12 +19,6 @@ public class SubjectService {
 		return subject.getAllExams();
 	}
      
-//	public Map<Integer, List<Exam>> getAllStudentExams(String subjectCode) {
-//		Subject subject = new Subject();
-//		subject.setSubjectCode(subjectCode);
-//		System.out.println("SubjectService.java: "+subject.getSubjectCode());
-//		return subject.getAllStudentExams();
-//	}
 	
 	
 

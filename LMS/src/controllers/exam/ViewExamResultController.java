@@ -53,24 +53,33 @@ public class ViewExamResultController extends HttpServlet {
 		System.out.println("View Exam results");
 		int exam_id = Integer.parseInt((String) request.getAttribute("exam_id"));
 		String subject_code = (String) request.getAttribute("subject_code");
+		int total_mark = 0;
+		String sql = "select * from questions where exam_id = '"+exam_id+"'";
+		try {
+			PreparedStatement stmt = DBConnection.prepare(sql);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+		      int mark = Integer.parseInt(rs.getString(6));
+		      total_mark += mark;
+			}
+			
+		}catch (SQLException e) {
+
+			System.out.println(e.getMessage());
+		}
+		System.out.print("total mark is: 111"+total_mark);
 		
-//		List<Mark> marks = new ArrayList<>();
-//		marks = new Mark().getAllMark(exam_id);
-//		request.setAttribute("marks",marks);
-//		request.getRequestDispatcher("./exam_result.jsp").forward(request, response);
 		
 		List<Mark> marks = examService.getAllMarks(exam_id);
 		Collections.sort(marks);
 		System.out.println("View Exam Result doPost success: "+marks);
 		if (marks!=null) {
 			request.setAttribute("marks",marks);
+			request.setAttribute("total_mark", total_mark);
 			request.setAttribute("subject_code",subject_code);
 			request.getRequestDispatcher("./exam_result.jsp").forward(request, response);
 		}else {
-//			HttpSession session = request.getSession(); 
-//			session.setAttribute("errMessageQuestion", "something went wrong. update result error");
-//			response.sendRedirect("./ViewMark");
-//			request.getRequestDispatcher("./exam_result.jsp").forward(request, response);
+
 			response.sendRedirect("/dashboard");
 		}
 	}

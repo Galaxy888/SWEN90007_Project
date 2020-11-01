@@ -90,7 +90,6 @@ public class ExamController extends HttpServlet {
 				} else if (operation.equals("updateEditExam")) {
 					request.getRequestDispatcher("/updateEditExam").forward(request, response);
 				}else if (operation.equals("updateExam")) {
-					System.out.println("VVVVVVVVVVVV");
 					System.out.println(request.getParameter("title"));
 					System.out.println(request.getParameter("version"));
 					request.getRequestDispatcher("/updateExam").forward(request, response);
@@ -116,11 +115,7 @@ public class ExamController extends HttpServlet {
 					request.setAttribute("operation", operation);
 					request.getRequestDispatcher("/ViewAnswer").forward(request, response);
 				} else if (pathParts[4].equals("markExamDone")){
-					//TODO
-//					HttpSession session = request.getSession(); 
-//					session.setAttribute("errMessageStudentTakeExam", "You have already submit the exam");
-					response.sendRedirect("/courses/"+subjectCode+"/exams");
-					
+					response.sendRedirect("/courses/"+subjectCode+"/exams");	
 				}else {
 					response.sendRedirect("/dashboard");
 				}
@@ -136,7 +131,7 @@ public class ExamController extends HttpServlet {
 
 				if (operation.equals("exams")) {
                
-					String stm = "select * from exams where subject_code='" + subjectCode + "'";
+					String stm = "select * from exams where subject_code='" + subjectCode + "' and status != 0";
 					List<Exam> exams = new ArrayList<>();
 					try {
 						PreparedStatement stmt = DBConnection.prepare(stm);
@@ -165,10 +160,6 @@ public class ExamController extends HttpServlet {
 							}
 							request.setAttribute("close_flag" + id, close_flag);
 							String code = rs.getString(4);
-							//int version = Integer.parseInt(rs.getString(5));
-							
-							// TODO
-//							Exam exam = new Exam(id, title, status, code, version);
 							Exam exam = new Exam();
 							exam.setId(id);
 							exam.setTitle(title);
@@ -186,17 +177,6 @@ public class ExamController extends HttpServlet {
 					request.setAttribute("subjectCode", subjectCode);
 					request.getRequestDispatcher("/exams_student.jsp").forward(request, response);
 
-//					List<Exam> exams = subjectService.getAllStudentExams(subjectCode);
-//					Map<Integer, List<Exam> > result = subjectService.getAllStudentExams(subjectCode);
-//					System.out.println("ExamController : getAllStudentExams"+ exams);
-//					if (exams!=null) {
-//						request.setAttribute("exams", exams);
-//						request.getRequestDispatcher("/exams_student.jsp").forward(request, response);
-//					}else {
-//						HttpSession session = request.getSession(); 
-//						session.setAttribute("errMessageExam", "something went wrong. The exam is already exist");
-//						response.sendRedirect("./exams");
-//					}
 				} else if (operation.equals("takeQuestion")) {
 					request.getRequestDispatcher("/question").forward(request, response);
 				}

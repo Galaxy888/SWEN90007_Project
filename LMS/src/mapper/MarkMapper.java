@@ -34,23 +34,17 @@ public class MarkMapper extends DataMapper{
 			stmt.setInt(6,mark.getVersion());
 			int rowCount = stmt.executeUpdate();
 			if (rowCount==0) {
-//				throwConcurrencyException(question);
+
 				System.out.println("throwConcurrencyException");
 				return false;
 			}
 			stmt.close();
 			return true;
 		
-//			stmt.executeUpdate();
-//			stmt.close();
-//			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		}
-//		finally {
-//		DBConnection.closeConnection()
-//	}
 	}
 
 	public List<Mark> getAllMarks(int exam_id) {

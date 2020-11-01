@@ -111,25 +111,7 @@ session.removeAttribute("errMessageResult");
 												</div>
 												<div class="modal-body">
 												
-										<!---------------------form-------------------->
-										
-<!-- 									<div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">user_id</label>
-												<div class="col-sm-7">
-													<input type="hidden" class="form-control" id="updateId" name="user_id"  placeholder="exam id">
-												<label class="control-label" for="updateId" style="display: none;"></label>
-												</div>
-										</div> -->
 										<input type="hidden" class="form-control" id="updateId" name="user_id"  placeholder="exam id">
-										
-<!-- 										 <div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">exam_id</label>
-												<div class="col-sm-7">
-													<input type="hidden" class="form-control" id="updateEId" name="exam_id"  placeholder="input new title">
-												<label class="control-label" for="updateEId" style="display: none;"></label>
-												</div>
-										</div> -->
-										
 										<input type="hidden" class="form-control" id="updateEId" name="exam_id"  placeholder="input new title">
 										
 										<div class="form-group">
@@ -139,14 +121,7 @@ session.removeAttribute("errMessageResult");
 												<label class="control-label" for="updateMark" style="display: none;"></label>
 												</div>
 										</div>
-										
-<!-- 										<div class="form-group">
-											<label for="firstname" class="col-sm-3 control-label">status</label>
-												<div class="col-sm-7">
-													<input type="hidden" class="form-control" id="updateStatus" name="status"  placeholder="subject">
-												<label class="control-label" for="updateStatus" style="display: none;"></label>
-												</div>
-										</div> -->
+									
 										
 										<input type="hidden" class="form-control" id="updateStatus" name="status"  placeholder="subject">
 										<input type = "hidden" id="updateVersion" name="version" />		
