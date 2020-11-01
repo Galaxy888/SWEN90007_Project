@@ -48,8 +48,9 @@ public class assignUserController extends HttpServlet {
 		if (success) {
 			response.sendRedirect("./dashboard");
 		}else {
+			System.out.println("11111111");
 			HttpSession session = request.getSession(); 
-			session.setAttribute("errMessageExam", "something went wrong. The exam is already exist");
+			session.setAttribute("errMessageExam", "something went wrong.");
 			response.sendRedirect("./dashboard");
 
 		}
