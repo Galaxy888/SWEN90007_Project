@@ -55,7 +55,7 @@ public class updateResultController extends HttpServlet {
 			response.sendRedirect("./ViewMark");
 		}else {
 			HttpSession session = request.getSession(); 
-			session.setAttribute("errMessageResult", "Someone has already updated the result. Please view the latsest version");
+			session.setAttribute("errMessageResult", "Someone has already updated the result. Please view the latest version");
 			response.sendRedirect("./ViewMark");
 		}
 		
