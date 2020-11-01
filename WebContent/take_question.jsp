@@ -44,14 +44,15 @@
 </head>
 <body>
 <div align="center">
-        <table class="table table-bordered" style="width:70%">
+ 
+            <form name="Answer" method="post" action="TakeQuestion">
+                   <table class="table table-bordered" style="width:70%">
             <tr>
                 <th>#Question</th>
                 <th>Question Title</th>
                 <th>Question Content</th>
                 <th>Answer</th>
             </tr>
-            <form name="Answer" method="post" action="TakeQuestion">
                 <input name="exam_id" type="hidden" value=<%=(int)request.getAttribute("exam_id") %>>
                 
  			<%
@@ -79,12 +80,11 @@
                     <%
                     String [] arr = question.getContent().split("#");
                     for(String ss : arr){
-                    	String s =ss;
-                    	s.replaceAll(" ", "");
-                     %>
-                    <input maxlength=-1 type="radio" name="answer<%=question.getId() %>" value=<%=s %>><%=ss %>
-                    <%
-                    }
+                        String s=ss.replaceAll(" ", "");
+                        %>
+                       <input maxlength=-1 type="radio" name="answer<%=question.getId() %>" value=<%=s %>><%=ss %>
+                       <%
+                       }
                     %>
                     <input name="id<%=question.getId() %>" type="hidden" value=<%=question.getId()%>>
                  
@@ -95,17 +95,17 @@
             <%
           		  } // for loop
         	%>
-        	
-        	     <tr>
+        	 </table>
+        	     
         	     <% int flag = (int)request.getAttribute("flag");
         	     if(flag==1){ %>
-        	    <td> <input class="sel_btn" type = "submit" value = "Submit" /> </td>
+        	    <input class="sel_btn" type = "submit" value = "Submit" /> 
         	     <%} else{
         	    	 response.sendRedirect("./exams/done");
         	     }%>
         	   </form>
-        	    </tr>
-        </table>
+        	   
+       
          
     </div>
 </body>
